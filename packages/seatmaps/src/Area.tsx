@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useTransform } from './useTransform';
 
-interface AreaProps {
+export interface AreaProps {
     angle?: number;
     height?: number;
     width?: number;

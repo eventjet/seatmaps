@@ -11,7 +11,7 @@ import { useTransform } from './useTransform';
 //     font-size: 6px;
 // `;
 
-interface RowProps {
+export interface RowProps {
     leftLabel?: string;
     rightLabel?: string;
     x?: number;

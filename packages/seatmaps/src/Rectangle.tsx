@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { l } from './length';
 import { useTransform } from './useTransform';
 
-interface RectangleProps {
+export interface RectangleProps {
     angle?: number;
     color?: string;
     height: number;

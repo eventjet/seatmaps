@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useTransform } from './useTransform';
 
-interface BlockProps {
+export interface BlockProps {
     angle?: number;
     height?: number;
     width?: number;

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { l } from './length';
 
-interface CircleProps {
+export interface CircleProps {
     centerX?: number;
     centerY?: number;
     color?: string;

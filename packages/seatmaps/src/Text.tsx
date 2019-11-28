@@ -3,7 +3,7 @@ import { useTransform } from './useTransform';
 
 const FONT_SIZE = 10;
 
-interface TextProps {
+export interface TextProps {
     angle?: number;
     text: string;
     x?: number;
