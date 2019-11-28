@@ -23,7 +23,7 @@ export function rollup(
     {
         name,
         input = './src/index.ts',
-        outputPrefix = 'react',
+        outputPrefix = 'seatmaps',
         extraGlobals = {},
     }
 ) {

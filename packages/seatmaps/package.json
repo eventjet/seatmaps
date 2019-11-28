@@ -7,11 +7,12 @@
         "email": "r.gottesheim@loot.at"
     },
     "license": "MIT",
-    "main": "./lib/react-seatmaps.cjs.js",
-    "module": "./lib/react-seatmaps.esm.js",
+    "main": "./lib/seatmaps-react.cjs.js",
+    "module": "./lib/seatmaps-react.esm.js",
     "typings": "./lib/index.d.ts",
     "scripts": {
         "build": "npx tsc -p ./config",
+        "clean": "rm -Rf ./lib/* ./meta/bundlesize/* ./meta/coverage/* ./.rpt2_cache",
         "postbuild": "npx rollup -c ./config/rollup.config.js"
     },
     "files": [

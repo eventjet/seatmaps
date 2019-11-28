@@ -8,7 +8,8 @@
     },
     "license": "MIT",
     "scripts": {
-        "build": "npx lerna run build"
+        "build": "npx lerna run build",
+        "clean": "rm -Rf ./node_modules ./meta && npx lerna exec -- npm run clean"
     },
     "dependencies": {},
     "devDependencies": {
