@@ -1,0 +1,34 @@
+{
+    "name": "eventjet-seatmaps-monorepo",
+    "version": "0.1.0",
+    "private": true,
+    "author": {
+        "name": "Rudolph Gottesheim",
+        "email": "r.gottesheim@loot.at"
+    },
+    "license": "MIT",
+    "scripts": {
+        "build": "npx lerna run build"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "@babel/core": "^7.7.4",
+        "@babel/plugin-transform-modules-commonjs": "^7.7.4",
+        "@babel/plugin-transform-modules-umd": "^7.7.4",
+        "@testing-library/react": "^9.3.2",
+        "@types/jest": "^24.0.23",
+        "@types/react": "^16.8.0",
+        "@types/styled-components": "^4.4.0",
+        "lerna": "^3.19.0",
+        "react": "^16.8.0",
+        "react-dom": "^16.8.0",
+        "rollup": "^1.27.5",
+        "rollup-plugin-commonjs": "^10.1.0",
+        "rollup-plugin-invariant": "^0.5.6",
+        "rollup-plugin-node-resolve": "^5.2.0",
+        "rollup-plugin-terser": "^5.1.2",
+        "rollup-plugin-typescript2": "^0.25.2",
+        "styled-components": "^4.4.1",
+        "typescript": "^3.7.2"
+    }
+}
