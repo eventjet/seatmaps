@@ -34,15 +34,15 @@ const StyledSeat = styled.g`
         cursor: pointer;
     }
 
-    &.nameHidden ${Name} {
+    &.nameHidden .name {
         display: none;
     }
 
-    &.nameHidden:hover ${Name} {
+    &.nameHidden:hover .name {
         display: block;
     }
 
-    &.active ${Name} {
+    &.active .name {
         display: block;
     }
 
@@ -90,7 +90,7 @@ export const Seat: FC<SeatProps> = ({x = 0, y = 0, name, hideName = false, color
         <StyledSeat className={classNames.join(' ')} onClick={handleClick}>
             <rect width={9.5} height={9.5} transform={useTransform(x + 2.5, y + 2.5)} fill={fill}/>
             {name !== undefined ? (
-                <Name transform={textTransform} x="5" y="5">{name}</Name>
+                <Name transform={textTransform} x="5" y="5" className="name">{name}</Name>
             ) : undefined}
         </StyledSeat>
     );
