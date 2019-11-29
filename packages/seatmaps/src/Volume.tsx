@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { l } from './length';
+import { textCss } from './text';
 import { useTransform } from './useTransform';
 import { noop } from './util/noop';
 
@@ -34,7 +35,7 @@ const StyledRoot = styled.g`
 `;
 
 const Name = styled.text`
-    composes: text from './text.css';
+    ${textCss}
     dominant-baseline: central;
     fill: black;
 `;

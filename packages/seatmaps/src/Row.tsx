@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
+import { textCss } from './text';
 import { useTransform } from './useTransform';
 import styled from '@emotion/styled';
 
 const Name = styled.text`
-    composes: text from './text.css';
+    ${textCss}
     text-anchor: middle;
     alignment-baseline: central;
     cursor: inherit;
