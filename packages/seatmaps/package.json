@@ -11,9 +11,14 @@
     "module": "./lib/seatmaps-react.esm.js",
     "typings": "./lib/index.d.ts",
     "scripts": {
-        "build": "npx tsc -p ./config",
         "clean": "rm -Rf ./lib/* ./meta/bundlesize/* ./meta/coverage/* ./.rpt2_cache",
-        "postbuild": "npx rollup -c ./config/rollup.config.js"
+        "prepare": "npm run build",
+        "prebuild": "npm run clean",
+        "build": "npx tsc -p ./config",
+        "postbuild": "npx rollup -c ./config/rollup.config.js",
+        "watch": "npx tsc-watch --onSuccess \"npm run postbuild\" -p ./config",
+        "predeploy": "npm run build",
+        "deploy": "npm publish"
     },
     "files": [
         "lib"
@@ -25,11 +30,16 @@
         "@types/react": "^16.8.0",
         "@types/styled-components": "^4.4.0",
         "react": "^16.8.0",
-        "react-dom": "^16.8.0",
-        "styled-components": "^4.4.1"
+        "react-dom": "^16.8.0"
     },
     "devDependencies": {
+        "@emotion/styled": "^10.0.23",
         "@testing-library/react": "^9.3.2",
-        "jest": "^24.9.0"
+        "jest": "^24.9.0",
+        "react": "^16.12.0",
+        "react-dom": "^16.12.0"
+    },
+    "dependencies": {
+        "@emotion/core": "^10.0.22"
     }
 }
