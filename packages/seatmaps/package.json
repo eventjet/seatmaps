@@ -1,7 +1,7 @@
 {
     "name": "@eventjet/react-seatmaps",
     "description": "React components for rendering Eventjet seatmaps",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "author": {
         "name": "Rudolph Gottesheim",
         "email": "r.gottesheim@loot.at"
