@@ -4,7 +4,7 @@ export { Circle, CircleProps } from './Circle';
 export { Div } from './Div';
 export { Rectangle, RectangleProps } from './Rectangle';
 export { Row, RowProps } from './Row';
-export { Seat, SeatProps } from './Seat';
+export { Seat, SeatProps, SeatShape } from './Seat';
 export { Seatmap } from './Seatmap';
 export { Text, TextProps } from './Text';
 export { Volume, VolumeProps } from './Volume';

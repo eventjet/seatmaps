@@ -19,7 +19,7 @@ const SquareSeat: FC<ShapeComponentProps> = ({transform, fill}) => (
 );
 
 const CircularSeat: FC<ShapeComponentProps> = ({transform, fill}) => (
-    <circle r={9.5 / 2} transform={transform} fill={fill}/>
+    <circle r={9.5 / 2} cx={5} cy={5} transform={transform} fill={fill}/>
 );
 
 const Name = styled.text`
@@ -107,9 +107,10 @@ export const Seat: FC<SeatProps> = ({x = 0, y = 0, name, hideName = false, color
         onClick();
     };
     const ShapeComponent = shape === SeatShape.CIRCLE ? CircularSeat : SquareSeat;
+    const transform = useTransform(x + 2.5, y + 2.5);
     return (
         <StyledSeat className={classNames.join(' ')} onClick={handleClick}>
-            <ShapeComponent transform={useTransform(x + 2.5, y + 2.5)} fill={fill}/>
+            <ShapeComponent transform={transform} fill={fill}/>
             {name !== undefined ? (
                 <Name transform={textTransform} x="5" y="5" className="name">{name}</Name>
             ) : undefined}
