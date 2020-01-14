@@ -2,6 +2,7 @@ export { Area, AreaProps } from './Area';
 export { Block, BlockProps } from './Block';
 export { Circle, CircleProps } from './Circle';
 export { Div } from './Div';
+export { Ellipse, EllipseProps } from './Ellipse';
 export { Rectangle, RectangleProps } from './Rectangle';
 export { Row, RowProps } from './Row';
 export { Seat, SeatProps, SeatShape } from './Seat';
