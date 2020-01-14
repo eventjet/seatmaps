@@ -4,6 +4,24 @@ import { textCss } from './text';
 import { useTransform } from './useTransform';
 import { noop } from './util/noop';
 
+export enum SeatShape {
+    SQUARE = 'square',
+    CIRCLE = 'circle',
+}
+
+interface ShapeComponentProps {
+    transform?: string;
+    fill?: string;
+}
+
+const SquareSeat: FC<ShapeComponentProps> = ({transform, fill}) => (
+    <rect width={9.5} height={9.5} transform={transform} fill={fill}/>
+);
+
+const CircularSeat: FC<ShapeComponentProps> = ({transform, fill}) => (
+    <circle r={9.5 / 2} transform={transform} fill={fill}/>
+);
+
 const Name = styled.text`
     ${textCss}
     text-anchor: middle;
@@ -64,11 +82,12 @@ export interface SeatProps {
     hideName?: boolean;
     name?: string;
     onClick?: () => void;
+    shape?: SeatShape;
     x?: number;
     y?: number;
 }
 
-export const Seat: FC<SeatProps> = ({x = 0, y = 0, name, hideName = false, color, disabled = false, onClick = noop, active = false}) => {
+export const Seat: FC<SeatProps> = ({x = 0, y = 0, name, hideName = false, color, disabled = false, onClick = noop, active = false, shape = SeatShape.SQUARE}) => {
     const textTransform = useTransform(x, y);
     const fill = (() => {
         if (disabled) {
@@ -87,9 +106,10 @@ export const Seat: FC<SeatProps> = ({x = 0, y = 0, name, hideName = false, color
         }
         onClick();
     };
+    const ShapeComponent = shape === SeatShape.CIRCLE ? CircularSeat : SquareSeat;
     return (
         <StyledSeat className={classNames.join(' ')} onClick={handleClick}>
-            <rect width={9.5} height={9.5} transform={useTransform(x + 2.5, y + 2.5)} fill={fill}/>
+            <ShapeComponent transform={useTransform(x + 2.5, y + 2.5)} fill={fill}/>
             {name !== undefined ? (
                 <Name transform={textTransform} x="5" y="5" className="name">{name}</Name>
             ) : undefined}
