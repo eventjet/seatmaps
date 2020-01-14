@@ -44,7 +44,7 @@ const StyledSeat = styled.g`
 
     cursor: default;
 
-    rect {
+    rect, circle {
         stroke-width: .5;
         stroke: white;
     }
@@ -65,7 +65,7 @@ const StyledSeat = styled.g`
         display: block;
     }
 
-    &.active rect {
+    &.active rect, &.active circle {
         stroke-dasharray: 3, 4;
         animation: active-keyframes 1s linear infinite;
         stroke: black;
