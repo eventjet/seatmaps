@@ -100,7 +100,7 @@ export interface VolumeProps {
 
 const EllipseVolume: FC<VolumeProps> = ({x = 0, y = 0, width, height, label, color = '#808080', onClick = noop, className, angle}) => (
     <StyledRoot
-        transform={useTransform(x, y, angle, l(width), l(height), {translateFirst: true})}
+        transform={useTransform(x, y, angle, width, height)}
         onClick={onClick}
         className={className}
     >
@@ -120,7 +120,7 @@ const EllipseVolume: FC<VolumeProps> = ({x = 0, y = 0, width, height, label, col
 
 const RectangleVolume: FC<VolumeProps> = ({x = 0, y = 0, width, height, label, color = '#808080', onClick = noop, className, angle}) => (
     <StyledRoot
-        transform={useTransform(x, y, angle, l(width), l(height), {translateFirst: true})}
+        transform={useTransform(x, y, angle, width, height)}
         onClick={onClick}
         className={className}
     >
