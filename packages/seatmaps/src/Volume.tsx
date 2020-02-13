@@ -85,6 +85,7 @@ const Scrim: FC<ScrimProps> = ({width = 'auto', x, y, text, anchor = 'bottom-lef
 
 export interface VolumeProps {
     active?: boolean;
+    angle?: number;
     className?: string;
     color?: string;
     disabled?: boolean;
@@ -97,8 +98,11 @@ export interface VolumeProps {
     y?: number;
 }
 
-const EllipseVolume: FC<VolumeProps> = ({x = 0, y = 0, width, height, label, color = '#808080', onClick = noop, className}) => (
-    <StyledRoot transform={useTransform(x, y)} onClick={onClick} className={className}>
+const EllipseVolume: FC<VolumeProps> = ({x = 0, y = 0, width, height, label, color = '#808080', onClick = noop, className, angle}) => (
+    <StyledRoot
+        transform={useTransform(x, y, angle, width, height, {translateFirst: true})} onClick={onClick}
+        className={className}
+    >
         <ellipse
             rx={l(width / 2)}
             ry={l(height / 2)}
@@ -113,8 +117,8 @@ const EllipseVolume: FC<VolumeProps> = ({x = 0, y = 0, width, height, label, col
     </StyledRoot>
 );
 
-const RectangleVolume: FC<VolumeProps> = ({x = 0, y = 0, width, height, label, color = '#808080', onClick = noop, className}) => (
-    <StyledRoot transform={useTransform(x, y)} onClick={onClick} className={className}>
+const RectangleVolume: FC<VolumeProps> = ({x = 0, y = 0, width, height, label, color = '#808080', onClick = noop, className, angle}) => (
+    <StyledRoot transform={useTransform(x, y, angle, width, height, {translateFirst: true})} onClick={onClick} className={className}>
         <rect width={l(width)} height={l(height)} rx={2} ry={2} fill={color} className="shape"/>
         {label !== undefined ? (
             <Scrim width={l(width)} anchor="bottom-left" x={0} y={l(height)} text={label}/>
