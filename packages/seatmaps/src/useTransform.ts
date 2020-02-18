@@ -1,7 +1,13 @@
 import { useMemo } from 'react';
 import { l } from './length';
 
-export const useTransform = (x: number, y: number, angle = 0, width?: number, height?: number) => useMemo(() => {
+export const useTransform = (
+    x: number,
+    y: number,
+    angle = 0,
+    width?: number,
+    height?: number,
+) => useMemo(() => {
     if (x === 0 && y === 0 && angle === 0) {
         return undefined;
     }
