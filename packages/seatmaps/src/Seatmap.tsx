@@ -8,7 +8,11 @@ const measureContentSize = (node: SVGSVGElement): [number, number, number, numbe
     return [box.x, box.y, box.x + box.width, box.y + box.height];
 };
 
-export const Seatmap: FC = ({children}) => {
+export interface SeatmapProps {
+    className?: string;
+}
+
+export const Seatmap: FC<SeatmapProps> = ({children, className}) => {
     const [[minX, minY, maxX, maxY], setContentSize] = useState<[number, number, number, number]>([0, 0, 0, 0]);
     const [rootNode, setRootNode] = useState<SVGSVGElement>();
     const measuredRef = useCallback((node: SVGSVGElement) => {
@@ -39,6 +43,7 @@ export const Seatmap: FC = ({children}) => {
             xmlns="http://www.w3.org/2000/svg"
             viewBox={`${minX} ${minY} ${maxX - minX} ${maxY - minY}`}
             ref={measuredRef}
+            className={className}
         >
             {children}
         </svg>
