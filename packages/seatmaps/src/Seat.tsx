@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import React, { FC } from 'react';
 import { textCss } from './text';
+import { TextSize, useTextSize } from './textSize';
 import { useTransform } from './useTransform';
 import { noop } from './util/noop';
 
@@ -88,6 +89,7 @@ export interface SeatProps {
 }
 
 export const Seat: FC<SeatProps> = ({x = 0, y = 0, name, hideName = false, color, disabled = false, onClick = noop, active = false, shape = SeatShape.SQUARE}) => {
+    const textSize = useTextSize((name?.length ?? 0) > 2 ? TextSize.SMALL : TextSize.NORMAL);
     const textTransform = useTransform(x, y);
     const fill = (() => {
         if (disabled) {
@@ -112,7 +114,15 @@ export const Seat: FC<SeatProps> = ({x = 0, y = 0, name, hideName = false, color
         <StyledSeat className={classNames.join(' ')} onClick={handleClick}>
             <ShapeComponent transform={transform} fill={fill}/>
             {name !== undefined ? (
-                <Name transform={textTransform} x="5" y="5" className="name">{name}</Name>
+                <Name
+                    transform={textTransform}
+                    x="5"
+                    y="5"
+                    className="name"
+                    style={textSize === TextSize.SMALL ? {fontSize: 4} : undefined}
+                >
+                    {name}
+                </Name>
             ) : undefined}
         </StyledSeat>
     );

@@ -1,4 +1,5 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
+import { TextSizeController } from './textSize';
 
 const measureContentSize = (node: SVGSVGElement): [number, number, number, number] => {
     if (!('getBBox' in node)) {
@@ -45,7 +46,9 @@ export const Seatmap: FC<SeatmapProps> = ({children, className}) => {
             ref={measuredRef}
             className={className}
         >
-            {children}
+            <TextSizeController>
+                {children}
+            </TextSizeController>
         </svg>
     );
 };
