@@ -8,7 +8,7 @@ export default {
 
 export const LongNames = () => (
     <>
-        <p>Seat labels get smaller when the name is long.</p>
+        <p>Seat labels get smaller when there is at least one long name.</p>
         <style type="text/css">{`
             .seatmap {
                 width: 150px;
