@@ -30,6 +30,15 @@ const Name = styled.text`
     fill: white;
     dominant-baseline: mathematical;
     display: block;
+    ${({children}) => {
+        if (typeof children !== 'string') {
+            return '';
+        }
+        if (children.length <= 2) {
+            return '';
+        }
+        return 'font-size: 4px;';
+    }}
 `;
 
 const StyledSeat = styled.g`
