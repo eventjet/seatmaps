@@ -59,3 +59,7 @@ export const Ellipse = () => <Wrapped volumeProps={{shape: 'ellipse'}}/>;
 export const Rotated = () => <Wrapped volumeProps={{angle: 20}}/>;
 
 export const Disabled = () => <Wrapped volumeProps={{disabled: true}}/>;
+
+export const ActiveRectangle = () => <Wrapped volumeProps={{active: true}}/>;
+
+export const ActiveEllipse = () => <Wrapped volumeProps={{active: true, shape: 'ellipse'}}/>;

@@ -1,5 +1,8 @@
 import styled from '@emotion/styled';
+import { Check } from '@material-ui/icons';
 import React, { FC } from 'react';
+import { ACTIVE_BOOKABLE_COLOR, ACTIVE_BOOKABLE_ICON_SIZE } from './constants';
+import { l } from './length';
 import { textCss } from './text';
 import { TextSize, useTextSize } from './textSize';
 import { useTransform } from './useTransform';
@@ -34,27 +37,24 @@ const Name = styled.text`
 `;
 
 const StyledSeat = styled.g`
-    @keyframes active-keyframes {
-        from {
-            stroke-dashoffset: 0;
-        }
-        to {
-            stroke-dashoffset: 7;
-        }
-    }
-
     cursor: default;
+    color: white;
 
     rect, circle {
         stroke-width: .5;
         stroke: white;
+    }
+    
+    .check {
+        width: 100%;
+        height: 100%;
     }
 
     &.clickable {
         cursor: pointer;
     }
 
-    &.nameHidden .name {
+    &.nameHidden .name, &.active:not(:hover) .name {
         display: none;
     }
 
@@ -62,17 +62,14 @@ const StyledSeat = styled.g`
         display: block;
     }
 
-    &.active .name {
-        display: block;
-    }
-
     &.active rect, &.active circle {
-        stroke-dasharray: 3, 4;
-        animation: active-keyframes 1s linear infinite;
-        stroke: black;
-        stroke-width: 1;
-        stroke-linecap: round;
-        stroke-linejoin: round;
+        fill: ${ACTIVE_BOOKABLE_COLOR};
+    }
+    
+    &:hover {
+        .check {
+            display: none;
+        }
     }
 `;
 
@@ -123,6 +120,16 @@ export const Seat: FC<SeatProps> = ({x = 0, y = 0, name, hideName = false, color
                 >
                     {name}
                 </Name>
+            ) : undefined}
+            {active ? (
+                <Check
+                    color="inherit"
+                    className="check"
+                    width={ACTIVE_BOOKABLE_ICON_SIZE}
+                    height={ACTIVE_BOOKABLE_ICON_SIZE}
+                    x={l(x) + 1}
+                    y={l(y) + 1}
+                />
             ) : undefined}
         </StyledSeat>
     );

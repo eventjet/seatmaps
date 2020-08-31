@@ -1,36 +1,22 @@
 import styled from '@emotion/styled';
+import { Check } from '@material-ui/icons';
 import React, { FC, useEffect, useRef, useState } from 'react';
+import { ACTIVE_BOOKABLE_COLOR, ACTIVE_BOOKABLE_ICON_SIZE } from './constants';
 import { l } from './length';
 import { textCss } from './text';
 import { useTransform } from './useTransform';
 import { noop } from './util/noop';
 
+const CHECK_SIZE = ACTIVE_BOOKABLE_ICON_SIZE;
 const SCRIM_HEIGHT = 10;
 const HORIZONTAL_SCRIM_PADDING = 3;
 
 const StyledRoot = styled.g`
-    @keyframes active-keyframes {
-        from {
-            stroke-dashoffset: 0;
-        }
-        to {
-            stroke-dashoffset: 7;
-        }
-    }
-
     cursor: default;
+    color: white;
 
     &.clickable {
         cursor: pointer;
-    }
-
-    &.active .shape {
-        stroke-dasharray: 3, 4;
-        animation: active-keyframes 1s linear infinite;
-        stroke: black;
-        stroke-width: 1;
-        stroke-linecap: round;
-        stroke-linejoin: round;
     }
 `;
 
@@ -98,7 +84,7 @@ export interface VolumeProps {
     y?: number;
 }
 
-const EllipseVolume: FC<VolumeProps> = ({x = 0, y = 0, width, height, label, color = '#808080', onClick = noop, className, angle}) => (
+const EllipseVolume: FC<VolumeProps> = ({x = 0, y = 0, width, height, label, color = '#808080', onClick = noop, className, angle, active}) => (
     <StyledRoot
         transform={useTransform(x, y, angle, width, height)}
         onClick={onClick}
@@ -112,13 +98,27 @@ const EllipseVolume: FC<VolumeProps> = ({x = 0, y = 0, width, height, label, col
             fill={color}
             className="shape"
         />
+        {active ? (
+            <Check
+                width={CHECK_SIZE}
+                height={CHECK_SIZE}
+                x={(l(width) - CHECK_SIZE) / 2}
+                y={l(height / 2) - (SCRIM_HEIGHT / 2) - (CHECK_SIZE / 1.5)}
+            />
+        ) : undefined}
         {label !== undefined ? (
-            <Scrim width="auto" anchor="center" x={l(width / 2)} y={l(height / 2)} text={label}/>
+            <Scrim
+                width="auto"
+                anchor="center"
+                x={l(width / 2)}
+                y={l(height / 2) + (active ? CHECK_SIZE / 2 : 0)}
+                text={label}
+            />
         ) : undefined}
     </StyledRoot>
 );
 
-const RectangleVolume: FC<VolumeProps> = ({x = 0, y = 0, width, height, label, color = '#808080', onClick = noop, className, angle}) => (
+const RectangleVolume: FC<VolumeProps> = ({x = 0, y = 0, width, height, label, color = '#808080', onClick = noop, className, angle, active}) => (
     <StyledRoot
         transform={useTransform(x, y, angle, width, height)}
         onClick={onClick}
@@ -127,6 +127,15 @@ const RectangleVolume: FC<VolumeProps> = ({x = 0, y = 0, width, height, label, c
         <rect width={l(width)} height={l(height)} rx={2} ry={2} fill={color} className="shape"/>
         {label !== undefined ? (
             <Scrim width={l(width)} anchor="bottom-left" x={0} y={l(height)} text={label}/>
+        ) : undefined}
+        {active ? (
+            <Check
+                width={CHECK_SIZE}
+                height={CHECK_SIZE}
+                x={(l(width) - CHECK_SIZE) / 2}
+                y={(l(height) - SCRIM_HEIGHT - CHECK_SIZE) / 2}
+                color="inherit"
+            />
         ) : undefined}
     </StyledRoot>
 );
@@ -140,6 +149,9 @@ export const Volume: FC<VolumeProps> = (props) => {
             props.active ? 'active' : undefined,
         ].join(' '),
         color: (() => {
+            if (props.active) {
+                return ACTIVE_BOOKABLE_COLOR;
+            }
             if (props.disabled) {
                 return '#808080';
             }
