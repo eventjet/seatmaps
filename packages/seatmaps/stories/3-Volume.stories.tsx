@@ -1,15 +1,11 @@
 import * as React from 'react';
-import { FC, useState } from 'react';
+import { FC, ReactNode, useState } from 'react';
 import { Area, Seatmap, Volume, VolumeProps } from '../src';
 
 export default {
     title: 'Volume',
     component: Volume,
 };
-
-interface WrappedProps {
-    volumeProps?: Partial<VolumeProps>;
-}
 
 const volumes: Array<[string, number, number]> = [
     ['Table 16', 0, 0],
@@ -20,7 +16,12 @@ const volumes: Array<[string, number, number]> = [
     ['Table 21', 600, 800],
 ];
 
-const Wrapped: FC<WrappedProps> = ({volumeProps}) => {
+interface WrappedProps {
+    volumeProps?: Partial<VolumeProps>;
+    children?: ReactNode;
+}
+
+const Wrapped: FC<WrappedProps> = ({volumeProps, children}) => {
     const [active, setActive] = useState<{ [volumeLabel: string]: boolean }>({});
     return (
         <>
@@ -46,13 +47,18 @@ const Wrapped: FC<WrappedProps> = ({volumeProps}) => {
                             {...volumeProps}
                         />
                     ))}
+                    {children}
                 </Area>
             </Seatmap>
         </>
     );
 };
 
-export const Rectangle = () => <Wrapped volumeProps={{shape: 'rectangle'}}/>;
+export const Rectangle = () => (
+    <Wrapped volumeProps={{shape: 'rectangle'}}>
+        <Volume height={500} width={300} label="Large Label" x={1200}/>
+    </Wrapped>
+);
 
 export const Ellipse = () => <Wrapped volumeProps={{shape: 'ellipse'}}/>;
 
