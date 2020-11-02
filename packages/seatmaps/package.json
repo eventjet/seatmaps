@@ -1,7 +1,7 @@
 {
     "name": "@eventjet/react-seatmaps",
     "description": "React components for rendering Eventjet seatmaps",
-    "version": "0.1.13-beta.1",
+    "version": "0.1.15",
     "author": {
         "name": "Rudolph Gottesheim",
         "email": "r.gottesheim@loot.at"
@@ -35,18 +35,20 @@
         "react-dom": "^16.8.0"
     },
     "devDependencies": {
-        "@babel/core": "^7.8.4",
+        "@babel/core": "^7.12.3",
         "@emotion/styled": "^10.0.23",
-        "@storybook/addon-actions": "^5.3.13",
-        "@storybook/addon-links": "^5.3.13",
-        "@storybook/addons": "^5.3.13",
-        "@storybook/react": "^5.3.13",
-        "@testing-library/react": "^9.3.2",
+        "@storybook/addon-actions": "^6.0.28",
+        "@storybook/addon-links": "^6.0.28",
+        "@storybook/addons": "^6.0.28",
+        "@storybook/react": "^6.0.28",
+        "@testing-library/react": "^11.1.0",
+        "@types/react-dom": "^16.9.9",
         "babel-loader": "^8.0.6",
-        "babel-preset-react-app": "^9.1.1",
-        "jest": "^24.9.0",
-        "react": "^16.12.0",
-        "react-dom": "^16.12.0"
+        "babel-preset-react-app": "^10.0.0",
+        "jest": "^26.6.1",
+        "levenary": "^1.1.1",
+        "react": "^17.0.1",
+        "react-dom": "^17.0.1"
     },
     "dependencies": {
         "@emotion/core": "^10.0.22"
