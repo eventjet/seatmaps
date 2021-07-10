@@ -141,7 +141,7 @@ export const Volume: FC<VolumeProps> = (props) => {
         ].join(' '),
         color: (() => {
             if (props.disabled) {
-                return '#808080';
+                return '#cccccc';
             }
             return props.color;
         })(),

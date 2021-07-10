@@ -93,7 +93,7 @@ export const Seat: FC<SeatProps> = ({x = 0, y = 0, name, hideName = false, color
     const textTransform = useTransform(x, y);
     const fill = (() => {
         if (disabled) {
-            return '#808080';
+            return '#cccccc';
         }
         return color;
     })();
