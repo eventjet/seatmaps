@@ -18,7 +18,7 @@
         "@babel/plugin-transform-modules-umd": "^7.12.1",
         "@testing-library/react": "^11.1.0",
         "@types/jest": "^26.0.15",
-        "@types/react": "^16.9.55",
+        "@types/react": "^18.0.14",
         "lerna": "^3.19.0",
         "react": "^17.0.1",
         "react-dom": "^17.0.1",

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, ReactNode } from 'react';
 import { textCss } from './text';
 import { useTransform } from './useTransform';
 
@@ -22,6 +22,7 @@ export interface RowProps {
     rightLabel?: string;
     x?: number;
     y?: number;
+    children?: ReactNode;
 }
 
 export const Row = ({children, leftLabel, rightLabel, x = 0, y = 0}: RowProps) => {
