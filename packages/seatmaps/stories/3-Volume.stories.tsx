@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import { Area, Seatmap, Volume, VolumeProps } from '../src';
 
 export default {
@@ -20,7 +20,7 @@ const volumes: Array<[string, number, number]> = [
     ['Table 21', 600, 800],
 ];
 
-const Wrapped: FC<WrappedProps> = ({volumeProps}) => {
+const Wrapped = ({volumeProps}: WrappedProps) => {
     const [active, setActive] = useState<{ [volumeLabel: string]: boolean }>({});
     return (
         <>

@@ -1,4 +1,4 @@
-import React, { createContext, FC, useContext, useEffect, useState } from 'react';
+import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 import { noop } from './util/noop';
 
 export enum TextSize {
@@ -8,7 +8,7 @@ export enum TextSize {
 
 const context = createContext<[TextSize, (size: TextSize) => void, (size: TextSize) => void]>([TextSize.NORMAL, noop, noop]);
 
-export const TextSizeController: FC = ({children}) => {
+export const TextSizeController = ({children}: { children?: ReactNode }) => {
     const [textSize, setTextSize] = useState<TextSize>(TextSize.NORMAL);
     const [sizes, setSizes] = useState<TextSize[]>([]);
     const register = (size: TextSize) => {
@@ -40,7 +40,7 @@ export const TextSizeController: FC = ({children}) => {
         <context.Provider value={[textSize, register, unregister]}>
             {children}
         </context.Provider>
-    )
+    );
 };
 
 export const useTextSize = (ownSize: TextSize) => {

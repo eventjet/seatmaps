@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { l } from './length';
 import { textCss } from './text';
 import { useTransform } from './useTransform';
@@ -52,7 +52,7 @@ interface ScrimProps {
     y: number;
 }
 
-const Scrim: FC<ScrimProps> = ({width = 'auto', x, y, text, anchor = 'bottom-left'}) => {
+const Scrim = ({width = 'auto', x, y, text, anchor = 'bottom-left'}: ScrimProps) => {
     const textRef = useRef<SVGTextElement>(null);
     const [textWidth, setTextWidth] = useState(0);
     useEffect(() => {
@@ -98,7 +98,19 @@ export interface VolumeProps {
     y?: number;
 }
 
-const EllipseVolume: FC<VolumeProps> = ({x = 0, y = 0, width, height, label, color = '#808080', onClick = noop, className, angle}) => (
+const EllipseVolume = (
+    {
+        x = 0,
+        y = 0,
+        width,
+        height,
+        label,
+        color = '#808080',
+        onClick = noop,
+        className,
+        angle,
+    }: VolumeProps,
+) => (
     <StyledRoot
         transform={useTransform(x, y, angle, width, height)}
         onClick={onClick}
@@ -118,7 +130,19 @@ const EllipseVolume: FC<VolumeProps> = ({x = 0, y = 0, width, height, label, col
     </StyledRoot>
 );
 
-const RectangleVolume: FC<VolumeProps> = ({x = 0, y = 0, width, height, label, color = '#808080', onClick = noop, className, angle}) => (
+const RectangleVolume = (
+    {
+        x = 0,
+        y = 0,
+        width,
+        height,
+        label,
+        color = '#808080',
+        onClick = noop,
+        className,
+        angle,
+    }: VolumeProps,
+) => (
     <StyledRoot
         transform={useTransform(x, y, angle, width, height)}
         onClick={onClick}
@@ -131,7 +155,7 @@ const RectangleVolume: FC<VolumeProps> = ({x = 0, y = 0, width, height, label, c
     </StyledRoot>
 );
 
-export const Volume: FC<VolumeProps> = (props) => {
+export const Volume = (props: VolumeProps) => {
     const updatedProps: VolumeProps = {
         ...props,
         className: [

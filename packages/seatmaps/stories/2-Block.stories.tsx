@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import { Area, Block, Row, Seat, Seatmap, SeatProps, SeatShape } from '../src';
 
 export default {
@@ -12,7 +12,7 @@ interface TenByTenProps {
     active?: string[];
 }
 
-const TenByTen: FC<TenByTenProps> = ({seatProps = {}, active: defaultActive = []}) => {
+const TenByTen = ({seatProps = {}, active: defaultActive = []}: TenByTenProps) => {
     const [active, setActive] = useState<string[]>(defaultActive);
     const oneThroughTen = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
     const toggle = (rowName: string, seatName: string) => {
@@ -20,7 +20,7 @@ const TenByTen: FC<TenByTenProps> = ({seatProps = {}, active: defaultActive = []
         const set = new Set(active);
         set.has(combined) ? set.delete(combined) : set.add(combined);
         setActive(Array.from(set));
-    }
+    };
     return (
         <>
             <style type="text/css">{`

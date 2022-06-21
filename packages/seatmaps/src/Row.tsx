@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React, { FC, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import { textCss } from './text';
 import { useTransform } from './useTransform';
 
@@ -24,7 +24,7 @@ export interface RowProps {
     y?: number;
 }
 
-export const Row: FC<RowProps> = ({children, leftLabel, rightLabel, x = 0, y = 0}) => {
+export const Row = ({children, leftLabel, rightLabel, x = 0, y = 0}: RowProps) => {
     const [[leftX, leftY], [rightX, rightY]] = ((): [left: [x: number, y: number], right: [x: number, y: number]] => {
         if (!Array.isArray(children)) {
             return [[0, 0], [0, 0]];

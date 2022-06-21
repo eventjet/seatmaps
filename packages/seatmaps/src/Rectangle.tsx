@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { l } from './length';
 import { useTransform } from './useTransform';
 
@@ -11,7 +11,7 @@ export interface RectangleProps {
     y?: number;
 }
 
-export const Rectangle: FC<RectangleProps> = ({height, width, x = 0, y = 0, color, angle = 0}) => (
+export const Rectangle = ({height, width, x = 0, y = 0, color, angle = 0}: RectangleProps) => (
     <rect
         width={l(width)}
         height={l(height)}

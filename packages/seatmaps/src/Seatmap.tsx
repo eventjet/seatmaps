@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 import { TextSizeController } from './textSize';
 
 const measureContentSize = (node: SVGSVGElement): [number, number, number, number] => {
@@ -11,9 +11,10 @@ const measureContentSize = (node: SVGSVGElement): [number, number, number, numbe
 
 export interface SeatmapProps {
     className?: string;
+    children?: ReactNode;
 }
 
-export const Seatmap: FC<SeatmapProps> = ({children, className}) => {
+export const Seatmap = ({children, className}: SeatmapProps) => {
     const [[minX, minY, maxX, maxY], setContentSize] = useState<[number, number, number, number]>([0, 0, 0, 0]);
     const [rootNode, setRootNode] = useState<SVGSVGElement>();
     const measuredRef = useCallback((node: SVGSVGElement) => {
@@ -36,7 +37,7 @@ export const Seatmap: FC<SeatmapProps> = ({children, className}) => {
         observer.observe(rootNode, {attributes: false, childList: true, subtree: true});
         return () => {
             observer.disconnect();
-        }
+        };
     }, [rootNode]);
     return (
         <svg

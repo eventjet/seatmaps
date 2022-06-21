@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { l } from './length';
 
 export interface CircleProps {
@@ -8,6 +8,6 @@ export interface CircleProps {
     radius: number;
 }
 
-export const Circle: FC<CircleProps> = ({centerX = 0, centerY = 0, radius, color}) => (
+export const Circle = ({centerX = 0, centerY = 0, radius, color}: CircleProps) => (
     <circle cx={l(centerX)} cy={l(centerY)} r={l(radius)} fill={color}/>
 );
