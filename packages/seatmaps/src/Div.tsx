@@ -1,5 +1,9 @@
-import React, { FC } from 'react';
+import React, { ReactNode } from 'react';
 
-export const Div: FC = ({children}) => (
+interface DivProps {
+    children?: ReactNode;
+}
+
+export const Div = ({children}: DivProps) => (
     <svg>{children}</svg>
 );

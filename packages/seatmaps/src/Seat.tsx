@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React, { FC } from 'react';
+import React from 'react';
 import { textCss } from './text';
 import { TextSize, useTextSize } from './textSize';
 import { useTransform } from './useTransform';
@@ -15,11 +15,11 @@ interface ShapeComponentProps {
     fill?: string;
 }
 
-const SquareSeat: FC<ShapeComponentProps> = ({transform, fill}) => (
+const SquareSeat = ({transform, fill}: ShapeComponentProps) => (
     <rect width={9.5} height={9.5} transform={transform} fill={fill}/>
 );
 
-const CircularSeat: FC<ShapeComponentProps> = ({transform, fill}) => (
+const CircularSeat = ({transform, fill}: ShapeComponentProps) => (
     <circle r={9.5 / 2} cx={5} cy={5} transform={transform} fill={fill}/>
 );
 
@@ -88,7 +88,19 @@ export interface SeatProps {
     y?: number;
 }
 
-export const Seat: FC<SeatProps> = ({x = 0, y = 0, name, hideName = false, color, disabled = false, onClick = noop, active = false, shape = SeatShape.SQUARE}) => {
+export const Seat = (
+    {
+        x = 0,
+        y = 0,
+        name,
+        hideName = false,
+        color,
+        disabled = false,
+        onClick = noop,
+        active = false,
+        shape = SeatShape.SQUARE,
+    }: SeatProps,
+) => {
     const textSize = useTextSize((name?.length ?? 0) > 2 ? TextSize.SMALL : TextSize.NORMAL);
     const textTransform = useTransform(x, y);
     const fill = (() => {

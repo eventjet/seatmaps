@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { l } from './length';
 import { useTransform } from './useTransform';
 
@@ -10,7 +10,7 @@ export interface EllipseProps {
     y?: number;
 }
 
-export const Ellipse: FC<EllipseProps> = ({height, width, x = 0, y = 0, color}) => (
+export const Ellipse = ({height, width, x = 0, y = 0, color}: EllipseProps) => (
     <ellipse
         rx={l(width / 2)}
         ry={l(height / 2)}
