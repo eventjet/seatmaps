@@ -5,7 +5,6 @@ import invariantPlugin from 'rollup-plugin-invariant';
 import fs from 'fs';
 import {transformSync} from '@babel/core';
 import umdModulesTransform from '@babel/plugin-transform-modules-umd';
-import {terser as minify} from 'rollup-plugin-terser';
 
 const defaultGlobals = {
     react: 'React',
