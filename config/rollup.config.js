@@ -4,7 +4,6 @@ import typescriptPlugin from 'rollup-plugin-typescript2';
 import invariantPlugin from 'rollup-plugin-invariant';
 import fs from 'fs';
 import {transformSync} from '@babel/core';
-import cjsModulesTransform from '@babel/plugin-transform-modules-commonjs';
 import umdModulesTransform from '@babel/plugin-transform-modules-umd';
 import {terser as minify} from 'rollup-plugin-terser';
 
@@ -98,9 +97,7 @@ export function rollup(
                             sourceMaps: true,
                             plugins: [
                                 [
-                                    toFormat === 'umd'
-                                        ? umdModulesTransform
-                                        : cjsModulesTransform,
+                                    umdModulesTransform,
                                     {
                                         loose: true,
                                         allowTopLevelThis: true,
@@ -130,26 +127,6 @@ export function rollup(
 
     return [
         fromSource('esm'),
-        fromESM('cjs'),
         fromESM('umd'),
-        {
-            input: outputFile('cjs'),
-            output: {
-                file: outputFile('cjs.min'),
-                format: 'esm',
-            },
-            plugins: [
-                minify({
-                    mangle: {
-                        toplevel: true,
-                    },
-                    compress: {
-                        global_defs: {
-                            '@process.env.NODE_ENV': JSON.stringify('production'),
-                        },
-                    },
-                }),
-            ],
-        },
     ];
 }

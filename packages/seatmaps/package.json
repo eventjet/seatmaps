@@ -7,7 +7,6 @@
         "email": "r.gottesheim@loot.at"
     },
     "license": "MIT",
-    "main": "./lib/seatmaps-react.cjs.js",
     "module": "./lib/seatmaps-react.esm.js",
     "typings": "./lib/index.d.ts",
     "scripts": {
