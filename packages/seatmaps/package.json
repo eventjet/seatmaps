@@ -28,10 +28,10 @@
         "access": "public"
     },
     "peerDependencies": {
-        "@types/react": "^16.8.0",
-        "@types/styled-components": "^4.4.0",
-        "react": "^16.8.0",
-        "react-dom": "^16.8.0"
+        "@types/react": "^18.0.15",
+        "@types/styled-components": "^5.1.25",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
     },
     "devDependencies": {
         "@babel/core": "^7.12.3",
@@ -40,14 +40,14 @@
         "@storybook/addon-links": "^6.0.28",
         "@storybook/addons": "^6.0.28",
         "@storybook/react": "^6.0.28",
-        "@testing-library/react": "^11.1.0",
-        "@types/react-dom": "^18.0.5",
+        "@testing-library/react": "^13.3.0",
+        "@types/react-dom": "^18.0.6",
         "babel-loader": "^8.0.6",
-        "babel-preset-react-app": "^10.0.0",
+        "babel-preset-react-app": "^10.0.1",
         "jest": "^26.6.1",
         "levenary": "^1.1.1",
-        "react": "^17.0.1",
-        "react-dom": "^17.0.1"
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
     },
     "dependencies": {
         "@emotion/core": "^10.0.22"
