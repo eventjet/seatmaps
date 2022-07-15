@@ -11,7 +11,6 @@
         "build": "npx lerna run build",
         "clean": "rm -Rf ./node_modules ./meta && npx lerna exec -- npm run clean"
     },
-    "dependencies": {},
     "devDependencies": {
         "@babel/core": "^7.12.3",
         "@babel/plugin-transform-modules-commonjs": "^7.12.1",
@@ -19,7 +18,8 @@
         "@testing-library/react": "^11.1.0",
         "@types/jest": "^26.0.15",
         "@types/react": "^18.0.14",
-        "lerna": "^3.19.0",
+        "lerna": "^3.22.1",
+        "nx": "^14.4.2",
         "react": "^17.0.1",
         "react-dom": "^17.0.1",
         "rollup": "^2.32.1",

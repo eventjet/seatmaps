@@ -2,5 +2,6 @@
     "packages": [
         "packages/*"
     ],
+    "useNx": true,
     "version": "independent"
 }
