@@ -1,4 +1,4 @@
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 
 export const textCss = css`
     font-family: sans-serif;
