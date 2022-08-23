@@ -1,7 +1,7 @@
 {
     "name": "@eventjet/react-seatmaps",
     "description": "React components for rendering Eventjet seatmaps",
-    "version": "0.3.1-3",
+    "version": "0.3.1-7",
     "author": {
         "name": "Rudolph Gottesheim",
         "email": "r.gottesheim@loot.at"
@@ -50,9 +50,13 @@
         "@emotion/styled": "^11.10.0",
         "@rollup/plugin-typescript": "^8.3.4",
         "@storybook/addon-actions": "^6.5.10",
+        "@storybook/addon-essentials": "^6.5.10",
+        "@storybook/addon-interactions": "^6.5.10",
         "@storybook/addon-links": "^6.5.10",
-        "@storybook/addons": "^6.5.10",
+        "@storybook/builder-webpack4": "^6.5.10",
+        "@storybook/manager-webpack4": "^6.5.10",
         "@storybook/react": "^6.5.10",
+        "@storybook/testing-library": "^0.0.13",
         "@testing-library/react": "^13.3.0",
         "@types/react-dom": "^18.0.6",
         "babel-loader": "^8.0.6",
