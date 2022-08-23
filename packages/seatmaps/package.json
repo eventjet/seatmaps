@@ -1,7 +1,7 @@
 {
     "name": "@eventjet/react-seatmaps",
     "description": "React components for rendering Eventjet seatmaps",
-    "version": "0.3.1-8",
+    "version": "0.3.1-9",
     "author": {
         "name": "Rudolph Gottesheim",
         "email": "r.gottesheim@loot.at"
@@ -9,11 +9,9 @@
     "license": "MIT",
     "main": "./lib/index.js",
     "types": "./lib/index.d.ts",
-    "module": "./lib/index.mjs",
     "exports": {
         ".": {
             "require": "./lib/index.js",
-            "import": "./lib/index.mjs",
             "types": "./lib/index.d.ts"
         },
         "./package.json": "./package.json"
