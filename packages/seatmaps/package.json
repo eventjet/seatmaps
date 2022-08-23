@@ -1,23 +1,34 @@
 {
     "name": "@eventjet/react-seatmaps",
     "description": "React components for rendering Eventjet seatmaps",
-    "version": "0.3.0",
+    "version": "0.3.1-0",
     "author": {
         "name": "Rudolph Gottesheim",
         "email": "r.gottesheim@loot.at"
     },
     "license": "MIT",
-    "module": "./lib/seatmaps-react.esm.js",
-    "typings": "./lib/index.d.ts",
+    "main": "./lib/index.js",
+    "types": "./lib/index.d.ts",
+    "module": "./lib/index.mjs",
+    "exports": {
+        ".": {
+            "require": "./lib/index.js",
+            "import": "./lib/index.mjs",
+            "types": "./lib/index.d.ts"
+        },
+        "./package.json": "./package.json"
+    },
     "scripts": {
-        "clean": "rm -Rf ./lib/* ./meta/bundlesize/* ./meta/coverage/* ./.rpt2_cache",
-        "prepare": "npm run build",
-        "prebuild": "npm run clean",
-        "build": "npx tsc -p ./config",
+        "clean": "rm -rf lib/* deno/lib/*",
+        "prepare": "yarn run build",
+        "prebuild": "yarn run clean",
+        "build": "yarn run clean && yarn run build:cjs && yarn run build:esm",
+        "build:cjs": "tsc --p config/tsconfig.cjs.json",
+        "build:esm": "rollup --config config/rollup.config.js",
         "postbuild": "npx rollup -c ./config/rollup.config.js",
-        "watch": "npx tsc-watch --onSuccess \"npm run postbuild\" -p ./config",
-        "predeploy": "npm run build",
-        "deploy": "npm publish",
+        "watch": "npx tsc-watch --onSuccess \"yarn run postbuild\" -p ./config",
+        "predeploy": "yarn run build",
+        "deploy": "yarn publish",
         "storybook": "start-storybook -p 6006",
         "build-storybook": "build-storybook"
     },
@@ -28,14 +39,14 @@
         "access": "public"
     },
     "peerDependencies": {
-        "@types/react": "^18.0.15",
-        "@types/styled-components": "^5.1.25",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0"
+        "@emotion/css": "^11.10.0",
+        "@emotion/styled": "^11.10.0"
     },
     "devDependencies": {
-        "@babel/core": "^7.12.3",
-        "@emotion/styled": "^10.0.23",
+        "@babel/core": "^7.18.13",
+        "@emotion/css": "^11.10.0",
+        "@emotion/styled": "^11.10.0",
+        "@rollup/plugin-typescript": "^8.3.4",
         "@storybook/addon-actions": "^6.0.28",
         "@storybook/addon-links": "^6.0.28",
         "@storybook/addons": "^6.0.28",
@@ -46,10 +57,7 @@
         "babel-preset-react-app": "^10.0.1",
         "jest": "^26.6.1",
         "levenary": "^1.1.1",
-        "react": "^18.2.0",
         "react-dom": "^18.2.0"
     },
-    "dependencies": {
-        "@emotion/core": "^10.0.22"
-    }
+    "dependencies": {}
 }
