@@ -1,4 +1,3 @@
-import React from 'react';
 import { l } from './length';
 
 export interface CircleProps {

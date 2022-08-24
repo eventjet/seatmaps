@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
-import React, { ReactElement, ReactNode } from 'react';
-import { textCss } from './text';
+import { ReactElement, ReactNode } from 'react';
+import { textCss } from './textCss';
 import { useTransform } from './useTransform';
 
 const isReactElement = (x: unknown): x is ReactElement => {
     return typeof x === 'object' && x !== null && 'props' in x;
 };
 
-const Name = styled.text`
+const Name = styled('text')`
     ${textCss}
     text-anchor: middle;
     alignment-baseline: central;

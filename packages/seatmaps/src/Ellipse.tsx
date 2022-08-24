@@ -1,4 +1,3 @@
-import React from 'react';
 import { l } from './length';
 import { useTransform } from './useTransform';
 

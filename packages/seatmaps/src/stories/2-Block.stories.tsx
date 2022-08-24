@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { Area, Block, Row, Seat, Seatmap, SeatProps, SeatShape } from '../src';
+import { Area, Block, Row, Seat, Seatmap, SeatProps, SeatShape } from '../';
 
 export default {
     title: 'Block',

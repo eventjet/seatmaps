@@ -1,10 +1,9 @@
 import styled from '@emotion/styled';
-import React from 'react';
 import { useTransform } from './useTransform';
 
 const FONT_SIZE = 10;
 
-const Root = styled.text`
+const Root = styled('text')`
     fill: #808080;
 `;
 

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Area, Block, Row, Seat, Seatmap } from '../src';
+import { Area, Block, Row, Seat, Seatmap } from '../';
 
 export default {
     title: 'Row',

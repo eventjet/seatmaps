@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback, useEffect, useState } from 'react';
+import { ReactNode, useCallback, useEffect, useState } from 'react';
 import { TextSizeController } from './textSize';
 
 const measureContentSize = (node: SVGSVGElement): [number, number, number, number] => {

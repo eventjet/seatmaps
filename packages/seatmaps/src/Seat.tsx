@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
-import React from 'react';
-import { textCss } from './text';
+import { textCss } from './textCss';
 import { TextSize, useTextSize } from './textSize';
 import { useTransform } from './useTransform';
 import { noop } from './util/noop';
@@ -23,7 +22,7 @@ const CircularSeat = ({transform, fill}: ShapeComponentProps) => (
     <circle r={9.5 / 2} cx={5} cy={5} transform={transform} fill={fill}/>
 );
 
-const Name = styled.text`
+const Name = styled('text')`
     ${textCss}
     text-anchor: middle;
     alignment-baseline: central;

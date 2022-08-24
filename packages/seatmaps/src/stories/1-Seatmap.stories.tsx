@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Area, Block, Rectangle, Row, Seat, Seatmap, SeatShape, Text, Volume } from '../src';
+import { Area, Block, Rectangle, Row, Seat, Seatmap, SeatShape, Text, Volume } from '../';
 import ref from './complex-example-reference.png';
 
 export default {

@@ -7,7 +7,7 @@
             "esnext",
             "dom"
         ],
-        "jsx": "react",
+        "jsx": "react-jsx",
         "target": "es2018",
         "removeComments": false,
         "esModuleInterop": true,
@@ -25,5 +25,8 @@
     },
     "include": [
         "../src/**/*"
+    ],
+    "exclude": [
+        "../src/stories/**/*"
     ]
 }
