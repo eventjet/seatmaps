@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
+import {createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState} from 'react';
 import { noop } from './util/noop';
 
 export enum TextSize {
@@ -9,32 +9,26 @@ export enum TextSize {
 const context = createContext<[TextSize, (size: TextSize) => void, (size: TextSize) => void]>([TextSize.NORMAL, noop, noop]);
 
 export const TextSizeController = ({children}: { children?: ReactNode }) => {
-    const [textSize, setTextSize] = useState<TextSize>(TextSize.NORMAL);
     const [sizes, setSizes] = useState<TextSize[]>([]);
-    const register = (size: TextSize) => {
+    const register = useCallback((size: TextSize) => {
         setSizes((currentSizes) => [...currentSizes, size]);
-    };
-    const unregister = (size: TextSize) => {
+    }, []);
+    const unregister = useCallback((size: TextSize) => {
         setSizes((currentSizes) => {
-            const changedSizes = [...currentSizes];
-            const firstIndex = changedSizes.indexOf(size);
+            const firstIndex = currentSizes.indexOf(size);
             if (firstIndex === -1) {
                 return currentSizes;
             }
+            const changedSizes = [...currentSizes];
             changedSizes.splice(firstIndex, 1);
             return changedSizes;
         });
-    };
-    useEffect(() => {
+    }, []);
+    const textSize = useMemo(() => {
         if (sizes.length === 0) {
-            setTextSize(TextSize.NORMAL);
-            return;
+            return TextSize.NORMAL;
         }
-        const min = Math.min(...sizes);
-        if (min === textSize) {
-            return;
-        }
-        setTextSize(min);
+        return Math.min(...sizes);
     }, [sizes]);
     return (
         <context.Provider value={[textSize, register, unregister]}>
