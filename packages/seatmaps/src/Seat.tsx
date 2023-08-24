@@ -82,6 +82,7 @@ export interface SeatProps {
     hideName?: boolean;
     name?: string;
     onClick?: () => void;
+    onDisabledClick?: () => void;
     shape?: SeatShape;
     x?: number;
     y?: number;
@@ -96,6 +97,7 @@ export const Seat = (
         color,
         disabled = false,
         onClick = noop,
+        onDisabledClick = noop,
         active = false,
         shape = SeatShape.SQUARE,
     }: SeatProps,
@@ -113,12 +115,7 @@ export const Seat = (
         onClick !== noop && !disabled ? 'clickable' : undefined,
         active ? 'active' : undefined,
     ];
-    const handleClick = () => {
-        if (disabled) {
-            return;
-        }
-        onClick();
-    };
+    const handleClick = () => (disabled ? onDisabledClick : onClick)();
     const ShapeComponent = shape === SeatShape.CIRCLE ? CircularSeat : SquareSeat;
     const transform = useTransform(x + 2.5, y + 2.5);
     return (
