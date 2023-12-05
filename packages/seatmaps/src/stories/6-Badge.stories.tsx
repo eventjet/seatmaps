@@ -20,19 +20,19 @@ const lightBackground = '#ff9900';
 const darkBackground = '#0000ff';
 
 interface WrappedProps {
-    badgeProps: BadgeProps;
+    badgeProps?: Partial<BadgeProps>;
 }
 
 const Wrapped = ({badgeProps}: WrappedProps) => {
     return (
         <Seatmap className="badge">
             <Area>
-                <Badge {...badgeProps} />
+                <Badge x={40} y={1} {...badgeProps} />
             </Area>
         </Seatmap>
     );
 };
 
-export const DefaultColor = () => <Wrapped badgeProps={{count: 200, x: 40, y: 1}} />;
-export const LightBackground = () => <Wrapped badgeProps={{count: 200, x: 40, y: 1, color: lightBackground}} />;
-export const DarkBackground = () => <Wrapped badgeProps={{count: 200, x: 40, y: 1, color: darkBackground}} />;
+export const DefaultColor = () => <Wrapped badgeProps={{count: 200}} />;
+export const LightBackground = () => <Wrapped badgeProps={{count: 200, color: lightBackground}} />;
+export const DarkBackground = () => <Wrapped badgeProps={{count: 200, color: darkBackground}} />;

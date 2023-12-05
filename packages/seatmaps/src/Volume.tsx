@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useEffect, useRef, useState } from 'react';
+import { CSSProperties, useEffect, useRef, useState } from 'react';
 import { Badge } from './Badge';
 import { l } from './length';
 import { textCss } from './textCss';
@@ -10,7 +10,7 @@ const SCRIM_HEIGHT = 10;
 const HORIZONTAL_SCRIM_PADDING = 3;
 // to place the badge nicely on the inner right side of the volume
 const HORIZONTAL_BADGE_PADDING = 7; 
-const VERTICAL_BADGE_PADDING = 3
+const VERTICAL_BADGE_PADDING = 3;
 
 const StyledRoot = styled.g`
     @keyframes active-keyframes {
@@ -112,9 +112,9 @@ export interface VolumeProps {
     width: number;
     x?: number;
     y?: number;
-    showSeatCountAsBadge?: boolean,
-    availableSeatCount?: number
-    fontWeight?: string
+    showSeatCountAsBadge?: boolean;
+    availableSeatCount?: number;
+    fontWeight?: CSSProperties['fontWeight'];
 }
 
 const EllipseVolume = (
