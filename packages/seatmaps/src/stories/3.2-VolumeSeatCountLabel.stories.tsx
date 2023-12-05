@@ -1,15 +1,15 @@
 import * as React from 'react';
 import {useState} from 'react';
-import {Area, Seatmap, Volume, VolumeProps} from '../';
+import {Area, Seatmap, Volume, VolumeProps} from '..';
 
 export default {
-    title: 'Volume - Plain Label (Deprecated)',
+    title: 'Volume + Seat Count - Label',
     component: Volume,
     parameters: {
         docs: {
             description: {
                 component:
-                    'Original Volume component - label is displayed as it is passed as prop. Same view as [Volume + Seat Count - Label](../?path=/docs/volume-seat-count-label--rectangle). Deprecated - keept in order not to break the actual live code',
+                    'Display availableSeats within the Label on a Volume.<br />Set via `showSeatCountAsBadge = false` and `availableSeatCount`-Prop.',
             },
         },
     },
@@ -33,11 +33,11 @@ const Wrapped = ({volumeProps}: WrappedProps) => {
     return (
         <>
             <style type="text/css">{`
-                        .seatmap {
-                            width: 400px;
-                            height: 400px;
-                        }
-                    `}</style>
+                .seatmap {
+                    width: 400px;
+                    height: 400px;
+                }
+            `}</style>
             <Seatmap className="seatmap">
                 <Area>
                     {volumes.map(([label, x, y], index) => (
@@ -60,10 +60,12 @@ const Wrapped = ({volumeProps}: WrappedProps) => {
     );
 };
 
-export const Rectangle = () => <Wrapped volumeProps={{shape: 'rectangle'}} />;
+export const Rectangle = () => <Wrapped volumeProps={{shape: 'rectangle', availableSeatCount: 200}} />;
 
-export const Ellipse = () => <Wrapped volumeProps={{shape: 'ellipse'}} />;
+export const Rotated = () => <Wrapped volumeProps={{angle: 20, availableSeatCount: 200}} />;
 
-export const Rotated = () => <Wrapped volumeProps={{angle: 20}} />;
+export const Disabled = () => <Wrapped volumeProps={{disabled: true, availableSeatCount: 200}} />;
 
-export const Disabled = () => <Wrapped volumeProps={{disabled: true}} />;
+export const DarkBackground = () => (
+    <Wrapped volumeProps={{shape: 'rectangle', availableSeatCount: 200, color: '#0000FF'}} />
+);

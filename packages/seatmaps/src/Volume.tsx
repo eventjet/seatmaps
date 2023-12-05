@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useEffect, useRef, useState } from 'react';
+import { Badge } from './Badge';
 import { l } from './length';
 import { textCss } from './textCss';
 import { useTransform } from './useTransform';
@@ -7,6 +8,9 @@ import { noop } from './util/noop';
 
 const SCRIM_HEIGHT = 10;
 const HORIZONTAL_SCRIM_PADDING = 3;
+// to place the badge nicely on the inner right side of the volume
+const HORIZONTAL_BADGE_PADDING = 7; 
+const VERTICAL_BADGE_PADDING = 3
 
 const StyledRoot = styled.g`
     @keyframes active-keyframes {
@@ -51,6 +55,11 @@ interface ScrimProps {
     x: number;
     y: number;
 }
+interface BadgeProps {
+    containerWidth: number;
+    count: number;
+    color: string;
+}
 
 const Scrim = ({width = 'auto', x, y, text, anchor = 'bottom-left'}: ScrimProps) => {
     const textRef = useRef<SVGTextElement>(null);
@@ -83,6 +92,13 @@ const Scrim = ({width = 'auto', x, y, text, anchor = 'bottom-left'}: ScrimProps)
     );
 };
 
+const SeatCountBadge = ({containerWidth, count, color}: BadgeProps) => {
+    const x = containerWidth - HORIZONTAL_BADGE_PADDING;
+    return (
+       <Badge x={x} y={VERTICAL_BADGE_PADDING} color={color} count={count}/> 
+    )
+};
+
 export interface VolumeProps {
     active?: boolean;
     angle?: number;
@@ -96,6 +112,9 @@ export interface VolumeProps {
     width: number;
     x?: number;
     y?: number;
+    showSeatCountAsBadge?: boolean,
+    availableSeatCount?: number
+    fontWeight?: string
 }
 
 const EllipseVolume = (
@@ -141,19 +160,32 @@ const RectangleVolume = (
         onClick = noop,
         className,
         angle,
+        availableSeatCount,
+        showSeatCountAsBadge = false,
+        fontWeight = 'bold'
     }: VolumeProps,
-) => (
-    <StyledRoot
-        transform={useTransform(x, y, angle, width, height)}
-        onClick={onClick}
-        className={className}
-    >
-        <rect width={l(width)} height={l(height)} rx={2} ry={2} fill={color} className="shape"/>
-        {label !== undefined ? (
-            <Scrim width={l(width)} anchor="bottom-left" x={0} y={l(height)} text={label}/>
-        ) : undefined}
-    </StyledRoot>
-);
+) => {
+    if (showSeatCountAsBadge === false && availableSeatCount !== undefined && label !== undefined) {
+      label = `${label} (${availableSeatCount})`
+    }
+    return (
+        <StyledRoot
+            transform={useTransform(x, y, angle, width, height)}
+            onClick={onClick}
+            className={className}
+            style={{fontWeight: fontWeight}}
+        >
+            <rect width={l(width)} height={l(height)} rx={2} ry={2} fill={color} className="shape"/>
+            {label !== undefined ? (
+                <Scrim width={l(width)} anchor="bottom-left" x={0} y={l(height)} text={label} />
+            ) : undefined}
+            {showSeatCountAsBadge && availableSeatCount !== undefined ? (
+                <SeatCountBadge containerWidth={l(width)} color={color} count={availableSeatCount} />
+            ) : undefined}
+
+        </StyledRoot>
+    )
+};
 
 export const Volume = (props: VolumeProps) => {
     const updatedProps: VolumeProps = {
