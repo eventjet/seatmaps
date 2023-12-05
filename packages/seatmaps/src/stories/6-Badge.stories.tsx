@@ -10,7 +10,7 @@ export default {
         docs: {
             description: {
                 component:
-                    'Badge Component to display a number of available Seats. <br />Default color is `#ff9900`<br />Don`t be irritated by the dropShadow - works really nice in combination eg with the [Volume Component](../?path=/docs/volume-seat-count-badge--rectangle).',
+                    'Badge Component to display a number of available Seats. <br />Default color is `#ff9900`<br />Don`t be irritated by the cropped dropShadow - works really nice in combination eg with the [Volume Component](../?path=/docs/volume-seat-count-badge--rectangle).',
             },
         },
     },
