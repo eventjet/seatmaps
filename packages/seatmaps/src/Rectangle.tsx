@@ -10,7 +10,7 @@ export interface RectangleProps {
     y?: number;
 }
 
-export const Rectangle = ({height, width, x = 0, y = 0, color, angle = 0}: RectangleProps) => (
+export const Rectangle = ({ height, width, x = 0, y = 0, color, angle = 0 }: RectangleProps) => (
     <rect
         width={l(width)}
         height={l(height)}

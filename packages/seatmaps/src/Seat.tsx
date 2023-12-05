@@ -14,12 +14,23 @@ interface ShapeComponentProps {
     fill?: string;
 }
 
-const SquareSeat = ({transform, fill}: ShapeComponentProps) => (
-    <rect width={9.5} height={9.5} transform={transform} fill={fill}/>
+const SquareSeat = ({ transform, fill }: ShapeComponentProps) => (
+    <rect
+        width={9.5}
+        height={9.5}
+        transform={transform}
+        fill={fill}
+    />
 );
 
-const CircularSeat = ({transform, fill}: ShapeComponentProps) => (
-    <circle r={9.5 / 2} cx={5} cy={5} transform={transform} fill={fill}/>
+const CircularSeat = ({ transform, fill }: ShapeComponentProps) => (
+    <circle
+        r={9.5 / 2}
+        cx={5}
+        cy={5}
+        transform={transform}
+        fill={fill}
+    />
 );
 
 const Name = styled('text')`
@@ -44,8 +55,9 @@ const StyledSeat = styled.g`
 
     cursor: default;
 
-    rect, circle {
-        stroke-width: .5;
+    rect,
+    circle {
+        stroke-width: 0.5;
         stroke: white;
     }
 
@@ -65,7 +77,8 @@ const StyledSeat = styled.g`
         display: block;
     }
 
-    &.active rect, &.active circle {
+    &.active rect,
+    &.active circle {
         stroke-dasharray: 3, 4;
         animation: active-keyframes 1s linear infinite;
         stroke: black;
@@ -88,20 +101,18 @@ export interface SeatProps {
     y?: number;
 }
 
-export const Seat = (
-    {
-        x = 0,
-        y = 0,
-        name,
-        hideName = false,
-        color,
-        disabled = false,
-        onClick = noop,
-        onDisabledClick = noop,
-        active = false,
-        shape = SeatShape.SQUARE,
-    }: SeatProps,
-) => {
+export const Seat = ({
+    x = 0,
+    y = 0,
+    name,
+    hideName = false,
+    color,
+    disabled = false,
+    onClick = noop,
+    onDisabledClick = noop,
+    active = false,
+    shape = SeatShape.SQUARE,
+}: SeatProps) => {
     const textSize = useTextSize((name?.length ?? 0) > 2 ? TextSize.SMALL : TextSize.NORMAL);
     const textTransform = useTransform(x, y);
     const fill = (() => {
@@ -119,15 +130,21 @@ export const Seat = (
     const ShapeComponent = shape === SeatShape.CIRCLE ? CircularSeat : SquareSeat;
     const transform = useTransform(x + 2.5, y + 2.5);
     return (
-        <StyledSeat className={classNames.join(' ')} onClick={handleClick}>
-            <ShapeComponent transform={transform} fill={fill}/>
+        <StyledSeat
+            className={classNames.join(' ')}
+            onClick={handleClick}
+        >
+            <ShapeComponent
+                transform={transform}
+                fill={fill}
+            />
             {name !== undefined ? (
                 <Name
                     transform={textTransform}
                     x="5"
                     y="5"
                     className="name"
-                    style={textSize === TextSize.SMALL ? {fontSize: 4} : undefined}
+                    style={textSize === TextSize.SMALL ? { fontSize: 4 } : undefined}
                 >
                     {name}
                 </Name>

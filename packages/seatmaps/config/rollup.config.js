@@ -1,12 +1,12 @@
-import typescript from "@rollup/plugin-typescript";
+import typescript from '@rollup/plugin-typescript';
 
 export default {
-    input: __dirname + "/../src/index.ts",
+    input: __dirname + '/../src/index.ts',
     output: [
         {
-            file: __dirname + "/../lib/index.umd.js",
+            file: __dirname + '/../lib/index.umd.js',
             name: 'EventjetReactSeatmaps',
-            format: "umd",
+            format: 'umd',
             sourcemap: false,
             globals: {
                 '@emotion/css': 'emotionCss',
@@ -14,20 +14,14 @@ export default {
                 '@emotion/styled': 'styled',
                 'react/jsx-runtime': 'jsxRuntime',
                 'react': 'React',
-            }
+            },
         },
     ],
     plugins: [
         typescript({
-            tsconfig: __dirname + "/tsconfig.esm.json",
+            tsconfig: __dirname + '/tsconfig.esm.json',
             sourceMap: false,
         }),
     ],
-    external: [
-        'react',
-        'react/jsx-runtime',
-        '@emotion/css',
-        '@emotion/react',
-        '@emotion/styled',
-    ]
+    external: ['react', 'react/jsx-runtime', '@emotion/css', '@emotion/react', '@emotion/styled'],
 };

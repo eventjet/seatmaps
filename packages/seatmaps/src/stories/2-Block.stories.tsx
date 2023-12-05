@@ -12,7 +12,7 @@ interface TenByTenProps {
     active?: string[];
 }
 
-const TenByTen = ({seatProps = {}, active: defaultActive = []}: TenByTenProps) => {
+const TenByTen = ({ seatProps = {}, active: defaultActive = [] }: TenByTenProps) => {
     const [active, setActive] = useState<string[]>(defaultActive);
     const oneThroughTen = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
     const toggle = (rowName: string, seatName: string) => {
@@ -60,22 +60,22 @@ const TenByTen = ({seatProps = {}, active: defaultActive = []}: TenByTenProps) =
     );
 };
 
-export const Square = () => (
-    <TenByTen seatProps={{shape: SeatShape.SQUARE}}/>
-);
+export const Square = () => <TenByTen seatProps={{ shape: SeatShape.SQUARE }} />;
 
-export const Circular = () => (
-    <TenByTen seatProps={{shape: SeatShape.CIRCLE}}/>
-);
+export const Circular = () => <TenByTen seatProps={{ shape: SeatShape.CIRCLE }} />;
 
 export const ActiveSquare = () => (
-    <TenByTen seatProps={{shape: SeatShape.SQUARE}} active={['3/6', '3/7', '3/8']}/>
+    <TenByTen
+        seatProps={{ shape: SeatShape.SQUARE }}
+        active={['3/6', '3/7', '3/8']}
+    />
 );
 
 export const ActiveCircular = () => (
-    <TenByTen seatProps={{shape: SeatShape.CIRCLE}} active={['3/6', '3/7', '3/8']}/>
+    <TenByTen
+        seatProps={{ shape: SeatShape.CIRCLE }}
+        active={['3/6', '3/7', '3/8']}
+    />
 );
 
-export const Disabled = () => (
-    <TenByTen seatProps={{disabled: true}}/>
-);
+export const Disabled = () => <TenByTen seatProps={{ disabled: true }} />;

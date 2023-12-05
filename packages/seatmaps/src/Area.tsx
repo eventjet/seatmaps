@@ -10,6 +10,6 @@ export interface AreaProps {
     children?: ReactNode;
 }
 
-export const Area = ({children, x = 0, y = 0, angle = 0, width = 0, height = 0}: AreaProps) => (
+export const Area = ({ children, x = 0, y = 0, angle = 0, width = 0, height = 0 }: AreaProps) => (
     <g transform={useTransform(x, y, angle, width, height)}>{children}</g>
 );
