@@ -67,4 +67,4 @@ export const Ellipse = () => <Wrapped volumeProps={{shape: 'ellipse'}}/>;
 export const Rotated = () => <Wrapped volumeProps={{angle: 20}}/>;
 
 export const Disabled = () => <Wrapped volumeProps={{disabled: true}}/>;
-export const RectangleFontWightNormal = () => <Wrapped volumeProps={{ fontWeight: 'normal' }} />
+export const RectangleFontWeightNormal = () => <Wrapped volumeProps={{ fontWeight: 'normal' }} />
