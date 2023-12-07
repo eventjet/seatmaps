@@ -12,7 +12,7 @@ const HORIZONTAL_BADGE_PADDING = 7
 const VERTICAL_BADGE_PADDING = 3
 
 
-export const SeatCountBadge = ({ containerWidth, count = 0, color = '#808080' }: SeatCountBadgeProps) => {
+export const SeatCountBadge = ({ containerWidth, count = 0, color = 'inherit' }: SeatCountBadgeProps) => {
     const x = l(containerWidth) - HORIZONTAL_BADGE_PADDING
     return <Badge x={x} y={VERTICAL_BADGE_PADDING} color={color} count={count} />
 }

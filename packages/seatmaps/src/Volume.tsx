@@ -152,8 +152,9 @@ const RectangleVolume = (
         onClick={onClick}
         className={className}
         style={{fontWeight: fontWeight}}
+        fill={color}
     >
-        <rect width={l(width)} height={l(height)} rx={2} ry={2} fill={color} className="shape"/>
+        <rect width={l(width)} height={l(height)} rx={2} ry={2} className="shape"/>
         {label !== undefined ? (
             <Scrim width={l(width)} anchor="bottom-left" x={0} y={l(height)} text={label}/>
         ) : undefined}

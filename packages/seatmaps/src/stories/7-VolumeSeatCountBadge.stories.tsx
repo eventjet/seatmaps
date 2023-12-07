@@ -64,7 +64,7 @@ const Wrapped = ({badgeProps, volumeProps}: WrappedProps) => {
 };
 
 export const Disabled = () => <Wrapped badgeProps={{ count: 200 }} volumeProps={{ disabled: true }} />
-export const LightBackground = () => <Wrapped badgeProps={{ count: 200, color: lightBackground }} />
-export const DarkBackground = () => <Wrapped badgeProps={{ count: 200, color: darkBackground }} volumeProps={{ color: darkBackground }} />
-export const Rotated = () => <Wrapped badgeProps={{ count: 200, color: lightBackground }} volumeProps={{ angle: 20 }} />
-export const FontWeightNormal = () => <Wrapped badgeProps={{ count: 200, color: lightBackground }} volumeProps={{ fontWeight: 'normal' }} />
+export const LightBackground = () => <Wrapped badgeProps={{ count: 200 }} volumeProps={{ color: lightBackground }} />
+export const DarkBackground = () => <Wrapped badgeProps={{ count: 200 }} volumeProps={{ color: darkBackground }} />
+export const Rotated = () => <Wrapped badgeProps={{ count: 200 }} volumeProps={{ angle: 20, color: lightBackground }} />
+export const FontWeightNormal = () => <Wrapped badgeProps={{ count: 200 }} volumeProps={{ fontWeight: 'normal', color: lightBackground }} />
