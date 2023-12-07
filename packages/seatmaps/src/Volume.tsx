@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useEffect, useRef, useState } from 'react';
+import { CSSProperties, ReactNode, useEffect, useRef, useState } from 'react';
 import { l } from './length';
 import { textCss } from './textCss';
 import { useTransform } from './useTransform';
@@ -104,6 +104,8 @@ export interface VolumeProps {
     width: number;
     x?: number;
     y?: number;
+    children?: ReactNode;
+    fontWeight?: CSSProperties['fontWeight'];
 }
 
 const EllipseVolume = ({
@@ -152,18 +154,21 @@ const RectangleVolume = ({
     onClick = noop,
     className,
     angle,
+    children,
+    fontWeight = 'bold',
 }: VolumeProps) => (
     <StyledRoot
         transform={useTransform(x, y, angle, width, height)}
         onClick={onClick}
         className={className}
+        style={{ fontWeight: fontWeight }}
+        fill={color}
     >
         <rect
             width={l(width)}
             height={l(height)}
             rx={2}
             ry={2}
-            fill={color}
             className="shape"
         />
         {label !== undefined ? (
@@ -175,6 +180,7 @@ const RectangleVolume = ({
                 text={label}
             />
         ) : undefined}
+        {children}
     </StyledRoot>
 );
 
