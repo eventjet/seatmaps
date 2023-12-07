@@ -12,7 +12,7 @@ export default {
         docs: {
             description: {
                 component:
-                    'modified Badge Component to use eg as a child of the [Volume Component](../?path=/docs/volume--rectangle) - nicely positioned on the top right of the volume.',
+                    "modified Badge Component to use, e.g., as a child of the [Volume Component](../?path=/docs/volume--rectangle). It's nicely positioned at the top right of the volume.",
             },
         },
     },
