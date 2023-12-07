@@ -1,5 +1,3 @@
-import styled from '@emotion/styled'
-import { textCss } from './textCss'
 import { Badge } from './Badge'
 import { l } from './length'
 
