@@ -3,7 +3,14 @@ import { Seat } from './Seat';
 
 it('reports clicks', () => {
     const handleClick = jest.fn();
-    const {getByText} = render(<svg><Seat name="23" onClick={handleClick}/></svg>);
+    const { getByText } = render(
+        <svg>
+            <Seat
+                name="23"
+                onClick={handleClick}
+            />
+        </svg>,
+    );
 
     fireEvent.click(getByText('23'));
 
@@ -12,7 +19,15 @@ it('reports clicks', () => {
 
 it('does not report a click if it is disabled', () => {
     const handleClick = jest.fn();
-    const {getByText} = render(<svg><Seat name="23" disabled={true} onClick={handleClick}/></svg>);
+    const { getByText } = render(
+        <svg>
+            <Seat
+                name="23"
+                disabled={true}
+                onClick={handleClick}
+            />
+        </svg>,
+    );
 
     fireEvent.click(getByText('23'));
 

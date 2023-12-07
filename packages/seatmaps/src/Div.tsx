@@ -4,6 +4,4 @@ interface DivProps {
     children?: ReactNode;
 }
 
-export const Div = ({children}: DivProps) => (
-    <svg>{children}</svg>
-);
+export const Div = ({ children }: DivProps) => <svg>{children}</svg>;

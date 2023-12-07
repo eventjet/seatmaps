@@ -14,7 +14,7 @@ export interface SeatmapProps {
     children?: ReactNode;
 }
 
-export const Seatmap = ({children, className}: SeatmapProps) => {
+export const Seatmap = ({ children, className }: SeatmapProps) => {
     const [[minX, minY, maxX, maxY], setContentSize] = useState<[number, number, number, number]>([0, 0, 0, 0]);
     const [rootNode, setRootNode] = useState<SVGSVGElement>();
     const measuredRef = useCallback((node: SVGSVGElement) => {
@@ -34,7 +34,7 @@ export const Seatmap = ({children, className}: SeatmapProps) => {
         const observer = new window.MutationObserver(() => {
             setContentSize(measureContentSize(rootNode));
         });
-        observer.observe(rootNode, {attributes: false, childList: true, subtree: true});
+        observer.observe(rootNode, { attributes: false, childList: true, subtree: true });
         return () => {
             observer.disconnect();
         };
@@ -47,9 +47,7 @@ export const Seatmap = ({children, className}: SeatmapProps) => {
             ref={measuredRef}
             className={className}
         >
-            <TextSizeController>
-                {children}
-            </TextSizeController>
+            <TextSizeController>{children}</TextSizeController>
         </svg>
     );
 };

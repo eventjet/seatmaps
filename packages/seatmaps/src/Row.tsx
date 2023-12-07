@@ -25,10 +25,13 @@ export interface RowProps {
     children?: ReactNode;
 }
 
-export const Row = ({children, leftLabel, rightLabel, x = 0, y = 0}: RowProps) => {
+export const Row = ({ children, leftLabel, rightLabel, x = 0, y = 0 }: RowProps) => {
     const [[leftX, leftY], [rightX, rightY]] = ((): [left: [x: number, y: number], right: [x: number, y: number]] => {
         if (!Array.isArray(children)) {
-            return [[0, 0], [0, 0]];
+            return [
+                [0, 0],
+                [0, 0],
+            ];
         }
         const first = children[0];
         const last = children[children.length - 1];
@@ -37,16 +40,30 @@ export const Row = ({children, leftLabel, rightLabel, x = 0, y = 0}: RowProps) =
             isReactElement(last) ? [last.props.x ?? 0, last.props.y ?? 0] : [0, 0],
         ];
     })();
-    const leftStyle = leftX !== 0 || leftY !== 0 ? {transform: `translate(${leftX / 10}px, ${leftY / 10}px)`} : undefined;
-    const rightStyle = rightX !== 0 || rightY !== 0 ? {transform: `translate(${rightX / 10}px, ${rightY / 10}px)`} : undefined;
+    const leftStyle =
+        leftX !== 0 || leftY !== 0 ? { transform: `translate(${leftX / 10}px, ${leftY / 10}px)` } : undefined;
+    const rightStyle =
+        rightX !== 0 || rightY !== 0 ? { transform: `translate(${rightX / 10}px, ${rightY / 10}px)` } : undefined;
     return (
         <g transform={useTransform(x, y)}>
             {leftLabel !== undefined ? (
-                <Name x={-5} y={5} style={leftStyle}>{leftLabel}</Name>
+                <Name
+                    x={-5}
+                    y={5}
+                    style={leftStyle}
+                >
+                    {leftLabel}
+                </Name>
             ) : undefined}
             {children}
             {rightLabel !== undefined ? (
-                <Name x={15} y={5} style={rightStyle}>{rightLabel}</Name>
+                <Name
+                    x={15}
+                    y={5}
+                    style={rightStyle}
+                >
+                    {rightLabel}
+                </Name>
             ) : undefined}
         </g>
     );
