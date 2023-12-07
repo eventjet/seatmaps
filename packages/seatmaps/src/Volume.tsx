@@ -157,7 +157,7 @@ const RectangleVolume = (
         {label !== undefined ? (
             <Scrim width={l(width)} anchor="bottom-left" x={0} y={l(height)} text={label}/>
         ) : undefined}
-        {children ? children : undefined}
+        {children}
     </StyledRoot>
 );
 
