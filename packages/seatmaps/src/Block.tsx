@@ -10,6 +10,6 @@ export interface BlockProps {
     children?: ReactNode;
 }
 
-export const Block = ({children, x = 0, y = 0, angle = 0, width = 0, height = 0}: BlockProps) => (
+export const Block = ({ children, x = 0, y = 0, angle = 0, width = 0, height = 0 }: BlockProps) => (
     <g transform={useTransform(x, y, angle, width, height)}>{children}</g>
 );

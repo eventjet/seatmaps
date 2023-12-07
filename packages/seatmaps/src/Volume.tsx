@@ -41,7 +41,7 @@ const Name = styled('text')`
 `;
 
 const StyledScrim = styled.rect`
-    fill: rgba(255, 255, 255, .54);
+    fill: rgba(255, 255, 255, 0.54);
 `;
 
 interface ScrimProps {
@@ -52,7 +52,7 @@ interface ScrimProps {
     y: number;
 }
 
-const Scrim = ({width = 'auto', x, y, text, anchor = 'bottom-left'}: ScrimProps) => {
+const Scrim = ({ width = 'auto', x, y, text, anchor = 'bottom-left' }: ScrimProps) => {
     const textRef = useRef<SVGTextElement>(null);
     const [textWidth, setTextWidth] = useState(0);
     useEffect(() => {
@@ -60,7 +60,6 @@ const Scrim = ({width = 'auto', x, y, text, anchor = 'bottom-left'}: ScrimProps)
             return;
         }
         setTextWidth(textRef.current.getBBox().width);
-
     }, [width]);
     const scrimWidth = (() => {
         if (width !== 'auto') {
@@ -69,14 +68,23 @@ const Scrim = ({width = 'auto', x, y, text, anchor = 'bottom-left'}: ScrimProps)
         if (textWidth === undefined) {
             return 0;
         }
-        return textWidth + (HORIZONTAL_SCRIM_PADDING * 2);
+        return textWidth + HORIZONTAL_SCRIM_PADDING * 2;
     })();
-    const actualX = anchor === 'bottom-left' ? x : x - (scrimWidth / 2);
-    const actualY = anchor === 'bottom-left' ? y - SCRIM_HEIGHT : y - (SCRIM_HEIGHT / 2);
+    const actualX = anchor === 'bottom-left' ? x : x - scrimWidth / 2;
+    const actualY = anchor === 'bottom-left' ? y - SCRIM_HEIGHT : y - SCRIM_HEIGHT / 2;
     return (
         <>
-            <StyledScrim width={scrimWidth} height={SCRIM_HEIGHT} x={actualX} y={actualY}/>
-            <Name x={actualX + HORIZONTAL_SCRIM_PADDING} y={actualY + (SCRIM_HEIGHT / 2)} ref={textRef}>
+            <StyledScrim
+                width={scrimWidth}
+                height={SCRIM_HEIGHT}
+                x={actualX}
+                y={actualY}
+            />
+            <Name
+                x={actualX + HORIZONTAL_SCRIM_PADDING}
+                y={actualY + SCRIM_HEIGHT / 2}
+                ref={textRef}
+            >
                 {text}
             </Name>
         </>
@@ -100,19 +108,17 @@ export interface VolumeProps {
     fontWeight?: CSSProperties['fontWeight'];
 }
 
-const EllipseVolume = (
-    {
-        x = 0,
-        y = 0,
-        width,
-        height,
-        label,
-        color = '#808080',
-        onClick = noop,
-        className,
-        angle,
-    }: VolumeProps,
-) => (
+const EllipseVolume = ({
+    x = 0,
+    y = 0,
+    width,
+    height,
+    label,
+    color = '#808080',
+    onClick = noop,
+    className,
+    angle,
+}: VolumeProps) => (
     <StyledRoot
         transform={useTransform(x, y, angle, width, height)}
         onClick={onClick}
@@ -127,36 +133,52 @@ const EllipseVolume = (
             className="shape"
         />
         {label !== undefined ? (
-            <Scrim width="auto" anchor="center" x={l(width / 2)} y={l(height / 2)} text={label}/>
+            <Scrim
+                width="auto"
+                anchor="center"
+                x={l(width / 2)}
+                y={l(height / 2)}
+                text={label}
+            />
         ) : undefined}
     </StyledRoot>
 );
 
-const RectangleVolume = (
-    {
-        x = 0,
-        y = 0,
-        width,
-        height,
-        label,
-        color = '#808080',
-        onClick = noop,
-        className,
-        angle,
-        children,
-        fontWeight = 'bold',
-    }: VolumeProps,
-) => (
+const RectangleVolume = ({
+    x = 0,
+    y = 0,
+    width,
+    height,
+    label,
+    color = '#808080',
+    onClick = noop,
+    className,
+    angle,
+    children,
+    fontWeight = 'bold',
+}: VolumeProps) => (
     <StyledRoot
         transform={useTransform(x, y, angle, width, height)}
         onClick={onClick}
         className={className}
-        style={{fontWeight: fontWeight}}
+        style={{ fontWeight: fontWeight }}
         fill={color}
     >
-        <rect width={l(width)} height={l(height)} rx={2} ry={2} className="shape"/>
+        <rect
+            width={l(width)}
+            height={l(height)}
+            rx={2}
+            ry={2}
+            className="shape"
+        />
         {label !== undefined ? (
-            <Scrim width={l(width)} anchor="bottom-left" x={0} y={l(height)} text={label}/>
+            <Scrim
+                width={l(width)}
+                anchor="bottom-left"
+                x={0}
+                y={l(height)}
+                text={label}
+            />
         ) : undefined}
         {children}
     </StyledRoot>

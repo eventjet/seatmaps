@@ -19,11 +19,35 @@ export const LongNames = () => (
             <Area>
                 <Block>
                     <Row>
-                        <Seat name="60" shape={SeatShape.CIRCLE} color="#900"/>
-                        <Seat name="160" shape={SeatShape.CIRCLE} color="#900" x={100}/>
-                        <Seat name="80" shape={SeatShape.CIRCLE} color="#900" x={200}/>
-                        <Seat name="240" shape={SeatShape.SQUARE} color="#900" x={300}/>
-                        <Seat name="75" shape={SeatShape.SQUARE} color="#900" x={400}/>
+                        <Seat
+                            name="60"
+                            shape={SeatShape.CIRCLE}
+                            color="#900"
+                        />
+                        <Seat
+                            name="160"
+                            shape={SeatShape.CIRCLE}
+                            color="#900"
+                            x={100}
+                        />
+                        <Seat
+                            name="80"
+                            shape={SeatShape.CIRCLE}
+                            color="#900"
+                            x={200}
+                        />
+                        <Seat
+                            name="240"
+                            shape={SeatShape.SQUARE}
+                            color="#900"
+                            x={300}
+                        />
+                        <Seat
+                            name="75"
+                            shape={SeatShape.SQUARE}
+                            color="#900"
+                            x={400}
+                        />
                     </Row>
                 </Block>
             </Area>

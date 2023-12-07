@@ -9,7 +9,7 @@ export interface EllipseProps {
     y?: number;
 }
 
-export const Ellipse = ({height, width, x = 0, y = 0, color}: EllipseProps) => (
+export const Ellipse = ({ height, width, x = 0, y = 0, color }: EllipseProps) => (
     <ellipse
         rx={l(width / 2)}
         ry={l(height / 2)}

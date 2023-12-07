@@ -17,12 +17,33 @@ export const LabelsMoveWithSeats = () => (
         <Seatmap className="seatmap">
             <Area>
                 <Block>
-                    <Row leftLabel="12" rightLabel="12">
-                        <Seat name="60" x={300} y={100}/>
-                        <Seat name="160" x={400}/>
-                        <Seat name="80" x={500} y={-100}/>
-                        <Seat name="240" x={600}/>
-                        <Seat name="75" x={700} y={100}/>
+                    <Row
+                        leftLabel="12"
+                        rightLabel="12"
+                    >
+                        <Seat
+                            name="60"
+                            x={300}
+                            y={100}
+                        />
+                        <Seat
+                            name="160"
+                            x={400}
+                        />
+                        <Seat
+                            name="80"
+                            x={500}
+                            y={-100}
+                        />
+                        <Seat
+                            name="240"
+                            x={600}
+                        />
+                        <Seat
+                            name="75"
+                            x={700}
+                            y={100}
+                        />
                     </Row>
                 </Block>
             </Area>

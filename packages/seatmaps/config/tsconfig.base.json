@@ -1,12 +1,6 @@
 {
     "compilerOptions": {
-        "lib": [
-            "es5",
-            "es6",
-            "es7",
-            "esnext",
-            "dom"
-        ],
+        "lib": ["es5", "es6", "es7", "esnext", "dom"],
         "jsx": "react-jsx",
         "target": "es2018",
         "removeComments": false,
@@ -23,10 +17,6 @@
         "downlevelIteration": true,
         "isolatedModules": true
     },
-    "include": [
-        "../src/**/*"
-    ],
-    "exclude": [
-        "../src/stories/**/*"
-    ]
+    "include": ["../src/**/*"],
+    "exclude": ["../src/stories/**/*"]
 }

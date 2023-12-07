@@ -8,8 +8,7 @@ export default {
     parameters: {
         docs: {
             description: {
-                component:
-                    'Volume component - label is displayed as it is passed as prop.',
+                component: 'Volume component - label is displayed as it is passed as prop.',
             },
         },
     },
@@ -28,7 +27,7 @@ const volumes: Array<[string, number, number]> = [
     ['Table 21', 600, 800],
 ];
 
-const Wrapped = ({volumeProps}: WrappedProps) => {
+const Wrapped = ({ volumeProps }: WrappedProps) => {
     const [active, setActive] = useState<{ [volumeLabel: string]: boolean }>({});
     return (
         <>
@@ -46,7 +45,7 @@ const Wrapped = ({volumeProps}: WrappedProps) => {
                             label={label}
                             x={x}
                             y={y}
-                            onClick={() => setActive({...active, [label]: !active[label]})}
+                            onClick={() => setActive({ ...active, [label]: !active[label] })}
                             width={500}
                             height={300}
                             color="#ff9900"
@@ -60,11 +59,11 @@ const Wrapped = ({volumeProps}: WrappedProps) => {
     );
 };
 
-export const Rectangle = () => <Wrapped volumeProps={{shape: 'rectangle'}}/>;
+export const Rectangle = () => <Wrapped volumeProps={{ shape: 'rectangle' }} />;
 
-export const Ellipse = () => <Wrapped volumeProps={{shape: 'ellipse'}}/>;
+export const Ellipse = () => <Wrapped volumeProps={{ shape: 'ellipse' }} />;
 
-export const Rotated = () => <Wrapped volumeProps={{angle: 20}}/>;
+export const Rotated = () => <Wrapped volumeProps={{ angle: 20 }} />;
 
-export const Disabled = () => <Wrapped volumeProps={{disabled: true}}/>;
-export const RectangleFontWeightNormal = () => <Wrapped volumeProps={{ fontWeight: 'normal' }} />
+export const Disabled = () => <Wrapped volumeProps={{ disabled: true }} />;
+export const RectangleFontWeightNormal = () => <Wrapped volumeProps={{ fontWeight: 'normal' }} />;
