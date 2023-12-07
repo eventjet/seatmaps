@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Area, Block, Rectangle, Row, Seat, Seatmap, SeatShape, Text, Volume } from '../';
 import ref from './complex-example-reference.png';
+import { SeatCountBadge } from '../SeatCountBadge';
 
 export default {
     title: 'Seatmap',
@@ -17,8 +18,6 @@ export const ComplexExample = () => (
         `}</style>
         <Seatmap className="seatmap">
             <Rectangle height={1200} width={700} x={-200} color="rgba(0, 0, 255, .12)"/>
-            <Rectangle height={410} width={410} x={1145} y={245} color="#00000080"/>
-            <Rectangle height={320} width={320} x={1190} y={740} color="#00000080"/>
             <Area>
                 <Text text="An Area"/>
                 <Block y={200}>
@@ -66,30 +65,39 @@ export const ComplexExample = () => (
                         <Seat name="2" x={100} color="#ff0099" disabled={true} active={true} hideName={true} y={100}/>
                         <Seat name="3" x={200} color="#ff0099" disabled={true} hideName={true}/>
                     </Row>
-                    <Volume height={200} width={400} x={700} label="Table 69" color="#ff9900"/>
-                    <Volume height={200} width={400} x={700} y={300} label="Table 42" color="#00ff99" active={true}/>
-                    <Volume
-                        height={200}
-                        width={400}
-                        x={700}
-                        y={600}
-                        label="Table 23"
-                        color="#ff9900"
-                        disabled={true}
-                        shape={'ellipse'}
-                    />
-                    <Volume height={200} width={400} x={1150} y={150} label="Rota!" color="#ff0099" angle={45}/>
-                    <Volume
-                        height={200}
-                        width={400}
-                        x={1150}
-                        y={600}
-                        label="Rota!"
-                        color="#ff0099"
-                        angle={45}
-                        shape={'ellipse'}
-                    />
                 </Block>
+                <Volume height={200} width={400} x={700} label="Table 69" color="#ff9900"/>
+                <Volume height={200} width={400} x={1150} label="Table 69" color="#ff9900">
+                    <SeatCountBadge containerWidth={400} count={200} color="#ff9900" />
+                </Volume>
+                <Volume height={200} width={400} x={700} y={300} label="Table 42" color="#00ff99" active={true}/>
+                <Volume height={200} width={400} x={1150} y={300} label="Table 42" color="#00ff99" active={true}>
+                    <SeatCountBadge containerWidth={400} count={200} color="#00ff99" />
+                </Volume>
+                <Volume
+                    height={200}
+                    width={400}
+                    x={700}
+                    y={600}
+                    label="Table 23"
+                    color="#ff9900"
+                    disabled={true}
+                    shape={'ellipse'}
+                />
+                <Volume height={200} width={400} x={1150} y={600} label="Table 69" color="#ff9900" fontWeight={'normal'}>
+                    <SeatCountBadge containerWidth={400} count={200} color="#ff9900" />
+                </Volume>
+                <Volume height={200} width={400} x={700} y={1000} label="Rota!" color="#ff0099" angle={45}/>
+                <Volume
+                    height={200}
+                    width={400}
+                    x={1150}
+                    y={1000}
+                    label="Rota!"
+                    color="#ff0099"
+                    angle={45}
+                    shape={'ellipse'}
+                />
             </Area>
         </Seatmap>
         <img src={ref}/>

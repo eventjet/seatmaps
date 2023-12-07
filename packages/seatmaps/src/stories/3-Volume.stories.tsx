@@ -5,6 +5,14 @@ import { Area, Seatmap, Volume, VolumeProps } from '../';
 export default {
     title: 'Volume',
     component: Volume,
+    parameters: {
+        docs: {
+            description: {
+                component:
+                    'Volume component - label is displayed as it is passed as prop.',
+            },
+        },
+    },
 };
 
 interface WrappedProps {
@@ -59,3 +67,4 @@ export const Ellipse = () => <Wrapped volumeProps={{shape: 'ellipse'}}/>;
 export const Rotated = () => <Wrapped volumeProps={{angle: 20}}/>;
 
 export const Disabled = () => <Wrapped volumeProps={{disabled: true}}/>;
+export const RectangleFontWightNormal = () => <Wrapped volumeProps={{ fontWeight: 'normal' }} />
