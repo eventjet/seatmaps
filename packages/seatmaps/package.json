@@ -26,10 +26,13 @@
         "build:esm": "rollup --config config/rollup.config.js",
         "postbuild": "npx rollup -c ./config/rollup.config.js",
         "watch": "npx tsc-watch --onSuccess \"yarn run postbuild\" -p ./config",
-        "predeploy": "yarn run build",
-        "deploy": "yarn publish",
         "storybook": "start-storybook -p 6006",
-        "build-storybook": "build-storybook"
+        "build-storybook": "build-storybook",
+        "predeploy": "yarn run build",
+        "release:patch": "yarn clean && yarn run build && npm version patch",
+        "release:minor": "yarn clean && yarn run build && npm version minor",
+        "release:major": "yarn clean && yarn run build && npm version major",
+        "deploy": "yarn publish"
     },
     "files": [
         "lib"
