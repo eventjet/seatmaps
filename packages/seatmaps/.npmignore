@@ -1,0 +1,12 @@
+# Rules from: /Users/codingcookie/development/eventjet_at/seatmaps/packages/seatmaps/.gitignore
+/node_modules/
+
+
+# npmignore - content above this line is automatically generated and modifications may be omitted
+# see npmjs.com/npmignore for more details.
+src/
+.storybook/
+config/
+.gitignore
+.prettierrc
+.prettierignore

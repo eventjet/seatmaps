@@ -1,7 +1,7 @@
 {
     "name": "@eventjet/react-seatmaps",
     "description": "React components for rendering Eventjet seatmaps",
-    "version": "0.4.2",
+    "version": "0.4.3",
     "author": {
         "name": "Rudolph Gottesheim",
         "email": "r.gottesheim@loot.at"
@@ -32,7 +32,7 @@
         "release:patch": "yarn clean && yarn run build && npm version patch",
         "release:minor": "yarn clean && yarn run build && npm version minor",
         "release:major": "yarn clean && yarn run build && npm version major",
-        "deploy": "yarn publish"
+        "deploy": "npm publish"
     },
     "files": [
         "lib"
