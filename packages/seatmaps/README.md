@@ -5,11 +5,11 @@ This package provides react components to render seatmaps in a ticketing system.
 ### Installation
 
 ```bash
-  yarn add @eventjet/react-seatmaps@0.4.2
+  yarn add @eventjet/react-seatmaps
 ```
 
-
 ### Simple Usage Example - Volume
+
 ```javascript
 import React from 'react';
 import { Volume } from '@eventjet/react-seatmaps';
@@ -26,7 +26,7 @@ const component = () => (
   />);
 ```
 
-### Usage Example - Volumes + SeatCountBadge 
+### Usage Example - Volumes + SeatCountBadge
 
 SeatCountBadge only works with Volumes at the moment
 
