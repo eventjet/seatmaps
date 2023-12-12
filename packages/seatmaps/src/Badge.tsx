@@ -9,7 +9,7 @@ export interface BadgeProps {
 }
 
 // radius currently fixed, as the font size would also have to be adjusted when changing the radius
-const CIRCLE_RADIUS = 6;
+const CIRCLE_RADIUS = 5;
 
 const Name = styled('text')`
     ${textCss}

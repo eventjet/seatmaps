@@ -32,7 +32,8 @@
         "release:patch": "yarn clean && yarn run build && npm version patch",
         "release:minor": "yarn clean && yarn run build && npm version minor",
         "release:major": "yarn clean && yarn run build && npm version major",
-        "deploy": "npm publish"
+        "deploy": "npm publish",
+        "test": "jest --coverage"
     },
     "files": [
         "lib"
