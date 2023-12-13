@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Area, Block, Rectangle, Row, Seat, Seatmap, SeatShape, Text, Volume } from '../';
 import { SeatCountBadge } from '../SeatCountBadge';
-import ref from './complex-example-reference.png';
 
 export default {
     title: 'Seatmap',
@@ -328,6 +327,5 @@ export const ComplexExample = () => (
                 />
             </Area>
         </Seatmap>
-        <img src={ref} />
     </>
 );
