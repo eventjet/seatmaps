@@ -96,3 +96,9 @@ export const FontWeightNormal = () => (
         volumeProps={{ fontWeight: 'normal', color: lightBackground }}
     />
 );
+export const FontWeightNormalDark = () => (
+    <Wrapped
+        badgeProps={{ count: 200 }}
+        volumeProps={{ fontWeight: 'normal', color: darkBackground }}
+    />
+);
