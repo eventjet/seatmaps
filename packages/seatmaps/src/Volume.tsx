@@ -5,7 +5,7 @@ import { textCss } from './textCss';
 import { useTransform } from './useTransform';
 import { noop } from './util/noop';
 
-const SCRIM_HEIGHT = 10;
+const SCRIM_HEIGHT = 8;
 const HORIZONTAL_SCRIM_PADDING = 3;
 
 const StyledRoot = styled.g`
