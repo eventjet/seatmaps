@@ -118,18 +118,21 @@ const EllipseVolume = ({
     onClick = noop,
     className,
     angle,
+    children,
+    fontWeight = 'bold',
 }: VolumeProps) => (
     <StyledRoot
         transform={useTransform(x, y, angle, width, height)}
         onClick={onClick}
         className={className}
+        style={{ fontWeight: fontWeight }}
+        fill={color}
     >
         <ellipse
             rx={l(width / 2)}
             ry={l(height / 2)}
             cx={l(width / 2)}
             cy={l(height / 2)}
-            fill={color}
             className="shape"
         />
         {label !== undefined ? (
@@ -141,6 +144,7 @@ const EllipseVolume = ({
                 text={label}
             />
         ) : undefined}
+        {children}
     </StyledRoot>
 );
 
