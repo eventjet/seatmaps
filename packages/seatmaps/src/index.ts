@@ -10,4 +10,4 @@ export { Seatmap, type SeatmapProps } from './Seatmap';
 export { Text, type TextProps } from './Text';
 export { Volume, type VolumeProps } from './Volume';
 export { Badge, type BadgeProps} from './Badge';
-export { SeatCountBadge, type SeatCountBadgeProps} from './SeatCountBadge';
+export { SeatCountBadge, SeatCountBadgeOnEllipse, SeatCountBadgeOnCircle, type SeatCountBadgeProps } from './SeatCountBadge';
