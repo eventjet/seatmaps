@@ -9,14 +9,14 @@ interface LegacySeatCountBadgeProps {
 }
 
 interface NewSeatCountBadgeProps {
-    containerProps: ParentContainerProps;
+    containerProps: Dimensions;
     count: number;
     color?: string;
 }
 
 export type SeatCountBadgeProps = LegacySeatCountBadgeProps | NewSeatCountBadgeProps;
 
-export interface ParentContainerProps {
+interface Dimensions {
     width: number;
     height: number;
 }
@@ -50,9 +50,8 @@ export const SeatCountBadge = ({ count = 0, color = 'inherit', ...props }: SeatC
     );
 };
 
-export const SeatCountBadgeOnCircle = ({ count = 0, color = 'inherit', ...props }: SeatCountBadgeProps) => {
-    const containerWidth = 'containerWidth' in props ? props.containerWidth : props.containerProps.width;
-    const { x, y } = adjustCircleBadgePosition(containerWidth);
+export const SeatCountBadgeOnCircle = ({ count = 0, color = 'inherit', ...props }: NewSeatCountBadgeProps) => {
+    const { x, y } = adjustCircleBadgePosition(props.containerProps.width);
     return (
         <Badge
             x={x}
