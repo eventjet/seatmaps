@@ -1,11 +1,15 @@
 import * as React from 'react';
 import { Area, Block, Rectangle, Row, Seat, Seatmap, SeatShape, Text, Volume } from '../';
-import { SeatCountBadge } from '../SeatCountBadge';
+import { SeatCountBadge, SeatCountBadgeOnCircle, SeatCountBadgeOnEllipse } from '../SeatCountBadge';
 import ref from './complex-example-reference.png';
 
 export default {
     title: 'Seatmap',
     component: Seatmap,
+};
+const seatCountBadgeContainerProps = {
+    width: 400,
+    height: 200,
 };
 
 export const ComplexExample = () => (
@@ -254,7 +258,7 @@ export const ComplexExample = () => (
                         color="#ff9900"
                     >
                         <SeatCountBadge
-                            containerWidth={400}
+                            containerProps={seatCountBadgeContainerProps}
                             count={200}
                             color="#ff9900"
                         />
@@ -278,7 +282,7 @@ export const ComplexExample = () => (
                         active={true}
                     >
                         <SeatCountBadge
-                            containerWidth={400}
+                            containerProps={seatCountBadgeContainerProps}
                             count={200}
                             color="#00ff99"
                         />
@@ -298,12 +302,12 @@ export const ComplexExample = () => (
                         width={400}
                         x={1150}
                         y={600}
-                        label="Table 69"
+                        label="Table 23"
                         color="#ff9900"
-                        fontWeight={'normal'}
+                        shape={'ellipse'}
                     >
-                        <SeatCountBadge
-                            containerWidth={400}
+                        <SeatCountBadgeOnEllipse
+                            containerProps={seatCountBadgeContainerProps}
                             count={200}
                             color="#ff9900"
                         />
@@ -312,7 +316,38 @@ export const ComplexExample = () => (
                         height={200}
                         width={400}
                         x={700}
-                        y={1000}
+                        y={900}
+                        label="Table 69"
+                        color="#ff9900"
+                        fontWeight={'normal'}
+                    >
+                        <SeatCountBadge
+                            containerProps={seatCountBadgeContainerProps}
+                            count={200}
+                            color="#ff9900"
+                        />
+                    </Volume>
+                    <Volume
+                        height={200}
+                        width={200}
+                        x={1250}
+                        y={900}
+                        label="Table 1"
+                        color="#ff9900"
+                        fontWeight={'normal'}
+                        shape={'ellipse'}
+                    >
+                        <SeatCountBadgeOnCircle
+                            containerProps={{ ...seatCountBadgeContainerProps, width: 200 }}
+                            count={200}
+                            color="#ff9900"
+                        />
+                    </Volume>
+                    <Volume
+                        height={200}
+                        width={400}
+                        x={700}
+                        y={1300}
                         label="Rota!"
                         color="#ff0099"
                         angle={45}
@@ -321,7 +356,7 @@ export const ComplexExample = () => (
                         height={200}
                         width={400}
                         x={1150}
-                        y={1000}
+                        y={1300}
                         label="Rota!"
                         color="#ff0099"
                         angle={45}
