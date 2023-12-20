@@ -2,11 +2,19 @@ import { Badge } from './Badge';
 import { l } from './length';
 import { calculateBadgePosition } from './util/calculations';
 
-export interface SeatCountBadgeProps {
+export interface LegacySeatCountBadgeProps {
+    containerWidth: number;
     count: number;
     color?: string;
-    containerProps: ParentContainerProps;
 }
+
+export interface NewSeatCountBadgeProps {
+    containerProps: ParentContainerProps;
+    count: number;
+    color?: string;
+}
+
+type SeatCountBadgeProps = LegacySeatCountBadgeProps | NewSeatCountBadgeProps;
 
 export interface ParentContainerProps {
     width: number;
@@ -32,8 +40,9 @@ const badgePositionAdjustment = (containerWidth: number, isCircle = false) => {
     };
 };
 
-export const SeatCountBadge = ({ containerProps, count = 0, color = 'inherit' }: SeatCountBadgeProps) => {
-    const { x, y } = badgePositionAdjustment(containerProps.width);
+export const SeatCountBadge = ({ count = 0, color = 'inherit', ...props }: SeatCountBadgeProps) => {
+    const containerWidth = 'containerWidth' in props ? props.containerWidth : props.containerProps.width;
+    const { x, y } = badgePositionAdjustment(containerWidth);
     return (
         <Badge
             x={x}
@@ -44,8 +53,9 @@ export const SeatCountBadge = ({ containerProps, count = 0, color = 'inherit' }:
     );
 };
 
-export const SeatCountBadgeOnCircle = ({ containerProps, count = 0, color = 'inherit' }: SeatCountBadgeProps) => {
-    const { x, y } = badgePositionAdjustment(containerProps.width, true);
+export const SeatCountBadgeOnCircle = ({ count = 0, color = 'inherit', ...props }: SeatCountBadgeProps) => {
+    const containerWidth = 'containerWidth' in props ? props.containerWidth : props.containerProps.width;
+    const { x, y } = badgePositionAdjustment(containerWidth, true);
     return (
         <Badge
             x={x}
@@ -56,7 +66,7 @@ export const SeatCountBadgeOnCircle = ({ containerProps, count = 0, color = 'inh
     );
 };
 
-export const SeatCountBadgeOnEllipse = ({ containerProps, count = 0, color = 'inherit' }: SeatCountBadgeProps) => {
+export const SeatCountBadgeOnEllipse = ({ containerProps, count = 0, color = 'inherit' }: NewSeatCountBadgeProps) => {
     const [x, y] = calculateBadgePosition([0, 0], [containerProps?.width, containerProps?.height]);
     const x1 = x / 10;
     const y1 = y / 10;
