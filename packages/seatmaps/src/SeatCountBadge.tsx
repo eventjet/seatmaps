@@ -27,22 +27,19 @@ const VERTICAL_BADGE_PADDING = 2;
 const HORIZONTAL_BADGE_PADDING_CIRCLE = 4;
 const VERTICAL_BADGE_PADDING_CIRCLE = 4;
 
-const badgePositionAdjustment = (containerWidth: number, isCircle = false) => {
-    if (isCircle) {
-        return {
-            x: l(containerWidth) - HORIZONTAL_BADGE_PADDING_CIRCLE,
-            y: VERTICAL_BADGE_PADDING_CIRCLE,
-        };
-    }
-    return {
-        x: l(containerWidth) - HORIZONTAL_BADGE_PADDING,
-        y: VERTICAL_BADGE_PADDING,
-    };
-};
+const adjustCircleBadgePosition = (containerWidth: number) => ({
+    x: l(containerWidth) - HORIZONTAL_BADGE_PADDING_CIRCLE,
+    y: VERTICAL_BADGE_PADDING_CIRCLE,
+});
+
+const adjustRectangleBadgePosition = (containerWidth: number) => ({
+    x: l(containerWidth) - HORIZONTAL_BADGE_PADDING,
+    y: VERTICAL_BADGE_PADDING,
+});
 
 export const SeatCountBadge = ({ count = 0, color = 'inherit', ...props }: SeatCountBadgeProps) => {
     const containerWidth = 'containerWidth' in props ? props.containerWidth : props.containerProps.width;
-    const { x, y } = badgePositionAdjustment(containerWidth);
+    const { x, y } = adjustRectangleBadgePosition(containerWidth);
     return (
         <Badge
             x={x}
@@ -55,7 +52,7 @@ export const SeatCountBadge = ({ count = 0, color = 'inherit', ...props }: SeatC
 
 export const SeatCountBadgeOnCircle = ({ count = 0, color = 'inherit', ...props }: SeatCountBadgeProps) => {
     const containerWidth = 'containerWidth' in props ? props.containerWidth : props.containerProps.width;
-    const { x, y } = badgePositionAdjustment(containerWidth, true);
+    const { x, y } = adjustCircleBadgePosition(containerWidth);
     return (
         <Badge
             x={x}
