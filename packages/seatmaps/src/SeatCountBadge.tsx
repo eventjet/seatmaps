@@ -2,19 +2,19 @@ import { Badge } from './Badge';
 import { l } from './length';
 import { calculateBadgePosition } from './util/calculations';
 
-export interface LegacySeatCountBadgeProps {
+interface LegacySeatCountBadgeProps {
     containerWidth: number;
     count: number;
     color?: string;
 }
 
-export interface NewSeatCountBadgeProps {
+interface NewSeatCountBadgeProps {
     containerProps: ParentContainerProps;
     count: number;
     color?: string;
 }
 
-type SeatCountBadgeProps = LegacySeatCountBadgeProps | NewSeatCountBadgeProps;
+export type SeatCountBadgeProps = LegacySeatCountBadgeProps | NewSeatCountBadgeProps;
 
 export interface ParentContainerProps {
     width: number;
