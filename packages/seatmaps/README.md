@@ -79,7 +79,7 @@ const component = () => (
 
 ```
 
-#### SeatCountBadge on Circle Volume
+#### SeatCountBadge on a round Volume
 
 ```javascript
 import React from 'react';
@@ -96,7 +96,7 @@ const component = () => (
       label="Seat 1"
       shape={'ellipse'}
   >
-      <SeatCountBadgeOnCircle
+      <SeatCountBadgeOnEllipse
           containerProps={{ width: 400 }}
           count={200}
           color="#ff9900"

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Area } from '../Area';
 import { BadgeProps } from '../Badge';
-import { SeatCountBadge, SeatCountBadgeOnCircle } from '../SeatCountBadge';
+import { SeatCountBadge, SeatCountBadgeOnEllipse } from '../SeatCountBadge';
 import { Seatmap } from '../Seatmap';
 import { Volume, VolumeProps } from '../Volume';
 
@@ -56,7 +56,7 @@ const Wrapped = ({ badgeProps, volumeProps }: WrappedProps) => {
                         shape="ellipse"
                         {...volumeProps}
                     >
-                        <SeatCountBadgeOnCircle
+                        <SeatCountBadgeOnEllipse
                             containerProps={{ height: containerHeight, width: containerWidth }}
                             {...badgeProps}
                         />

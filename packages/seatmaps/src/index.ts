@@ -1,13 +1,13 @@
 export { Area, type AreaProps } from './Area';
+export { Badge, type BadgeProps } from './Badge';
 export { Block, type BlockProps } from './Block';
 export { Circle, type CircleProps } from './Circle';
 export { Div } from './Div';
 export { Ellipse, type EllipseProps } from './Ellipse';
 export { Rectangle, type RectangleProps } from './Rectangle';
 export { Row, type RowProps } from './Row';
-export { Seat, type SeatProps, SeatShape } from './Seat';
+export { Seat, SeatShape, type SeatProps } from './Seat';
+export { SeatCountBadge, SeatCountBadgeOnEllipse, type SeatCountBadgeProps } from './SeatCountBadge';
 export { Seatmap, type SeatmapProps } from './Seatmap';
 export { Text, type TextProps } from './Text';
 export { Volume, type VolumeProps } from './Volume';
-export { Badge, type BadgeProps} from './Badge';
-export { SeatCountBadge, SeatCountBadgeOnEllipse, SeatCountBadgeOnCircle, type SeatCountBadgeProps } from './SeatCountBadge';

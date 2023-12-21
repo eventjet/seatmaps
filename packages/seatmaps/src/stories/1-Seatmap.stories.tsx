@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Area, Block, Rectangle, Row, Seat, Seatmap, SeatShape, Text, Volume } from '../';
-import { SeatCountBadge, SeatCountBadgeOnCircle, SeatCountBadgeOnEllipse } from '../SeatCountBadge';
+import { SeatCountBadge, SeatCountBadgeOnEllipse } from '../SeatCountBadge';
 import ref from './complex-example-reference.png';
 
 export default {
@@ -337,7 +337,7 @@ export const ComplexExample = () => (
                         fontWeight={'normal'}
                         shape={'ellipse'}
                     >
-                        <SeatCountBadgeOnCircle
+                        <SeatCountBadgeOnEllipse
                             containerProps={{ ...seatCountBadgeContainerProps, width: 200 }}
                             count={200}
                             color="#ff9900"
@@ -362,6 +362,22 @@ export const ComplexExample = () => (
                         angle={45}
                         shape={'ellipse'}
                     />
+
+                    <Volume
+                        height={100}
+                        width={400}
+                        x={700}
+                        y={1700}
+                        label="Table 69"
+                        color="#ff9900"
+                        fontWeight={'normal'}
+                    >
+                        <SeatCountBadge
+                            containerProps={seatCountBadgeContainerProps}
+                            count={200}
+                            color="#ff9900"
+                        />
+                    </Volume>
                 </Area>
             </Seatmap>
         </div>

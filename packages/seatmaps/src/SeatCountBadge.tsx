@@ -22,15 +22,8 @@ interface Dimensions {
 }
 
 // to place the badge on the right side of the volume (yes, that's on purpose, because unfortunately one value doesn't work for both shapes.)
-const HORIZONTAL_BADGE_PADDING = 2;
-const VERTICAL_BADGE_PADDING = 2;
-const HORIZONTAL_BADGE_PADDING_CIRCLE = 4;
-const VERTICAL_BADGE_PADDING_CIRCLE = 4;
-
-const adjustCircleBadgePosition = (containerWidth: number) => ({
-    x: l(containerWidth) - HORIZONTAL_BADGE_PADDING_CIRCLE,
-    y: VERTICAL_BADGE_PADDING_CIRCLE,
-});
+const HORIZONTAL_BADGE_PADDING = 5;
+const VERTICAL_BADGE_PADDING = 0;
 
 const adjustRectangleBadgePosition = (containerWidth: number) => ({
     x: l(containerWidth) - HORIZONTAL_BADGE_PADDING,
@@ -40,18 +33,6 @@ const adjustRectangleBadgePosition = (containerWidth: number) => ({
 export const SeatCountBadge = ({ count = 0, color = 'inherit', ...props }: SeatCountBadgeProps) => {
     const containerWidth = 'containerWidth' in props ? props.containerWidth : props.containerProps.width;
     const { x, y } = adjustRectangleBadgePosition(containerWidth);
-    return (
-        <Badge
-            x={x}
-            y={y}
-            color={color}
-            count={count}
-        />
-    );
-};
-
-export const SeatCountBadgeOnCircle = ({ count = 0, color = 'inherit', ...props }: NewSeatCountBadgeProps) => {
-    const { x, y } = adjustCircleBadgePosition(props.containerProps.width);
     return (
         <Badge
             x={x}
