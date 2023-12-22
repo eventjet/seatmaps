@@ -1,7 +1,7 @@
 {
     "name": "@eventjet/react-seatmaps",
     "description": "React components for rendering Eventjet seatmaps",
-    "version": "1.0.3",
+    "version": "1.0.4-beta.0",
     "author": {
         "name": "Rudolph Gottesheim",
         "email": "r.gottesheim@loot.at"
@@ -29,6 +29,7 @@
         "storybook": "start-storybook -p 6006",
         "build-storybook": "build-storybook",
         "predeploy": "yarn run build",
+        "release:pre-release": "yarn clean && yarn run build && npm version $(semver $npm_package_version -i prerelease --preid beta)",
         "release:patch": "yarn clean && yarn run build && npm version patch",
         "release:minor": "yarn clean && yarn run build && npm version minor",
         "release:major": "yarn clean && yarn run build && npm version major",

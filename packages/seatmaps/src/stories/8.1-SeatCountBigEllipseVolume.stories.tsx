@@ -1,18 +1,17 @@
 import * as React from 'react';
 import { Area } from '../Area';
 import { BadgeProps } from '../Badge';
-import { SeatCountBadge } from '../SeatCountBadge';
 import { Seatmap } from '../Seatmap';
 import { Volume, VolumeProps } from '../Volume';
 
 export default {
-    title: 'Volume with SeatCountBadge',
-    component: SeatCountBadge,
+    title: 'SeatCount - Big Ellipse-Volume',
+    component: Volume,
     parameters: {
         docs: {
             description: {
                 component:
-                    "modified Badge Component to use, e.g., as a child of the [Volume Component](../?path=/docs/volume--rectangle). It's nicely positioned at the top right of the volume.",
+                    "show the number of seats in an ellipse-shaped volume. We don't use the SeatCountBadge-Component here, because it's not possible - at the moment - to position it correctly.",
             },
         },
     },
@@ -26,40 +25,31 @@ interface WrappedProps {
     volumeProps?: Partial<VolumeProps>;
 }
 
-const volumes: Array<[string, number, number]> = [
-    ['Table 16', 0, 0],
-    ['Table 17', 600, 0],
-    ['Table 18', 0, 400],
-    ['Table 19', 600, 400],
-    ['Table 20', 0, 800],
-    ['Table 21', 600, 800],
-];
+const DEFAULT_WIDTH = 3800;
+const DEFAULT_HEIGHT = 2000;
+
+const volumes: Array<[string, number, number]> = [['Stehplatz', 0, 0]];
 
 const Wrapped = ({ badgeProps, volumeProps }: WrappedProps) => {
     const [active, setActive] = React.useState<{ [volumeLabel: string]: boolean }>({});
-    const containerWidth = 400;
+    const containerWidth = volumeProps?.width ?? DEFAULT_WIDTH;
     return (
         <Seatmap className="badge">
             <Area>
                 {volumes.map(([label, x, y], index) => (
                     <Volume
                         key={index}
-                        label={label}
+                        label={`${label} (${badgeProps?.count ?? 0})`}
                         x={x}
                         y={y}
                         onClick={() => setActive({ ...active, [label]: !active[label] })}
                         width={containerWidth}
-                        height={250}
+                        height={volumeProps?.height ?? DEFAULT_HEIGHT}
                         color="#ff9900"
                         active={active[label]}
-                        shape="rectangle"
+                        shape="ellipse"
                         {...volumeProps}
-                    >
-                        <SeatCountBadge
-                            containerWidth={containerWidth}
-                            {...badgeProps}
-                        />
-                    </Volume>
+                    />
                 ))}
             </Area>
         </Seatmap>
