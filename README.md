@@ -1,17 +1,138 @@
-## eventjet-seatmaps-monorepo
+# eventjet-seatmaps
 
-### Release package
+Monorepo for Eventjet seatmap components.
 
-We have scripts defined in the respective package folders to easily release a new version of the package. These scripts will automatically remove build folders, run the build command, and bump the version.
+## Packages
 
-Use `yarn release:patch`, `yarn release:minor`, or `yarn release:major` to release a new version. After that, push the changes to the repository.
+- **[@eventjet/react-seatmaps](packages/seatmaps)** - React components for rendering interactive SVG-based seatmaps
 
-To publish a package to npm, you must be logged in to your npm account.
-You can check if you are logged in by running `npm whoami` in the terminal. If you are not logged in, run `npm login` in the terminal and follow the instructions.
+## Development
 
-Before publishing, make sure you are in the correct directory. You can check the tarball content with `npm publish --dry-run`.
-If everything looks good, you can publish the package using `yarn deploy`.
+Install dependencies:
 
-#### Good to Know
+```bash
+pnpm install
+```
 
-Under the hood, we use `npm publish` to publish the package instead of `yarn publish`. With `npm publish`, we can utilize the already bumped version number in `package.json`. In contrast, with `yarn publish`, you have to specify the package version during the publishing process.
+Start Storybook:
+
+```bash
+cd packages/seatmaps
+pnpm storybook
+```
+
+Build:
+
+```bash
+pnpm build
+```
+
+Run tests:
+
+```bash
+pnpm test
+```
+
+Type check:
+
+```bash
+pnpm typecheck
+```
+
+Lint:
+
+```bash
+pnpm lint
+```
+
+Format:
+
+```bash
+pnpm format
+```
+
+## Releasing
+
+Git tags, GitHub releases, and npm releases are **independent** and must be managed separately.
+
+| System              | What it tracks             | How it's created                 |
+| ------------------- | -------------------------- | -------------------------------- |
+| **npm**             | Published package versions | `npm publish`                    |
+| **Git tags**        | Version snapshots in repo  | `git tag` + `git push --tags`    |
+| **GitHub releases** | Release notes & artifacts  | GitHub UI or `gh release create` |
+
+### Release workflow
+
+From `packages/seatmaps`:
+
+**1. Bump version in package.json**
+
+```bash
+npm version patch
+```
+
+Or use `npm version minor` / `npm version major`. This updates `package.json` and creates a git commit + tag.
+
+**2. Push commit and tag**
+
+```bash
+git push && git push --tags
+```
+
+**3. Verify npm login**
+
+```bash
+npm whoami
+```
+
+**4. Check tarball contents**
+
+```bash
+npm publish --dry-run
+```
+
+**5. Publish to npm**
+
+```bash
+npm publish
+```
+
+**6. (Optional) Create GitHub release**
+
+```bash
+gh release create v1.0.5 --generate-notes
+```
+
+Or create via GitHub UI at Releases > "Draft a new release" > select the tag.
+
+### Syncing after manual version edits
+
+If you edited `package.json` version manually (without `npm version`), create the tag separately:
+
+```bash
+git tag v1.0.5
+```
+
+```bash
+git push --tags
+```
+
+### Checking current state
+
+Compare versions across systems:
+
+```bash
+npm view @eventjet/react-seatmaps version
+```
+
+```bash
+git tag -l | sort -V | tail -1
+```
+
+```bash
+gh release list --limit 1
+```
+
+## License
+
+MIT
