@@ -1,30 +1,25 @@
 {
-    "name": "eventjet-seatmaps-monorepo",
-    "version": "0.1.3",
-    "private": true,
-    "author": {
-        "name": "Rudolph Gottesheim",
-        "email": "r.gottesheim@loot.at"
-    },
-    "license": "MIT",
-    "scripts": {
-        "build": "npx lerna run build",
-        "clean": "rm -Rf ./node_modules ./meta && npx lerna exec -- npm run clean"
-    },
-    "devDependencies": {
-        "@babel/core": "^7.18.13",
-        "@babel/plugin-transform-modules-umd": "^7.18.6",
-        "@testing-library/react": "^13.3.0",
-        "@types/jest": "^28.1.7",
-        "@types/react": "^18.0.17",
-        "lerna": "^5.4.3",
-        "nx": "^14.5.8",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "rollup": "^2.78.1",
-        "rollup-plugin-invariant": "^0.9.2",
-        "rollup-plugin-node-resolve": "^5.2.0",
-        "rollup-plugin-terser": "^7.0.2",
-        "typescript": "^4.0.5"
-    }
+  "name": "eventjet-seatmaps",
+  "private": true,
+  "type": "module",
+  "author": {
+    "name": "Rudolph Gottesheim",
+    "email": "r.gottesheim@loot.at"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "format": "pnpm -r format",
+    "format:check": "pnpm -r format:check",
+    "storybook": "pnpm --filter @eventjet/react-seatmaps storybook",
+    "clean": "pnpm -r clean"
+  },
+  "devDependencies": {
+    "husky": "^9.0.0",
+    "lint-staged": "^15.0.0",
+    "prettier": "^3.4.0"
+  }
 }

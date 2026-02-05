@@ -1,8 +1,9 @@
 import { fireEvent, render } from '@testing-library/react';
+import { vi } from 'vitest';
 import { Seat } from './Seat';
 
 it('reports clicks', () => {
-    const handleClick = jest.fn();
+    const handleClick = vi.fn();
     const { getByText } = render(
         <svg>
             <Seat
@@ -18,7 +19,7 @@ it('reports clicks', () => {
 });
 
 it('does not report a click if it is disabled', () => {
-    const handleClick = jest.fn();
+    const handleClick = vi.fn();
     const { getByText } = render(
         <svg>
             <Seat

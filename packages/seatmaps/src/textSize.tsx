@@ -44,6 +44,6 @@ export const useTextSize = (ownSize: TextSize) => {
         return () => {
             unregister(ownSize);
         };
-    }, [ownSize]);
+    }, [ownSize, register, unregister]);
     return textSize;
 };
