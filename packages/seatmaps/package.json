@@ -1,16 +1,14 @@
 {
     "name": "@eventjet/react-seatmaps",
-    "description": "React components for rendering Eventjet seatmaps",
     "version": "1.0.4",
+    "description": "React components for rendering Eventjet seatmaps",
+    "license": "MIT",
     "author": {
         "name": "Rudolph Gottesheim",
         "email": "r.gottesheim@loot.at"
     },
-    "license": "MIT",
+    "sideEffects": false,
     "type": "module",
-    "main": "./dist/index.cjs",
-    "module": "./dist/index.js",
-    "types": "./dist/index.d.ts",
     "exports": {
         ".": {
             "types": "./dist/index.d.ts",
@@ -19,33 +17,26 @@
         },
         "./package.json": "./package.json"
     },
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
     "files": [
         "dist"
     ],
-    "sideEffects": false,
-    "publishConfig": {
-        "access": "public"
-    },
     "scripts": {
+        "api": "api-extractor run --local",
+        "api:check": "api-extractor run",
         "build": "tsup",
-        "dev": "tsup --watch",
-        "test": "vitest run",
-        "test:watch": "vitest",
-        "lint": "eslint src",
-        "typecheck": "tsc --noEmit",
-        "storybook": "storybook dev -p 6006",
         "build-storybook": "storybook build",
+        "clean": "rm -rf dist",
+        "dev": "tsup --watch",
         "format": "prettier --write .",
         "format:check": "prettier --check .",
-        "clean": "rm -rf dist",
-        "api": "api-extractor run --local",
-        "api:check": "api-extractor run"
-    },
-    "peerDependencies": {
-        "@emotion/react": "^11.10.0",
-        "@emotion/styled": "^11.10.0",
-        "react": "^18.0.0 || ^19.0.0",
-        "react-dom": "^18.0.0 || ^19.0.0"
+        "lint": "eslint src",
+        "storybook": "storybook dev -p 6006",
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "typecheck": "tsc --noEmit"
     },
     "devDependencies": {
         "@emotion/react": "^11.10.0",
@@ -73,5 +64,14 @@
         "typescript-eslint": "^8.0.0",
         "vite": "^6.0.0",
         "vitest": "^2.0.0"
+    },
+    "peerDependencies": {
+        "@emotion/react": "^11.10.0",
+        "@emotion/styled": "^11.10.0",
+        "react": "^18.0.0 || ^19.0.0",
+        "react-dom": "^18.0.0 || ^19.0.0"
+    },
+    "publishConfig": {
+        "access": "public"
     }
 }
