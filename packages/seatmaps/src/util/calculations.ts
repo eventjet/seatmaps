@@ -1,6 +1,6 @@
 type Vector = [number, number];
 
-export const calculateEllipseCenter = (width: number, height: number, x: number, y: number): [number, number] => {
+const calculateEllipseCenter = (width: number, height: number, x: number, y: number): [number, number] => {
     const Cx = x + width / 2;
     const Cy = y + height / 2;
     return [Cx, Cy];

@@ -15,10 +15,12 @@
     "format": "pnpm -r format",
     "format:check": "pnpm -r format:check",
     "storybook": "pnpm --filter @eventjet/react-seatmaps storybook",
-    "clean": "pnpm -r clean"
+    "clean": "pnpm -r clean",
+    "knip": "knip"
   },
   "devDependencies": {
     "husky": "^9.0.0",
+    "knip": "^5.83.0",
     "lint-staged": "^15.0.0",
     "prettier": "^3.4.0"
   }

@@ -45,6 +45,12 @@ Lint:
 pnpm lint
 ```
 
+Find unused code:
+
+```bash
+pnpm knip
+```
+
 Format:
 
 ```bash
