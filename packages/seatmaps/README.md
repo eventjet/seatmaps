@@ -230,12 +230,9 @@ Generic circular badge component.
 <Badge
     x={100}
     y={100}
-    radius={20}
+    count={99}
     color="#ff0000"
-    borderColor="#ffffff"
->
-    99+
-</Badge>
+/>
 ```
 
 ## Coordinate System

@@ -14,6 +14,7 @@
     "format:check": "pnpm -r format:check",
     "knip": "knip",
     "lint": "pnpm -r lint",
+    "prepare": "husky",
     "storybook": "pnpm --filter @eventjet/react-seatmaps storybook",
     "test": "pnpm -r test",
     "typecheck": "pnpm -r typecheck"
