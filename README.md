@@ -51,6 +51,22 @@ Format:
 pnpm format
 ```
 
+## API Compatibility
+
+The public API is tracked in `packages/seatmaps/api/react-seatmaps.api.md`. CI fails if the API changes without updating this file.
+
+**If you intentionally changed the API** (added/removed exports, changed prop types):
+
+```bash
+cd packages/seatmaps
+pnpm build
+pnpm api
+```
+
+Review the diff in `api/react-seatmaps.api.md` and commit it with your changes.
+
+**If CI fails unexpectedly**, you may have accidentally changed the public API. Check the diff to understand what changed.
+
 ## Releasing
 
 Git tags, GitHub releases, and npm releases are **independent** and must be managed separately.

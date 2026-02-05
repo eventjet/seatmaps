@@ -22,3 +22,6 @@ jobs:
       - run: pnpm typecheck
       - run: pnpm test
       - run: pnpm build
+      - name: Check API compatibility
+        run: pnpm api:check
+        working-directory: packages/seatmaps
