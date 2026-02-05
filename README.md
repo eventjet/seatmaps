@@ -51,6 +51,24 @@ Format:
 pnpm format
 ```
 
+## Testing in another project
+
+To test changes live in a project that depends on this package:
+
+```bash
+# In your other project
+pnpm add /path/to/eventjet-seatmaps-js/packages/seatmaps
+
+# In packages/seatmaps
+pnpm dev
+```
+
+This links the local package and rebuilds on every change. When done, switch back to npm:
+
+```bash
+pnpm add @eventjet/react-seatmaps
+```
+
 ## API Compatibility
 
 The public API is tracked in `packages/seatmaps/api/react-seatmaps.api.md`. CI fails if the API changes without updating this file.
