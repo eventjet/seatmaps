@@ -17,14 +17,43 @@ const Name = styled('text')`
     font-size: 6px;
 `;
 
+/**
+ * Props for the {@link Row} component.
+ * @public
+ */
 export interface RowProps {
+    /** Row identifier displayed to the left of the first seat. */
     leftLabel?: string;
+    /** Row identifier displayed to the right of the last seat. */
     rightLabel?: string;
+    /** X position of the row in seatmap units. Defaults to `0`. */
     x?: number;
+    /** Y position of the row in seatmap units. Defaults to `0`. */
     y?: number;
+    /** Seat elements to render in the row. */
     children?: ReactNode;
 }
 
+/**
+ * A row of seats within an area.
+ *
+ * Rows are addressable elements with identities meaningful to the ticketing system.
+ * The row is identified by its label (shown via `leftLabel` or `rightLabel`), which
+ * combines with the area and seat name to form a unique seat identifier.
+ *
+ * Row labels are automatically positioned relative to the first and last seats.
+ *
+ * @example
+ * ```tsx
+ * <Row leftLabel="A" rightLabel="A">
+ *   <Seat name="1" />
+ *   <Seat name="2" x={100} />
+ *   <Seat name="3" x={200} />
+ * </Row>
+ * ```
+ *
+ * @public
+ */
 export const Row = ({ children, leftLabel, rightLabel, x = 0, y = 0 }: RowProps) => {
     const [[leftX, leftY], [rightX, rightY]] = ((): [left: [x: number, y: number], right: [x: number, y: number]] => {
         if (!Array.isArray(children)) {

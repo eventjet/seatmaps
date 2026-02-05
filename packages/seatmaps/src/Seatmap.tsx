@@ -9,11 +9,38 @@ const measureContentSize = (node: SVGSVGElement): [number, number, number, numbe
     return [box.x, box.y, box.x + box.width, box.y + box.height];
 };
 
+/**
+ * Props for the {@link Seatmap} component.
+ * @public
+ */
 export interface SeatmapProps {
+    /** CSS class name to apply to the root SVG element. */
     className?: string;
+    /** Child elements to render inside the seatmap. */
     children?: ReactNode;
 }
 
+/**
+ * Root container component for rendering a seatmap as an SVG.
+ *
+ * Automatically calculates the viewBox based on its content using a MutationObserver,
+ * so the SVG scales to fit all child elements. Wraps children in a TextSizeController
+ * for responsive text sizing.
+ *
+ * @example
+ * ```tsx
+ * <Seatmap>
+ *   <Block x={100} y={100}>
+ *     <Row>
+ *       <Seat name="A1" />
+ *       <Seat name="A2" x={100} />
+ *     </Row>
+ *   </Block>
+ * </Seatmap>
+ * ```
+ *
+ * @public
+ */
 export const Seatmap = ({ children, className }: SeatmapProps) => {
     const [[minX, minY, maxX, maxY], setContentSize] = useState<[number, number, number, number]>([0, 0, 0, 0]);
     const [rootNode, setRootNode] = useState<SVGSVGElement>();

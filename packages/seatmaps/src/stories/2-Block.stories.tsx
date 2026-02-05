@@ -18,7 +18,11 @@ const TenByTen = ({ seatProps = {}, active: defaultActive = [] }: TenByTenProps)
     const toggle = (rowName: string, seatName: string) => {
         const combined = `${rowName}/${seatName}`;
         const set = new Set(active);
-        set.has(combined) ? set.delete(combined) : set.add(combined);
+        if (set.has(combined)) {
+            set.delete(combined);
+        } else {
+            set.add(combined);
+        }
         setActive(Array.from(set));
     };
     return (

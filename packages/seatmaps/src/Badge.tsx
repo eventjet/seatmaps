@@ -1,10 +1,18 @@
 import styled from '@emotion/styled';
 import { textCss } from './textCss';
 
+/**
+ * Props for the {@link Badge} component.
+ * @public
+ */
 export interface BadgeProps {
+    /** The number to display inside the badge. */
     count: number;
+    /** Background color of the badge. Defaults to `#808080`. */
     color?: string;
+    /** Y position of the badge center in SVG units. */
     y: number;
+    /** X position of the badge center in SVG units. */
     x: number;
 }
 
@@ -27,6 +35,19 @@ const StyledTextOverlayCircle = styled.circle`
     fill: rgba(255, 255, 255, 0.54);
 `;
 
+/**
+ * A circular badge for displaying numeric counts.
+ *
+ * Renders as a filled circle with a semi-transparent overlay and centered text.
+ * Commonly used with {@link SeatCountBadge} to show available seat counts on volumes.
+ *
+ * @example
+ * ```tsx
+ * <Badge x={50} y={50} count={12} color="#4a90d9" />
+ * ```
+ *
+ * @public
+ */
 export const Badge = ({ x, y, count = 0, color = '#808080' }: BadgeProps) => {
     return (
         <>

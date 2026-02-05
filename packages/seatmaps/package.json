@@ -1,77 +1,77 @@
 {
     "name": "@eventjet/react-seatmaps",
-    "description": "React components for rendering Eventjet seatmaps",
     "version": "1.0.4",
+    "description": "React components for rendering Eventjet seatmaps",
+    "license": "MIT",
     "author": {
         "name": "Rudolph Gottesheim",
         "email": "r.gottesheim@loot.at"
     },
-    "license": "MIT",
-    "main": "./lib/index.js",
-    "types": "./lib/index.d.ts",
+    "sideEffects": false,
+    "type": "module",
     "exports": {
         ".": {
-            "require": "./lib/index.js",
-            "import": "./lib/index.js",
-            "types": "./lib/index.d.ts"
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
         },
         "./package.json": "./package.json"
     },
-    "scripts": {
-        "clean": "rm -rf lib/* deno/lib/*",
-        "prepare": "yarn run build",
-        "prebuild": "yarn run clean",
-        "build": "yarn run clean && yarn run build:cjs && yarn run build:esm",
-        "build:cjs": "tsc --p config/tsconfig.cjs.json",
-        "build:esm": "rollup --config config/rollup.config.js",
-        "postbuild": "npx rollup -c ./config/rollup.config.js",
-        "watch": "npx tsc-watch --onSuccess \"yarn run postbuild\" -p ./config",
-        "storybook": "start-storybook -p 6006",
-        "build-storybook": "build-storybook",
-        "predeploy": "yarn run build",
-        "release:pre-release": "yarn clean && yarn run build && npm version $(semver $npm_package_version -i prerelease --preid beta)",
-        "release:patch": "yarn clean && yarn run build && npm version patch",
-        "release:minor": "yarn clean && yarn run build && npm version minor",
-        "release:major": "yarn clean && yarn run build && npm version major",
-        "deploy": "npm publish"
-    },
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
     "files": [
-        "lib"
+        "dist"
     ],
-    "publishConfig": {
-        "access": "public"
-    },
-    "peerDependencies": {
-        "@emotion/css": "^11.10.0",
-        "@emotion/react": "^11.10.0",
-        "@emotion/styled": "^11.10.0"
+    "scripts": {
+        "api": "api-extractor run --local",
+        "api:check": "api-extractor run",
+        "build": "tsup",
+        "build-storybook": "storybook build",
+        "clean": "rm -rf dist",
+        "dev": "tsup --watch",
+        "format": "prettier --write .",
+        "format:check": "prettier --check .",
+        "lint": "eslint src",
+        "storybook": "storybook dev -p 6006",
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "typecheck": "tsc --noEmit"
     },
     "devDependencies": {
-        "@babel/core": "^7.18.13",
-        "@emotion/css": "^11.10.0",
         "@emotion/react": "^11.10.0",
         "@emotion/styled": "^11.10.0",
-        "@rollup/plugin-typescript": "^8.3.4",
-        "@storybook/addon-actions": "^6.5.10",
-        "@storybook/addon-essentials": "^6.5.10",
-        "@storybook/addon-interactions": "^6.5.10",
-        "@storybook/addon-links": "^6.5.10",
-        "@storybook/builder-webpack4": "^6.5.10",
-        "@storybook/manager-webpack4": "^6.5.10",
-        "@storybook/react": "^6.5.10",
-        "@storybook/testing-library": "^0.0.13",
-        "@testing-library/react": "^13.3.0",
-        "@types/react-dom": "^18.0.6",
-        "babel-loader": "^8.0.6",
-        "babel-preset-react-app": "^10.0.1",
-        "jest": "^26.6.1",
-        "levenary": "^1.1.1",
-        "prettier": "3.1.0",
+        "@eslint/js": "^9.0.0",
+        "@microsoft/api-extractor": "^7.56.2",
+        "@storybook/addon-essentials": "^8.4.0",
+        "@storybook/addon-interactions": "^8.4.0",
+        "@storybook/react": "^8.4.0",
+        "@storybook/react-vite": "^8.4.0",
+        "@testing-library/react": "^16.0.0",
+        "@types/react": "^18.0.0",
+        "@types/react-dom": "^18.0.0",
+        "@vitejs/plugin-react": "^4.3.0",
+        "eslint": "^9.0.0",
+        "eslint-plugin-react": "^7.35.0",
+        "eslint-plugin-react-hooks": "^5.0.0",
+        "jsdom": "^25.0.0",
+        "prettier": "^3.4.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
-        "require-from-string": "^2.0.2",
-        "rollup": "^2.78.1",
-        "typescript": "^4.7.4"
+        "storybook": "^8.4.0",
+        "tsup": "^8.0.0",
+        "typescript": "^5.7.0",
+        "typescript-eslint": "^8.0.0",
+        "vite": "^6.0.0",
+        "vitest": "^2.0.0"
     },
-    "dependencies": {}
+    "peerDependencies": {
+        "@emotion/react": "^11.10.0",
+        "@emotion/styled": "^11.10.0",
+        "react": "^18.0.0 || ^19.0.0",
+        "react-dom": "^18.0.0 || ^19.0.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
 }
