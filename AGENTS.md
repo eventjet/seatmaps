@@ -6,26 +6,33 @@ This file provides guidance to AI coding assistants when working with code in th
 
 **@eventjet/react-seatmaps** is a React component library for rendering interactive SVG-based seatmaps in ticketing systems. It provides visualization of seats, volumes (large seating areas), rows, and blocks with support for user interactions and styling.
 
-**Structure:** Monorepo (Lerna + Nx) with single package at `packages/seatmaps/`
+**Structure:** Monorepo (pnpm workspaces) with single package at `packages/seatmaps/`
 
 ## Common Commands
 
 All commands run from `packages/seatmaps/`:
 
 ```bash
-yarn build              # Full build (clean + CJS + ESM + UMD)
-yarn build:cjs          # Build CommonJS only
-yarn build:esm          # Build ES modules + UMD via Rollup
-yarn watch              # Watch mode with tsc-watch
-yarn storybook          # Start Storybook dev server on port 6006
-yarn build-storybook    # Build static Storybook
-yarn clean              # Remove lib/ directory
+pnpm build              # Build CJS + ESM via tsup
+pnpm dev                # Watch mode with tsup
+pnpm test               # Run tests with Vitest
+pnpm test:watch         # Watch mode for tests
+pnpm lint               # ESLint
+pnpm typecheck          # TypeScript type checking
+pnpm storybook          # Start Storybook dev server on port 6006
+pnpm build-storybook    # Build static Storybook
+pnpm clean              # Remove dist/ directory
+pnpm api                # Update API report (api-extractor)
+pnpm api:check          # Check for API changes (CI)
 ```
 
 Root level:
+
 ```bash
-yarn build              # Build all packages via Lerna
-yarn clean              # Full clean including node_modules
+pnpm build              # Build all packages
+pnpm test               # Run all tests
+pnpm lint               # Lint all packages
+pnpm clean              # Clean all packages
 ```
 
 ## Architecture
@@ -53,12 +60,27 @@ Uses Emotion (`@emotion/styled`, `@emotion/css`) for dynamic SVG styling. Emotio
 
 ## TypeScript Configuration
 
-- Base config: `config/tsconfig.base.json` (ES2018, strict mode, JSX react-jsx)
-- CJS output: `config/tsconfig.cjs.json` → `lib/`
-- ESM output: `config/tsconfig.esm.json` (used by Rollup)
-- Stories excluded from compilation
+- Single `tsconfig.json` (ES2020, strict mode, JSX react-jsx, bundler module resolution)
+- tsup handles CJS/ESM bundling → `dist/`
+- Tests and stories excluded from compilation
+
+## Testing
+
+- Vitest with jsdom environment
+- React Testing Library for component tests
+- Test files: `*.test.tsx` alongside source files
+
+## API Tracking
+
+Uses `@microsoft/api-extractor` to detect breaking changes:
+
+- Public API tracked in `api/react-seatmaps.api.md`
+- Run `pnpm api` to update the report after intentional API changes
+- CI runs `pnpm api:check` and fails if API changed without updating the report
 
 ## Code Style
 
+- ESLint with flat config (eslint.config.js), includes React and React Hooks plugins
 - Prettier configured: 4-space tabs, single quotes, trailing commas, 120 char line width
+- Pre-commit hooks via husky + lint-staged run lint and format checks
 - All SVG coordinates go through `length()` function for scaling
