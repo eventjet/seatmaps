@@ -17,13 +17,13 @@ pnpm add @eventjet/react-seatmaps
 ### Peer Dependencies
 
 ```bash
-npm install react react-dom @emotion/css @emotion/react @emotion/styled
+npm install react react-dom @emotion/react @emotion/styled
 ```
 
 or
 
 ```bash
-pnpm add react react-dom @emotion/css @emotion/react @emotion/styled
+pnpm add react react-dom @emotion/react @emotion/styled
 ```
 
 ## Quick Start

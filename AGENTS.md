@@ -56,7 +56,7 @@ pnpm clean              # Clean all packages
 
 ### Styling
 
-Uses Emotion (`@emotion/styled`, `@emotion/css`) for dynamic SVG styling. Emotion packages are peer dependencies.
+Uses Emotion (`@emotion/react`, `@emotion/styled`) for dynamic SVG styling. Emotion packages are peer dependencies.
 
 ## TypeScript Configuration
 
