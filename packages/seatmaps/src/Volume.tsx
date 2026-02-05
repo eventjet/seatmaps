@@ -91,20 +91,38 @@ const Scrim = ({ width = 'auto', x, y, text, anchor = 'bottom-left' }: ScrimProp
     );
 };
 
+/**
+ * Props for the {@link Volume} component.
+ * @public
+ */
 export interface VolumeProps {
+    /** Whether the volume is currently selected. Displays an animated dashed border when true. */
     active?: boolean;
+    /** Rotation angle in degrees. Rotates the volume and its children around the center point `(x + width/2, y + height/2)`. */
     angle?: number;
+    /** CSS class name to apply to the volume group element. */
     className?: string;
+    /** Fill color for the volume shape. Defaults to `#808080`. Ignored when `disabled` is true. */
     color?: string;
+    /** Whether the volume is disabled. Disabled volumes appear grayed out and don't respond to clicks. */
     disabled?: boolean;
+    /** Height of the volume in seatmap units. */
     height: number;
+    /** Volume identifier. Must be unique within the containing {@link Area}. Displayed at the bottom with a semi-transparent background. */
     label?: string;
+    /** Callback fired when the volume is clicked (unless disabled). */
     onClick?: () => void;
+    /** Shape of the volume. Defaults to `'rectangle'`. */
     shape?: 'rectangle' | 'ellipse';
+    /** Width of the volume in seatmap units. */
     width: number;
+    /** X position of the volume's top-left corner in seatmap units. Defaults to `0`. */
     x?: number;
+    /** Y position of the volume's top-left corner in seatmap units. Defaults to `0`. */
     y?: number;
+    /** Child elements to render inside the volume (e.g., badges). */
     children?: ReactNode;
+    /** Font weight for the label text. Defaults to `'bold'`. */
     fontWeight?: CSSProperties['fontWeight'];
 }
 
@@ -188,6 +206,31 @@ const RectangleVolume = ({
     </StyledRoot>
 );
 
+/**
+ * A general admission zone where guests can use any seat within the zone.
+ *
+ * Volumes are addressable elements with identities meaningful to the ticketing system.
+ * The `label` identifies the volume and must be unique within the containing {@link Area}.
+ * Unlike individual {@link Seat}s, volumes represent zones where specific seat assignments
+ * are not tracked.
+ *
+ * Volumes can be rectangular or elliptical, support click interactions, and can display
+ * a label with a semi-transparent background. When `active` is true, an animated dashed
+ * border indicates the selection state.
+ *
+ * @example
+ * ```tsx
+ * <Volume
+ *   width={200}
+ *   height={150}
+ *   label="General Admission"
+ *   color="#4a90d9"
+ *   onClick={() => console.log('clicked')}
+ * />
+ * ```
+ *
+ * @public
+ */
 export const Volume = (props: VolumeProps) => {
     const updatedProps: VolumeProps = {
         ...props,

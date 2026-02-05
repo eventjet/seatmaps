@@ -7,239 +7,190 @@ import { CSSProperties } from 'react';
 import * as react_jsx_runtime from 'react/jsx-runtime';
 import { ReactNode } from 'react';
 
-// @public (undocumented)
+// @public
 export const Area: (input: AreaProps) => react_jsx_runtime.JSX.Element;
 
-// @public (undocumented)
+// @public
 export interface AreaProps {
-    // (undocumented)
     angle?: number;
-    // (undocumented)
     children?: ReactNode;
-    // (undocumented)
     height?: number;
-    // (undocumented)
     width?: number;
-    // (undocumented)
     x?: number;
-    // (undocumented)
     y?: number;
 }
 
-// @public (undocumented)
+// @public
 export const Badge: (input: BadgeProps) => react_jsx_runtime.JSX.Element;
 
-// @public (undocumented)
+// @public
 export interface BadgeProps {
-    // (undocumented)
     color?: string;
-    // (undocumented)
     count: number;
-    // (undocumented)
     x: number;
-    // (undocumented)
     y: number;
 }
 
-// @public (undocumented)
+// @public
 export const Block: (input: BlockProps) => react_jsx_runtime.JSX.Element;
 
-// @public (undocumented)
+// @public
 export interface BlockProps {
-    // (undocumented)
     angle?: number;
-    // (undocumented)
     children?: ReactNode;
-    // (undocumented)
     height?: number;
-    // (undocumented)
     width?: number;
-    // (undocumented)
     x?: number;
-    // (undocumented)
     y?: number;
 }
 
-// @public (undocumented)
+// @public
 export const Circle: (input: CircleProps) => react_jsx_runtime.JSX.Element;
 
-// @public (undocumented)
+// @public
 export interface CircleProps {
-    // (undocumented)
     centerX?: number;
-    // (undocumented)
     centerY?: number;
-    // (undocumented)
     color?: string;
-    // (undocumented)
     radius: number;
 }
 
-// Warning: (ae-forgotten-export) The symbol "DivProps" needs to be exported by the entry point index.d.ts
-//
-// @public (undocumented)
+// @public
+export interface Dimensions {
+    height: number;
+    width: number;
+}
+
+// @public
 export const Div: (input: DivProps) => react_jsx_runtime.JSX.Element;
 
-// @public (undocumented)
+// @public
+export interface DivProps {
+    children?: ReactNode;
+}
+
+// @public
 export const Ellipse: (input: EllipseProps) => react_jsx_runtime.JSX.Element;
 
-// @public (undocumented)
+// @public
 export interface EllipseProps {
-    // (undocumented)
     color?: string;
-    // (undocumented)
     height: number;
-    // (undocumented)
     width: number;
-    // (undocumented)
     x?: number;
-    // (undocumented)
     y?: number;
 }
 
-// @public (undocumented)
+// @public
+export interface LegacySeatCountBadgeProps {
+    color?: string;
+    containerWidth: number;
+    count: number;
+}
+
+// @public
+export interface NewSeatCountBadgeProps {
+    color?: string;
+    containerProps: Dimensions;
+    count: number;
+}
+
+// @public
 export const Rectangle: (input: RectangleProps) => react_jsx_runtime.JSX.Element;
 
-// @public (undocumented)
+// @public
 export interface RectangleProps {
-    // (undocumented)
     angle?: number;
-    // (undocumented)
     color?: string;
-    // (undocumented)
     height: number;
-    // (undocumented)
     width: number;
-    // (undocumented)
     x?: number;
-    // (undocumented)
     y?: number;
 }
 
-// @public (undocumented)
+// @public
 export const Row: (input: RowProps) => react_jsx_runtime.JSX.Element;
 
-// @public (undocumented)
+// @public
 export interface RowProps {
-    // (undocumented)
     children?: ReactNode;
-    // (undocumented)
     leftLabel?: string;
-    // (undocumented)
     rightLabel?: string;
-    // (undocumented)
     x?: number;
-    // (undocumented)
     y?: number;
 }
 
-// @public (undocumented)
+// @public
 export const Seat: (input: SeatProps) => react_jsx_runtime.JSX.Element;
 
-// @public (undocumented)
+// @public
 export const SeatCountBadge: (input: SeatCountBadgeProps) => react_jsx_runtime.JSX.Element;
 
-// Warning: (ae-forgotten-export) The symbol "NewSeatCountBadgeProps" needs to be exported by the entry point index.d.ts
-//
-// @public (undocumented)
+// @public
 export const SeatCountBadgeOnEllipse: (input: NewSeatCountBadgeProps) => react_jsx_runtime.JSX.Element;
 
-// Warning: (ae-forgotten-export) The symbol "LegacySeatCountBadgeProps" needs to be exported by the entry point index.d.ts
-//
-// @public (undocumented)
+// @public
 export type SeatCountBadgeProps = LegacySeatCountBadgeProps | NewSeatCountBadgeProps;
 
-// @public (undocumented)
+// @public
 export const Seatmap: (input: SeatmapProps) => react_jsx_runtime.JSX.Element;
 
-// @public (undocumented)
+// @public
 export interface SeatmapProps {
-    // (undocumented)
     children?: ReactNode;
-    // (undocumented)
     className?: string;
 }
 
-// @public (undocumented)
+// @public
 export interface SeatProps {
-    // (undocumented)
     active?: boolean;
-    // (undocumented)
     color?: string;
-    // (undocumented)
     disabled?: boolean;
-    // (undocumented)
     hideName?: boolean;
-    // (undocumented)
     name?: string;
-    // (undocumented)
     onClick?: () => void;
-    // (undocumented)
     onDisabledClick?: () => void;
-    // (undocumented)
     shape?: SeatShape;
-    // (undocumented)
     x?: number;
-    // (undocumented)
     y?: number;
 }
 
-// @public (undocumented)
+// @public
 export enum SeatShape {
-    // (undocumented)
     CIRCLE = 'circle',
-    // (undocumented)
     SQUARE = 'square',
 }
 
-// @public (undocumented)
+// @public
 const Text_2: (input: TextProps) => react_jsx_runtime.JSX.Element;
 export { Text_2 as Text };
 
-// @public (undocumented)
+// @public
 export interface TextProps {
-    // (undocumented)
     angle?: number;
-    // (undocumented)
     text: string;
-    // (undocumented)
     x?: number;
-    // (undocumented)
     y?: number;
 }
 
-// @public (undocumented)
+// @public
 export const Volume: (props: VolumeProps) => react_jsx_runtime.JSX.Element;
 
-// @public (undocumented)
+// @public
 export interface VolumeProps {
-    // (undocumented)
     active?: boolean;
-    // (undocumented)
     angle?: number;
-    // (undocumented)
     children?: ReactNode;
-    // (undocumented)
     className?: string;
-    // (undocumented)
     color?: string;
-    // (undocumented)
     disabled?: boolean;
-    // (undocumented)
     fontWeight?: CSSProperties['fontWeight'];
-    // (undocumented)
     height: number;
-    // (undocumented)
     label?: string;
-    // (undocumented)
     onClick?: () => void;
-    // (undocumented)
     shape?: 'rectangle' | 'ellipse';
-    // (undocumented)
     width: number;
-    // (undocumented)
     x?: number;
-    // (undocumented)
     y?: number;
 }
 
