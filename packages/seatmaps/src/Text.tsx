@@ -1,11 +1,7 @@
-import styled from '@emotion/styled';
 import { useTransform } from './useTransform';
+import './Text.css';
 
 const FONT_SIZE = 10;
-
-const Root = styled('text')`
-    fill: #808080;
-`;
 
 /**
  * Props for the {@link Text} component.
@@ -36,10 +32,11 @@ export interface TextProps {
  * @public
  */
 export const Text = ({ text, x = 0, y = 0, angle = 0 }: TextProps) => (
-    <Root
+    <text
+        className="ej-seatmaps-text"
         fontSize={FONT_SIZE}
         transform={useTransform(x, y + FONT_SIZE * 10, angle, 0, 0)}
     >
         {text}
-    </Root>
+    </text>
 );

@@ -1,0 +1,15 @@
+.ej-seatmaps-badge__circle {
+    filter: drop-shadow(-0.25px 1.5px 1px rgb(0 0 0 / 0.2));
+}
+
+.ej-seatmaps-badge__text-overlay-circle {
+    fill: rgba(255, 255, 255, 0.54);
+}
+
+.ej-seatmaps-badge__name {
+    font-family: sans-serif;
+    font-size: 5px;
+    dominant-baseline: middle;
+    text-anchor: middle;
+    fill: black;
+}

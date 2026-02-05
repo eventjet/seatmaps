@@ -1,21 +1,10 @@
-import styled from '@emotion/styled';
 import { ReactElement, ReactNode } from 'react';
-import { textCss } from './textCss';
 import { useTransform } from './useTransform';
+import './Row.css';
 
 const isReactElement = (x: unknown): x is ReactElement => {
     return typeof x === 'object' && x !== null && 'props' in x;
 };
-
-const Name = styled('text')`
-    ${textCss}
-    text-anchor: middle;
-    alignment-baseline: central;
-    cursor: inherit;
-    display: block;
-    fill: #707070;
-    font-size: 6px;
-`;
 
 /**
  * Props for the {@link Row} component.
@@ -76,23 +65,25 @@ export const Row = ({ children, leftLabel, rightLabel, x = 0, y = 0 }: RowProps)
     return (
         <g transform={useTransform(x, y)}>
             {leftLabel !== undefined ? (
-                <Name
+                <text
+                    className="ej-seatmaps-row__name"
                     x={-5}
                     y={5}
                     style={leftStyle}
                 >
                     {leftLabel}
-                </Name>
+                </text>
             ) : undefined}
             {children}
             {rightLabel !== undefined ? (
-                <Name
+                <text
+                    className="ej-seatmaps-row__name"
                     x={15}
                     y={5}
                     style={rightStyle}
                 >
                     {rightLabel}
-                </Name>
+                </text>
             ) : undefined}
         </g>
     );

@@ -14,22 +14,11 @@ or
 pnpm add @eventjet/react-seatmaps
 ```
 
-### Peer Dependencies
-
-```bash
-npm install react react-dom @emotion/react @emotion/styled
-```
-
-or
-
-```bash
-pnpm add react react-dom @emotion/react @emotion/styled
-```
-
 ## Quick Start
 
 ```tsx
 import { Seatmap, Block, Row, Seat, Volume, SeatShape } from '@eventjet/react-seatmaps';
+import '@eventjet/react-seatmaps/styles.css';
 
 function MyVenue() {
     return (
