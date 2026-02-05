@@ -69,85 +69,13 @@ Review the diff in `api/react-seatmaps.api.md` and commit it with your changes.
 
 ## Releasing
 
-Git tags, GitHub releases, and npm releases are **independent** and must be managed separately.
+Go to [Releases](../../releases) → **Draft a new release** → enter tag (e.g. `v1.0.5`) → **Publish**
 
-| System              | What it tracks             | How it's created                 |
-| ------------------- | -------------------------- | -------------------------------- |
-| **npm**             | Published package versions | `npm publish`                    |
-| **Git tags**        | Version snapshots in repo  | `git tag` + `git push --tags`    |
-| **GitHub releases** | Release notes & artifacts  | GitHub UI or `gh release create` |
+That's it. CI publishes to npm automatically.
 
-### Release workflow
+### Setup
 
-From `packages/seatmaps`:
-
-**1. Bump version in package.json**
-
-```bash
-npm version patch
-```
-
-Or use `npm version minor` / `npm version major`. This updates `package.json` and creates a git commit + tag.
-
-**2. Push commit and tag**
-
-```bash
-git push && git push --tags
-```
-
-**3. Verify npm login**
-
-```bash
-npm whoami
-```
-
-**4. Check tarball contents**
-
-```bash
-npm publish --dry-run
-```
-
-**5. Publish to npm**
-
-```bash
-npm publish
-```
-
-**6. (Optional) Create GitHub release**
-
-```bash
-gh release create v1.0.5 --generate-notes
-```
-
-Or create via GitHub UI at Releases > "Draft a new release" > select the tag.
-
-### Syncing after manual version edits
-
-If you edited `package.json` version manually (without `npm version`), create the tag separately:
-
-```bash
-git tag v1.0.5
-```
-
-```bash
-git push --tags
-```
-
-### Checking current state
-
-Compare versions across systems:
-
-```bash
-npm view @eventjet/react-seatmaps version
-```
-
-```bash
-git tag -l | sort -V | tail -1
-```
-
-```bash
-gh release list --limit 1
-```
+The `NPM_TOKEN` secret must be configured in repository settings.
 
 ## License
 
