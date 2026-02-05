@@ -6,5 +6,5 @@ export default defineConfig({
     dts: true,
     sourcemap: true,
     clean: true,
-    external: ['react', 'react-dom', 'react/jsx-runtime', '@emotion/react', '@emotion/styled'],
+    external: ['react', 'react-dom', 'react/jsx-runtime'],
 });

@@ -1,5 +1,4 @@
-import styled from '@emotion/styled';
-import { textCss } from './textCss';
+import './Badge.css';
 
 /**
  * Props for the {@link Badge} component.
@@ -19,22 +18,6 @@ export interface BadgeProps {
 // radius currently fixed, as the font size would also have to be adjusted when changing the radius
 const CIRCLE_RADIUS = 5;
 
-const Name = styled('text')`
-    ${textCss}
-    dominant-baseline: middle;
-    text-anchor: middle;
-    fill: black;
-`;
-
-const StyledCircle = styled.circle<{ color: string }>`
-    fill: ${({ color }) => color};
-    filter: drop-shadow(-0.25px 1.5px 1px rgb(0 0 0 / 0.2));
-`;
-
-const StyledTextOverlayCircle = styled.circle`
-    fill: rgba(255, 255, 255, 0.54);
-`;
-
 /**
  * A circular badge for displaying numeric counts.
  *
@@ -51,24 +34,27 @@ const StyledTextOverlayCircle = styled.circle`
 export const Badge = ({ x, y, count = 0, color = '#808080' }: BadgeProps) => {
     return (
         <>
-            <StyledCircle
+            <circle
+                className="ej-seatmaps-badge__circle"
                 cx={x}
                 cy={y}
                 r={CIRCLE_RADIUS}
-                color={color}
+                fill={color}
                 filter="url(#f2)"
             />
-            <StyledTextOverlayCircle
+            <circle
+                className="ej-seatmaps-badge__text-overlay-circle"
                 cx={x}
                 cy={y}
                 r={CIRCLE_RADIUS}
             />
-            <Name
+            <text
+                className="ej-seatmaps-badge__name"
                 x={x}
                 y={y}
             >
                 {count}
-            </Name>
+            </text>
         </>
     );
 };

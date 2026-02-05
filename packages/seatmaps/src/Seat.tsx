@@ -1,8 +1,7 @@
-import styled from '@emotion/styled';
-import { textCss } from './textCss';
 import { TextSize, useTextSize } from './textSize';
 import { useTransform } from './useTransform';
 import { noop } from './util/noop';
+import './Seat.css';
 
 /**
  * Available shapes for seat rendering.
@@ -38,61 +37,6 @@ const CircularSeat = ({ transform, fill }: ShapeComponentProps) => (
         fill={fill}
     />
 );
-
-const Name = styled('text')`
-    ${textCss}
-    text-anchor: middle;
-    alignment-baseline: central;
-    cursor: inherit;
-    fill: white;
-    dominant-baseline: mathematical;
-    display: block;
-`;
-
-const StyledSeat = styled.g`
-    @keyframes active-keyframes {
-        from {
-            stroke-dashoffset: 0;
-        }
-        to {
-            stroke-dashoffset: 7;
-        }
-    }
-
-    cursor: default;
-
-    rect,
-    circle {
-        stroke-width: 0.5;
-        stroke: white;
-    }
-
-    &.clickable {
-        cursor: pointer;
-    }
-
-    &.nameHidden .name {
-        display: none;
-    }
-
-    &.nameHidden:hover .name {
-        display: block;
-    }
-
-    &.active .name {
-        display: block;
-    }
-
-    &.active rect,
-    &.active circle {
-        stroke-dasharray: 3, 4;
-        animation: active-keyframes 1s linear infinite;
-        stroke: black;
-        stroke-width: 1;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-    }
-`;
 
 /**
  * Props for the {@link Seat} component.
@@ -164,16 +108,19 @@ export const Seat = ({
         return color;
     })();
     const classNames = [
-        hideName ? 'nameHidden' : undefined,
-        onClick !== noop && !disabled ? 'clickable' : undefined,
-        active ? 'active' : undefined,
-    ];
+        'ej-seatmaps-seat',
+        hideName && 'ej-seatmaps-seat--name-hidden',
+        onClick !== noop && !disabled && 'ej-seatmaps-seat--clickable',
+        active && 'ej-seatmaps-seat--active',
+    ]
+        .filter(Boolean)
+        .join(' ');
     const handleClick = () => (disabled ? onDisabledClick : onClick)();
     const ShapeComponent = shape === SeatShape.CIRCLE ? CircularSeat : SquareSeat;
     const transform = useTransform(x + 2.5, y + 2.5);
     return (
-        <StyledSeat
-            className={classNames.join(' ')}
+        <g
+            className={classNames}
             onClick={handleClick}
         >
             <ShapeComponent
@@ -181,16 +128,16 @@ export const Seat = ({
                 fill={fill}
             />
             {name !== undefined ? (
-                <Name
+                <text
                     transform={textTransform}
                     x="5"
                     y="5"
-                    className="name"
+                    className="ej-seatmaps-seat__name"
                     style={textSize === TextSize.SMALL ? { fontSize: 4 } : undefined}
                 >
                     {name}
-                </Name>
+                </text>
             ) : undefined}
-        </StyledSeat>
+        </g>
     );
 };

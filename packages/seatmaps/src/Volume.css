@@ -1,0 +1,36 @@
+@keyframes ej-seatmaps-volume-active {
+    from {
+        stroke-dashoffset: 0;
+    }
+    to {
+        stroke-dashoffset: 7;
+    }
+}
+
+.ej-seatmaps-volume {
+    cursor: default;
+}
+
+.ej-seatmaps-volume--clickable {
+    cursor: pointer;
+}
+
+.ej-seatmaps-volume--active .ej-seatmaps-volume__shape {
+    stroke-dasharray: 3, 4;
+    animation: ej-seatmaps-volume-active 1s linear infinite;
+    stroke: black;
+    stroke-width: 1;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.ej-seatmaps-volume__name {
+    font-family: sans-serif;
+    font-size: 5px;
+    dominant-baseline: central;
+    fill: black;
+}
+
+.ej-seatmaps-volume__scrim {
+    fill: rgba(255, 255, 255, 0.54);
+}

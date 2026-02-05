@@ -1,48 +1,11 @@
-import styled from '@emotion/styled';
 import { CSSProperties, ReactNode, useEffect, useRef, useState } from 'react';
 import { l } from './length';
-import { textCss } from './textCss';
 import { useTransform } from './useTransform';
 import { noop } from './util/noop';
+import './Volume.css';
 
 const SCRIM_HEIGHT = 8;
 const HORIZONTAL_SCRIM_PADDING = 3;
-
-const StyledRoot = styled.g`
-    @keyframes active-keyframes {
-        from {
-            stroke-dashoffset: 0;
-        }
-        to {
-            stroke-dashoffset: 7;
-        }
-    }
-
-    cursor: default;
-
-    &.clickable {
-        cursor: pointer;
-    }
-
-    &.active .shape {
-        stroke-dasharray: 3, 4;
-        animation: active-keyframes 1s linear infinite;
-        stroke: black;
-        stroke-width: 1;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-    }
-`;
-
-const Name = styled('text')`
-    ${textCss}
-    dominant-baseline: central;
-    fill: black;
-`;
-
-const StyledScrim = styled.rect`
-    fill: rgba(255, 255, 255, 0.54);
-`;
 
 interface ScrimProps {
     anchor?: 'center' | 'bottom-left';
@@ -74,19 +37,21 @@ const Scrim = ({ width = 'auto', x, y, text, anchor = 'bottom-left' }: ScrimProp
     const actualY = anchor === 'bottom-left' ? y - SCRIM_HEIGHT : y - SCRIM_HEIGHT / 2;
     return (
         <>
-            <StyledScrim
+            <rect
+                className="ej-seatmaps-volume__scrim"
                 width={scrimWidth}
                 height={SCRIM_HEIGHT}
                 x={actualX}
                 y={actualY}
             />
-            <Name
+            <text
+                className="ej-seatmaps-volume__name"
                 x={actualX + HORIZONTAL_SCRIM_PADDING}
                 y={actualY + SCRIM_HEIGHT / 2}
                 ref={textRef}
             >
                 {text}
-            </Name>
+            </text>
         </>
     );
 };
@@ -139,10 +104,10 @@ const EllipseVolume = ({
     children,
     fontWeight = 'bold',
 }: VolumeProps) => (
-    <StyledRoot
+    <g
+        className={className}
         transform={useTransform(x, y, angle, width, height)}
         onClick={onClick}
-        className={className}
         style={{ fontWeight: fontWeight }}
         fill={color}
     >
@@ -151,7 +116,7 @@ const EllipseVolume = ({
             ry={l(height / 2)}
             cx={l(width / 2)}
             cy={l(height / 2)}
-            className="shape"
+            className="ej-seatmaps-volume__shape"
         />
         {label !== undefined ? (
             <Scrim
@@ -163,7 +128,7 @@ const EllipseVolume = ({
             />
         ) : undefined}
         {children}
-    </StyledRoot>
+    </g>
 );
 
 const RectangleVolume = ({
@@ -179,10 +144,10 @@ const RectangleVolume = ({
     children,
     fontWeight = 'bold',
 }: VolumeProps) => (
-    <StyledRoot
+    <g
+        className={className}
         transform={useTransform(x, y, angle, width, height)}
         onClick={onClick}
-        className={className}
         style={{ fontWeight: fontWeight }}
         fill={color}
     >
@@ -191,7 +156,7 @@ const RectangleVolume = ({
             height={l(height)}
             rx={2}
             ry={2}
-            className="shape"
+            className="ej-seatmaps-volume__shape"
         />
         {label !== undefined ? (
             <Scrim
@@ -203,7 +168,7 @@ const RectangleVolume = ({
             />
         ) : undefined}
         {children}
-    </StyledRoot>
+    </g>
 );
 
 /**
@@ -235,10 +200,13 @@ export const Volume = (props: VolumeProps) => {
     const updatedProps: VolumeProps = {
         ...props,
         className: [
+            'ej-seatmaps-volume',
             props.className,
-            props.onClick !== noop ? 'clickable' : undefined,
-            props.active ? 'active' : undefined,
-        ].join(' '),
+            props.onClick !== noop && 'ej-seatmaps-volume--clickable',
+            props.active && 'ej-seatmaps-volume--active',
+        ]
+            .filter(Boolean)
+            .join(' '),
         color: (() => {
             if (props.disabled) {
                 return '#cccccc';

@@ -1,0 +1,9 @@
+.ej-seatmaps-row__name {
+    font-family: sans-serif;
+    font-size: 6px;
+    text-anchor: middle;
+    alignment-baseline: central;
+    cursor: inherit;
+    display: block;
+    fill: #707070;
+}
