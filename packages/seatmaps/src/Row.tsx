@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import { ReactElement, ReactNode } from 'react';
 import { textCss } from './textCss';
-import { useTransform } from './useTransform';
+import { getTransform } from './transform';
 
-const isReactElement = (x: unknown): x is ReactElement => {
+const isReactElement = (x: unknown): x is ReactElement<{ x?: number; y?: number }> => {
     return typeof x === 'object' && x !== null && 'props' in x;
 };
 
@@ -77,7 +77,7 @@ export const Row = ({ children, leftLabel, name, rightLabel, x = 0, y = 0 }: Row
         rightX !== 0 || rightY !== 0 ? { transform: `translate(${rightX / 10}px, ${rightY / 10}px)` } : undefined;
     return (
         <g
-            transform={useTransform(x, y)}
+            transform={getTransform(x, y)}
             role={name ? 'group' : undefined}
             aria-label={name}
         >

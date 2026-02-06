@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { textCss } from './textCss';
 import { TextSize, useTextSize } from './textSize';
-import { useTransform } from './useTransform';
+import { getTransform } from './transform';
 import { noop } from './util/noop';
 import { useCallback } from 'react';
 import { clsx } from 'clsx';
@@ -168,7 +168,7 @@ export const Seat = ({
     shape = SeatShape.SQUARE,
 }: SeatProps) => {
     const textSize = useTextSize((name?.length ?? 0) > 2 ? TextSize.SMALL : TextSize.NORMAL);
-    const textTransform = useTransform(x, y);
+    const textTransform = getTransform(x, y);
     const handleClick = useCallback(
         () => (disabled ? onDisabledClick : onClick)(),
         [disabled, onClick, onDisabledClick],
@@ -183,7 +183,7 @@ export const Seat = ({
         [handleClick],
     );
     const ShapeComponent = shape === SeatShape.CIRCLE ? CircularSeat : SquareSeat;
-    const transform = useTransform(x + 2.5, y + 2.5);
+    const transform = getTransform(x + 2.5, y + 2.5);
     return (
         <StyledSeat
             className={clsx({ nameHidden: hideName, clickable: onClick !== noop && !disabled, active: active })}

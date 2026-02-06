@@ -6,11 +6,11 @@ import reactHooks from 'eslint-plugin-react-hooks';
 export default tseslint.config(
     js.configs.recommended,
     ...tseslint.configs.recommended,
+    reactHooks.configs.flat['recommended-latest'],
     {
         files: ['src/**/*.{ts,tsx}'],
-        plugins: { react, 'react-hooks': reactHooks },
+        plugins: { react },
         rules: {
-            ...reactHooks.configs.recommended.rules,
             'react/react-in-jsx-scope': 'off',
         },
         settings: { react: { version: 'detect' } },

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useTransform } from './useTransform';
+import { getTransform } from './transform';
 
 const FONT_SIZE = 10;
 
@@ -38,7 +38,7 @@ export interface TextProps {
 export const Text = ({ text, x = 0, y = 0, angle = 0 }: TextProps) => (
     <Root
         fontSize={FONT_SIZE}
-        transform={useTransform(x, y + FONT_SIZE * 10, angle, 0, 0)}
+        transform={getTransform(x, y + FONT_SIZE * 10, angle, 0, 0)}
         aria-hidden="true"
     >
         {text}

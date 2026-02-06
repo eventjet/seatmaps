@@ -1,5 +1,5 @@
 import { l } from './length';
-import { useTransform } from './useTransform';
+import { getTransform } from './transform';
 
 /**
  * Props for the {@link Ellipse} component.
@@ -39,7 +39,7 @@ export const Ellipse = ({ height, width, x = 0, y = 0, color }: EllipseProps) =>
         cx={l(width / 2)}
         cy={l(height / 2)}
         fill={color}
-        transform={useTransform(x, y, 0, width, height)}
+        transform={getTransform(x, y, 0, width, height)}
         aria-hidden="true"
     />
 );
