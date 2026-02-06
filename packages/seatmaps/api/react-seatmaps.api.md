@@ -138,162 +138,16 @@ export type SeatCountBadgeProps = LegacySeatCountBadgeProps | NewSeatCountBadgeP
 // @public
 export const Seatmap: (input: SeatmapProps) => react_jsx_runtime.JSX.Element;
 
-// @public
-export interface SeatmapAreaData {
-    angle?: number;
-    blocks?: SeatmapBlockData[];
-    height?: number;
-    name?: string;
-    volumes?: SeatmapVolumeData[];
-    width?: number;
-    x?: number;
-    y?: number;
-}
-
-// @public
-export interface SeatmapBlockData {
-    angle?: number;
-    height?: number;
-    rows: SeatmapRowData[];
-    width?: number;
-    x?: number;
-    y?: number;
-}
-
-// @public
-export interface SeatmapBookableClickEvent {
-    disabled: boolean;
-    id: string;
-    type: 'seat' | 'volume';
-}
-
-// @public
-export interface SeatmapCircleDecoration {
-    // (undocumented)
-    centerX?: number;
-    // (undocumented)
-    centerY?: number;
-    // (undocumented)
-    color?: string;
-    // (undocumented)
-    radius: number;
-    // (undocumented)
-    type: 'circle';
-}
-
-// @public
-export type SeatmapDecoration = SeatmapCircleDecoration | SeatmapEllipseDecoration | SeatmapRectangleDecoration | SeatmapTextDecoration;
-
-// @public
-export interface SeatmapEllipseDecoration {
-    // (undocumented)
-    color?: string;
-    // (undocumented)
-    height: number;
-    // (undocumented)
-    type: 'ellipse';
-    // (undocumented)
-    width: number;
-    // (undocumented)
-    x?: number;
-    // (undocumented)
-    y?: number;
-}
-
+// Warning: (ae-forgotten-export) The symbol "SeatmapLayoutProps" needs to be exported by the entry point index.d.ts
+//
 // @public
 export const SeatmapLayout: (input: SeatmapLayoutProps) => react_jsx_runtime.JSX.Element;
-
-// @public
-export interface SeatmapLayoutData {
-    areas: SeatmapAreaData[];
-    decorations?: SeatmapDecoration[];
-}
-
-// @public
-export interface SeatmapLayoutProps {
-    ariaLabel?: string;
-    className?: string;
-    data: SeatmapLayoutData;
-    onBookableClick?: (event: SeatmapBookableClickEvent) => void;
-}
 
 // @public
 export interface SeatmapProps {
     ariaLabel?: string;
     children?: ReactNode;
     className?: string;
-}
-
-// @public
-export interface SeatmapRectangleDecoration {
-    // (undocumented)
-    angle?: number;
-    // (undocumented)
-    color?: string;
-    // (undocumented)
-    height: number;
-    // (undocumented)
-    type: 'rectangle';
-    // (undocumented)
-    width: number;
-    // (undocumented)
-    x?: number;
-    // (undocumented)
-    y?: number;
-}
-
-// @public
-export interface SeatmapRowData {
-    name?: string;
-    seats: SeatmapSeatData[];
-    showLabels?: SeatmapRowLabelMode;
-    x?: number;
-    y?: number;
-}
-
-// @public
-export type SeatmapRowLabelMode = 'none' | 'left' | 'right' | 'both';
-
-// @public
-export interface SeatmapSeatData {
-    active?: boolean;
-    color?: string;
-    disabled?: boolean;
-    id: string;
-    name?: string;
-    shape?: SeatShape;
-    x?: number;
-    y?: number;
-}
-
-// @public
-export interface SeatmapTextDecoration {
-    // (undocumented)
-    angle?: number;
-    // (undocumented)
-    text: string;
-    // (undocumented)
-    type: 'text';
-    // (undocumented)
-    x?: number;
-    // (undocumented)
-    y?: number;
-}
-
-// @public
-export interface SeatmapVolumeData {
-    active?: boolean;
-    angle?: number;
-    availableSeats?: number;
-    color?: string;
-    disabled?: boolean;
-    height: number;
-    id: string;
-    label?: string;
-    shape?: 'rectangle' | 'ellipse';
-    width: number;
-    x?: number;
-    y?: number;
 }
 
 // @public

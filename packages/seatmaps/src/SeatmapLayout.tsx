@@ -145,10 +145,15 @@ export interface SeatmapAreaData {
  * @public
  */
 export interface SeatmapCircleDecoration {
+    /** Discriminant for the decoration union. */
     type: 'circle';
+    /** X coordinate of the circle center in seatmap units. */
     centerX?: number;
+    /** Y coordinate of the circle center in seatmap units. */
     centerY?: number;
+    /** Radius of the circle in seatmap units. */
     radius: number;
+    /** Fill color. */
     color?: string;
 }
 
@@ -157,11 +162,17 @@ export interface SeatmapCircleDecoration {
  * @public
  */
 export interface SeatmapEllipseDecoration {
+    /** Discriminant for the decoration union. */
     type: 'ellipse';
+    /** X position in seatmap units. */
     x?: number;
+    /** Y position in seatmap units. */
     y?: number;
+    /** Width in seatmap units. */
     width: number;
+    /** Height in seatmap units. */
     height: number;
+    /** Fill color. */
     color?: string;
 }
 
@@ -170,12 +181,19 @@ export interface SeatmapEllipseDecoration {
  * @public
  */
 export interface SeatmapRectangleDecoration {
+    /** Discriminant for the decoration union. */
     type: 'rectangle';
+    /** X position in seatmap units. */
     x?: number;
+    /** Y position in seatmap units. */
     y?: number;
+    /** Width in seatmap units. */
     width: number;
+    /** Height in seatmap units. */
     height: number;
+    /** Rotation angle in degrees. */
     angle?: number;
+    /** Fill color. */
     color?: string;
 }
 
@@ -184,10 +202,15 @@ export interface SeatmapRectangleDecoration {
  * @public
  */
 export interface SeatmapTextDecoration {
+    /** Discriminant for the decoration union. */
     type: 'text';
+    /** The text content to display. */
     text: string;
+    /** X position in seatmap units. */
     x?: number;
+    /** Y position in seatmap units. */
     y?: number;
+    /** Rotation angle in degrees. */
     angle?: number;
 }
 

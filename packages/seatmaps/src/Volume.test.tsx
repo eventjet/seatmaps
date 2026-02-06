@@ -39,6 +39,49 @@ describe('Volume', () => {
 
         expect(handleClick).not.toHaveBeenCalled();
     });
+
+    it('calls onDisabledClick when a disabled volume is clicked', () => {
+        const handleClick = vi.fn();
+        const handleDisabledClick = vi.fn();
+        const { getByRole } = render(
+            <svg>
+                <Volume
+                    width={100}
+                    height={100}
+                    label="GA"
+                    disabled={true}
+                    onClick={handleClick}
+                    onDisabledClick={handleDisabledClick}
+                />
+            </svg>,
+        );
+
+        fireEvent.click(getByRole('button'));
+
+        expect(handleDisabledClick).toHaveBeenCalled();
+        expect(handleClick).not.toHaveBeenCalled();
+    });
+
+    it('does not call onDisabledClick when an enabled volume is clicked', () => {
+        const handleClick = vi.fn();
+        const handleDisabledClick = vi.fn();
+        const { getByRole } = render(
+            <svg>
+                <Volume
+                    width={100}
+                    height={100}
+                    label="GA"
+                    onClick={handleClick}
+                    onDisabledClick={handleDisabledClick}
+                />
+            </svg>,
+        );
+
+        fireEvent.click(getByRole('button'));
+
+        expect(handleClick).toHaveBeenCalled();
+        expect(handleDisabledClick).not.toHaveBeenCalled();
+    });
 });
 
 describe('Volume accessibility', () => {
