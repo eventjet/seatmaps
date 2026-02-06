@@ -24,6 +24,8 @@ const Name = styled('text')`
 export interface RowProps {
     /** Row identifier displayed to the left of the first seat. */
     leftLabel?: string;
+    /** Accessible name for the row. */
+    name?: string;
     /** Row identifier displayed to the right of the last seat. */
     rightLabel?: string;
     /** X position of the row in seatmap units. Defaults to `0`. */
@@ -54,7 +56,7 @@ export interface RowProps {
  *
  * @public
  */
-export const Row = ({ children, leftLabel, rightLabel, x = 0, y = 0 }: RowProps) => {
+export const Row = ({ children, leftLabel, name, rightLabel, x = 0, y = 0 }: RowProps) => {
     const [[leftX, leftY], [rightX, rightY]] = ((): [left: [x: number, y: number], right: [x: number, y: number]] => {
         if (!Array.isArray(children)) {
             return [
@@ -73,12 +75,11 @@ export const Row = ({ children, leftLabel, rightLabel, x = 0, y = 0 }: RowProps)
         leftX !== 0 || leftY !== 0 ? { transform: `translate(${leftX / 10}px, ${leftY / 10}px)` } : undefined;
     const rightStyle =
         rightX !== 0 || rightY !== 0 ? { transform: `translate(${rightX / 10}px, ${rightY / 10}px)` } : undefined;
-    const rowLabel = leftLabel ?? rightLabel;
     return (
         <g
             transform={useTransform(x, y)}
             role="group"
-            aria-label={rowLabel ? `Row ${rowLabel}` : undefined}
+            aria-label={name}
         >
             {leftLabel !== undefined ? (
                 <Name

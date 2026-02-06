@@ -117,6 +117,7 @@ export const Row: (input: RowProps) => react_jsx_runtime.JSX.Element;
 export interface RowProps {
     children?: ReactNode;
     leftLabel?: string;
+    name?: string;
     rightLabel?: string;
     x?: number;
     y?: number;
