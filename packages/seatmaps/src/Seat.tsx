@@ -191,7 +191,7 @@ export const Seat = ({
             onKeyDown={handleKeyDown}
             tabIndex={disabled ? -1 : 0}
             role="button"
-            aria-label={name}
+            aria-label={name ?? 'Unnamed seat'}
             aria-pressed={active}
             aria-disabled={disabled}
         >

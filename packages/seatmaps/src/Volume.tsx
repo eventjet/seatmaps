@@ -136,7 +136,7 @@ export interface VolumeProps {
     fontWeight?: CSSProperties['fontWeight'];
 }
 
-type InternalVolumeProps = Omit<VolumeProps, 'name'> & {
+type InternalVolumeProps = VolumeProps & {
     'tabIndex'?: number;
     'role'?: string;
     'aria-label'?: string;

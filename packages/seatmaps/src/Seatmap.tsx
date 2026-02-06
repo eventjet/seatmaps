@@ -77,7 +77,7 @@ export const Seatmap = ({ children, className, ariaLabel }: SeatmapProps) => {
             viewBox={`${minX} ${minY} ${maxX - minX} ${maxY - minY}`}
             ref={measuredRef}
             className={className}
-            role="application"
+            role="group"
             aria-label={ariaLabel ?? 'Seat map'}
         >
             <TextSizeController>{children}</TextSizeController>
