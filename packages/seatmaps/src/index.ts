@@ -39,5 +39,22 @@ export {
     type SeatCountBadgeProps,
 } from './SeatCountBadge';
 export { Seatmap, type SeatmapProps } from './Seatmap';
+export {
+    SeatmapLayout,
+    type SeatmapAreaData,
+    type SeatmapBlockData,
+    type SeatmapBookableClickEvent,
+    type SeatmapCircleDecoration,
+    type SeatmapDecoration,
+    type SeatmapEllipseDecoration,
+    type SeatmapLayoutData,
+    type SeatmapLayoutProps,
+    type SeatmapRectangleDecoration,
+    type SeatmapRowData,
+    type SeatmapRowLabelMode,
+    type SeatmapSeatData,
+    type SeatmapTextDecoration,
+    type SeatmapVolumeData,
+} from './SeatmapLayout';
 export { Text, type TextProps } from './Text';
 export { Volume, type VolumeProps } from './Volume';
