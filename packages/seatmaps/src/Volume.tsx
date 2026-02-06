@@ -275,9 +275,9 @@ const RectangleVolume = ({
  * @public
  */
 export const Volume = (props: VolumeProps) => {
-    const { onClick, disabled } = props;
+    const { onClick = noop, disabled } = props;
     const handleClick = useCallback(() => {
-        if (disabled || onClick === undefined) {
+        if (disabled) {
             return;
         }
         onClick();
@@ -293,7 +293,7 @@ export const Volume = (props: VolumeProps) => {
     );
     const updatedProps: InternalVolumeProps = {
         ...props,
-        'className': clsx(props.className, { clickable: props.onClick !== noop, active: props.active }),
+        'className': clsx(props.className, { clickable: onClick !== noop, active: props.active }),
         'color': props.disabled ? '#cccccc' : props.color,
         'onClick': handleClick,
         'tabIndex': props.disabled ? -1 : 0,

@@ -78,7 +78,7 @@ export const Row = ({ children, leftLabel, name, rightLabel, x = 0, y = 0 }: Row
     return (
         <g
             transform={useTransform(x, y)}
-            role="group"
+            role={name ? 'group' : undefined}
             aria-label={name}
         >
             {leftLabel !== undefined ? (
