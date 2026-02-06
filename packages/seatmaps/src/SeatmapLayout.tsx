@@ -231,7 +231,12 @@ export type SeatmapDecoration =
 export interface SeatmapLayoutData {
     /** Areas containing blocks and volumes. */
     areas: SeatmapAreaData[];
-    /** Top-level decorative elements (backgrounds, labels). */
+    /**
+     * Top-level decorative elements (backgrounds, labels).
+     *
+     * Non-text decorations are rendered behind all areas; text decorations are
+     * rendered in front so that labels stay visible on top of seats and volumes.
+     */
     decorations?: SeatmapDecoration[];
 }
 
@@ -432,7 +437,7 @@ export const SeatmapLayout = ({ data, onBookableClick, className, ariaLabel }: S
                                                 y={seat.y}
                                                 shape={seat.shape}
                                                 color={seat.color}
-                                                active={seat.active}
+                                                active={seat.active ?? false}
                                                 disabled={seat.disabled}
                                                 hideName={seatIndex !== 0 && seatIndex !== row.seats.length - 1}
                                                 onClick={
