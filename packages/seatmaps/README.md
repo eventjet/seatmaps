@@ -28,71 +28,87 @@ pnpm add react react-dom @emotion/react @emotion/styled
 
 ## Quick Start
 
+The easiest way to render a seatmap is with the `SeatmapLayout` component, which takes a plain data object:
+
 ```tsx
-import { Seatmap, Block, Row, Seat, Volume, SeatShape } from '@eventjet/react-seatmaps';
+import { SeatmapLayout, SeatmapLayoutData, SeatShape } from '@eventjet/react-seatmaps';
+
+const data: SeatmapLayoutData = {
+    areas: [
+        {
+            name: 'Main Hall',
+            blocks: [
+                {
+                    rows: [
+                        {
+                            name: 'A',
+                            showLabels: 'both',
+                            seats: [
+                                { id: 'a-1', name: '1', x: 0, color: '#ff9900', shape: SeatShape.CIRCLE },
+                                { id: 'a-2', name: '2', x: 100, color: '#ff9900', shape: SeatShape.CIRCLE },
+                                { id: 'a-3', name: '3', x: 200, color: '#ff9900', shape: SeatShape.CIRCLE },
+                            ],
+                        },
+                    ],
+                },
+            ],
+            volumes: [
+                {
+                    id: 'ga-1',
+                    label: 'Standing Area',
+                    x: 500,
+                    width: 300,
+                    height: 150,
+                    color: '#00ff99',
+                    availableSeats: 250,
+                },
+            ],
+        },
+    ],
+};
 
 function MyVenue() {
     return (
-        <Seatmap className="my-seatmap">
-            <Block>
-                <Row
-                    leftLabel="A"
-                    rightLabel="A"
-                >
-                    <Seat
-                        name="1"
-                        x={0}
-                        color="#ff9900"
-                    />
-                    <Seat
-                        name="2"
-                        x={100}
-                        color="#ff9900"
-                    />
-                    <Seat
-                        name="3"
-                        x={200}
-                        color="#ff9900"
-                    />
-                </Row>
-                <Row
-                    y={100}
-                    leftLabel="B"
-                    rightLabel="B"
-                >
-                    <Seat
-                        name="1"
-                        x={0}
-                        color="#ff9900"
-                        shape={SeatShape.CIRCLE}
-                    />
-                    <Seat
-                        name="2"
-                        x={100}
-                        color="#ff9900"
-                        shape={SeatShape.CIRCLE}
-                    />
-                    <Seat
-                        name="3"
-                        x={200}
-                        color="#ff9900"
-                        shape={SeatShape.CIRCLE}
-                    />
-                </Row>
-            </Block>
-            <Volume
-                x={500}
-                width={300}
-                height={150}
-                label="General Admission"
-                color="#00ff99"
-            />
-        </Seatmap>
+        <SeatmapLayout
+            data={data}
+            onBookableClick={({ id, type, disabled }) => {
+                if (disabled) {
+                    alert('This is no longer available');
+                    return;
+                }
+                console.log(`${type} clicked:`, id);
+            }}
+        />
     );
 }
 ```
 
+`SeatmapLayout` handles seat name visibility, badge placement, row labels, and decorations automatically. For full control, compose the low-level components directly (see below).
+
 ## Components
+
+### SeatmapLayout
+
+High-level component that renders an entire seatmap from a `SeatmapLayoutData` object.
+
+```tsx
+<SeatmapLayout
+    data={data}
+    onBookableClick={({ id, type, disabled }) => console.log(id, type, disabled)}
+    className="my-seatmap"
+    ariaLabel="Venue seating"
+/>
+```
+
+**Props:** `data`, `onBookableClick`, `className`, `ariaLabel`
+
+The `onBookableClick` callback receives a `SeatmapBookableClickEvent` with `id` (string), `type` (`'seat'` | `'volume'`), and `disabled` (boolean). It fires for both enabled and disabled elements, so you can show a message like "this seat is no longer available" when a disabled element is clicked.
+
+**Data types:** `SeatmapLayoutData`, `SeatmapAreaData`, `SeatmapBlockData`, `SeatmapRowData`, `SeatmapSeatData`, `SeatmapVolumeData`, `SeatmapDecoration`
+
+### Low-Level Components
+
+For cases where `SeatmapLayout` doesn't provide enough flexibility, compose the individual components directly:
 
 ### Seatmap
 
@@ -183,7 +199,7 @@ General admission area (rectangle or ellipse).
 />
 ```
 
-**Props:** `x`, `y`, `width`, `height`, `label`, `color`, `shape` (`'rectangle'` | `'ellipse'`), `angle`, `active`, `disabled`, `fontWeight`, `onClick`, `children`
+**Props:** `x`, `y`, `width`, `height`, `label`, `color`, `shape` (`'rectangle'` | `'ellipse'`), `angle`, `active`, `disabled`, `fontWeight`, `onClick`, `onDisabledClick`, `children`
 
 ### SeatCountBadge
 
