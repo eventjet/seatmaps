@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { useTransform } from './useTransform';
+import { getTransform } from './transform';
 
 /**
  * Props for the {@link Area} component.
@@ -48,5 +48,5 @@ export interface AreaProps {
  * @public
  */
 export const Area = ({ children, x = 0, y = 0, angle = 0, width = 0, height = 0 }: AreaProps) => (
-    <g transform={useTransform(x, y, angle, width, height)}>{children}</g>
+    <g transform={getTransform(x, y, angle, width, height)}>{children}</g>
 );
