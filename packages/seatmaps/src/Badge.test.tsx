@@ -2,7 +2,7 @@ import { render } from '@testing-library/react';
 import { Badge } from './Badge';
 
 describe('Badge accessibility', () => {
-    it('has aria-hidden="true"', () => {
+    it('has aria-hidden="true" on all child elements', () => {
         const { container } = render(
             <svg>
                 <Badge
@@ -13,7 +13,9 @@ describe('Badge accessibility', () => {
             </svg>,
         );
 
-        const group = container.querySelector('g');
-        expect(group?.getAttribute('aria-hidden')).toBe('true');
+        const svg = container.querySelector('svg')!;
+        for (const child of svg.children) {
+            expect(child.getAttribute('aria-hidden')).toBe('true');
+        }
     });
 });
