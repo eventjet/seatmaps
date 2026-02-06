@@ -50,7 +50,7 @@ const StyledTextOverlayCircle = styled.circle`
  */
 export const Badge = ({ x, y, count = 0, color = '#808080' }: BadgeProps) => {
     return (
-        <>
+        <g aria-hidden="true">
             <StyledCircle
                 cx={x}
                 cy={y}
@@ -69,6 +69,6 @@ export const Badge = ({ x, y, count = 0, color = '#808080' }: BadgeProps) => {
             >
                 {count}
             </Name>
-        </>
+        </g>
     );
 };

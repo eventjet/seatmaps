@@ -73,13 +73,19 @@ export const Row = ({ children, leftLabel, rightLabel, x = 0, y = 0 }: RowProps)
         leftX !== 0 || leftY !== 0 ? { transform: `translate(${leftX / 10}px, ${leftY / 10}px)` } : undefined;
     const rightStyle =
         rightX !== 0 || rightY !== 0 ? { transform: `translate(${rightX / 10}px, ${rightY / 10}px)` } : undefined;
+    const rowLabel = leftLabel ?? rightLabel;
     return (
-        <g transform={useTransform(x, y)}>
+        <g
+            transform={useTransform(x, y)}
+            role="group"
+            aria-label={rowLabel ? `Row ${rowLabel}` : undefined}
+        >
             {leftLabel !== undefined ? (
                 <Name
                     x={-5}
                     y={5}
                     style={leftStyle}
+                    aria-hidden="true"
                 >
                     {leftLabel}
                 </Name>
@@ -90,6 +96,7 @@ export const Row = ({ children, leftLabel, rightLabel, x = 0, y = 0 }: RowProps)
                     x={15}
                     y={5}
                     style={rightStyle}
+                    aria-hidden="true"
                 >
                     {rightLabel}
                 </Name>

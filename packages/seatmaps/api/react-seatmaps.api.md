@@ -16,6 +16,7 @@ export interface AreaProps {
     angle?: number;
     children?: ReactNode;
     height?: number;
+    name?: string;
     width?: number;
     x?: number;
     y?: number;
@@ -138,6 +139,7 @@ export const Seatmap: (input: SeatmapProps) => react_jsx_runtime.JSX.Element;
 
 // @public
 export interface SeatmapProps {
+    ariaLabel?: string;
     children?: ReactNode;
     className?: string;
 }
@@ -181,6 +183,7 @@ export const Volume: (props: VolumeProps) => react_jsx_runtime.JSX.Element;
 export interface VolumeProps {
     active?: boolean;
     angle?: number;
+    ariaLabel?: string;
     children?: ReactNode;
     className?: string;
     color?: string;

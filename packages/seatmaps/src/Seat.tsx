@@ -3,6 +3,8 @@ import { textCss } from './textCss';
 import { TextSize, useTextSize } from './textSize';
 import { useTransform } from './useTransform';
 import { noop } from './util/noop';
+import { useCallback } from 'react';
+import { clsx } from 'clsx';
 
 /**
  * Available shapes for seat rendering.
@@ -92,6 +94,16 @@ const StyledSeat = styled.g`
         stroke-linecap: round;
         stroke-linejoin: round;
     }
+
+    &:focus {
+        outline: none;
+    }
+
+    &:focus rect,
+    &:focus circle {
+        stroke: #005fcc;
+        stroke-width: 1.5;
+    }
 `;
 
 /**
@@ -157,28 +169,35 @@ export const Seat = ({
 }: SeatProps) => {
     const textSize = useTextSize((name?.length ?? 0) > 2 ? TextSize.SMALL : TextSize.NORMAL);
     const textTransform = useTransform(x, y);
-    const fill = (() => {
-        if (disabled) {
-            return '#cccccc';
-        }
-        return color;
-    })();
-    const classNames = [
-        hideName ? 'nameHidden' : undefined,
-        onClick !== noop && !disabled ? 'clickable' : undefined,
-        active ? 'active' : undefined,
-    ];
-    const handleClick = () => (disabled ? onDisabledClick : onClick)();
+    const handleClick = useCallback(
+        () => (disabled ? onDisabledClick : onClick)(),
+        [disabled, onClick, onDisabledClick],
+    );
+    const handleKeyDown = useCallback(
+        (event: React.KeyboardEvent) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                handleClick();
+            }
+        },
+        [handleClick],
+    );
     const ShapeComponent = shape === SeatShape.CIRCLE ? CircularSeat : SquareSeat;
     const transform = useTransform(x + 2.5, y + 2.5);
     return (
         <StyledSeat
-            className={classNames.join(' ')}
+            className={clsx({ nameHidden: hideName, clickable: onClick !== noop && !disabled, active: active })}
             onClick={handleClick}
+            onKeyDown={handleKeyDown}
+            tabIndex={disabled ? -1 : 0}
+            role="button"
+            aria-label={name}
+            aria-pressed={active}
+            aria-disabled={disabled}
         >
             <ShapeComponent
                 transform={transform}
-                fill={fill}
+                fill={disabled ? '#cccccc' : color}
             />
             {name !== undefined ? (
                 <Name
@@ -187,6 +206,7 @@ export const Seat = ({
                     y="5"
                     className="name"
                     style={textSize === TextSize.SMALL ? { fontSize: 4 } : undefined}
+                    aria-hidden={true}
                 >
                     {name}
                 </Name>
