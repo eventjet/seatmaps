@@ -339,12 +339,13 @@ const renderVolumeBadge = (volume: SeatmapVolumeData) => {
     }
     const containerProps = { width: volume.width, height: volume.height };
     const shape = volume.shape ?? 'rectangle';
+    const color = volume.disabled ? '#cccccc' : volume.color;
     if (shape === 'ellipse') {
         return (
             <SeatCountBadgeOnEllipse
                 containerProps={containerProps}
                 count={volume.availableSeats}
-                color={volume.color}
+                color={color}
             />
         );
     }
@@ -352,7 +353,7 @@ const renderVolumeBadge = (volume: SeatmapVolumeData) => {
         <SeatCountBadge
             containerProps={containerProps}
             count={volume.availableSeats}
-            color={volume.color}
+            color={color}
         />
     );
 };

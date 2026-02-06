@@ -154,6 +154,31 @@ describe('SeatmapLayout', () => {
         expect(() => render(<SeatmapLayout data={data} />)).not.toThrow();
     });
 
+    it('renders a badge on a disabled volume with availableSeats', () => {
+        const data: SeatmapLayoutData = {
+            areas: [
+                {
+                    volumes: [
+                        {
+                            id: 'vol-1',
+                            label: 'GA',
+                            width: 200,
+                            height: 100,
+                            disabled: true,
+                            availableSeats: 5,
+                            color: '#ff0000',
+                        },
+                    ],
+                },
+            ],
+        };
+        const { container } = render(<SeatmapLayout data={data} />);
+
+        // Badge renders with the count text (aria-hidden text inside the badge)
+        const badgeText = container.querySelector('text[aria-hidden="true"]');
+        expect(badgeText?.textContent).toBe('5');
+    });
+
     it('renders row labels when showLabels is set', () => {
         const data: SeatmapLayoutData = {
             areas: [
