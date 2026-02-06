@@ -134,18 +134,16 @@ export interface VolumeProps {
     children?: ReactNode;
     /** Font weight for the label text. Defaults to `'bold'`. */
     fontWeight?: CSSProperties['fontWeight'];
-    /** Custom accessible label for the volume. Defaults to the label prop value. */
-    ariaLabel?: string;
 }
 
-interface InternalVolumeProps extends VolumeProps {
+type InternalVolumeProps = Omit<VolumeProps, 'name'> & {
     'tabIndex'?: number;
     'role'?: string;
     'aria-label'?: string;
     'aria-pressed'?: boolean;
     'aria-disabled'?: boolean;
     'onKeyDown'?: (event: React.KeyboardEvent) => void;
-}
+};
 
 const EllipseVolume = ({
     x = 0,
@@ -300,7 +298,7 @@ export const Volume = (props: VolumeProps) => {
         'onClick': handleClick,
         'tabIndex': props.disabled ? -1 : 0,
         'role': 'button',
-        'aria-label': props.ariaLabel ?? props.label ?? 'Volume',
+        'aria-label': props.label ?? 'Volume',
         'aria-pressed': props.active,
         'aria-disabled': props.disabled,
         'onKeyDown': handleKeyDown,

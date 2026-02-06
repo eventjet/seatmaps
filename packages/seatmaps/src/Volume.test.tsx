@@ -96,21 +96,6 @@ describe('Volume accessibility', () => {
         expect(getByRole('button').getAttribute('aria-label')).toBe('General Admission');
     });
 
-    it('uses ariaLabel prop when provided', () => {
-        const { getByRole } = render(
-            <svg>
-                <Volume
-                    width={100}
-                    height={100}
-                    label="GA"
-                    ariaLabel="General Admission Section A"
-                />
-            </svg>,
-        );
-
-        expect(getByRole('button').getAttribute('aria-label')).toBe('General Admission Section A');
-    });
-
     it('has default aria-label when no label provided', () => {
         const { getByRole } = render(
             <svg>
