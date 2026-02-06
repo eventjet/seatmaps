@@ -114,7 +114,7 @@ export interface VolumeProps {
     className?: string;
     /** Fill color for the volume shape. Defaults to `#808080`. Ignored when `disabled` is true. */
     color?: string;
-    /** Whether the volume is disabled. Disabled volumes appear grayed out and don't respond to clicks. */
+    /** Whether the volume is disabled. Disabled volumes appear grayed out and trigger `onDisabledClick` instead of `onClick`. */
     disabled?: boolean;
     /** Height of the volume in seatmap units. */
     height: number;
@@ -122,6 +122,8 @@ export interface VolumeProps {
     label?: string;
     /** Callback fired when the volume is clicked (unless disabled). */
     onClick?: () => void;
+    /** Callback fired when a disabled volume is clicked. */
+    onDisabledClick?: () => void;
     /** Shape of the volume. Defaults to `'rectangle'`. */
     shape?: 'rectangle' | 'ellipse';
     /** Width of the volume in seatmap units. */
@@ -275,13 +277,14 @@ const RectangleVolume = ({
  * @public
  */
 export const Volume = (props: VolumeProps) => {
-    const { onClick = noop, disabled } = props;
+    const { onClick = noop, onDisabledClick = noop, disabled } = props;
     const handleClick = useCallback(() => {
         if (disabled) {
+            onDisabledClick();
             return;
         }
         onClick();
-    }, [disabled, onClick]);
+    }, [disabled, onClick, onDisabledClick]);
     const handleKeyDown = useCallback(
         (event: React.KeyboardEvent) => {
             if (event.key === 'Enter' || event.key === ' ') {
