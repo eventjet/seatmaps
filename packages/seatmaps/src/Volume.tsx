@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { CSSProperties, ReactNode, useEffect, useRef, useState } from 'react';
 import { l } from './length';
 import { textCss } from './textCss';
-import { useTransform } from './useTransform';
+import { getTransform } from './transform';
 import { noop } from './util/noop';
 
 const SCRIM_HEIGHT = 8;
@@ -140,7 +140,7 @@ const EllipseVolume = ({
     fontWeight = 'bold',
 }: VolumeProps) => (
     <StyledRoot
-        transform={useTransform(x, y, angle, width, height)}
+        transform={getTransform(x, y, angle, width, height)}
         onClick={onClick}
         className={className}
         style={{ fontWeight: fontWeight }}
@@ -180,7 +180,7 @@ const RectangleVolume = ({
     fontWeight = 'bold',
 }: VolumeProps) => (
     <StyledRoot
-        transform={useTransform(x, y, angle, width, height)}
+        transform={getTransform(x, y, angle, width, height)}
         onClick={onClick}
         className={className}
         style={{ fontWeight: fontWeight }}
