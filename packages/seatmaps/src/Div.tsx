@@ -18,4 +18,4 @@ export interface DivProps {
  *
  * @public
  */
-export const Div = ({ children }: DivProps) => <svg>{children}</svg>;
+export const Div = ({ children }: DivProps) => <svg role="presentation">{children}</svg>;

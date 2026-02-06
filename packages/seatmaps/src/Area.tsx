@@ -18,6 +18,8 @@ export interface AreaProps {
     y?: number;
     /** Child elements to render inside the area (rows, seats, volumes). */
     children?: ReactNode;
+    /** Area name for accessibility. When provided, the area is marked as a group with this label. */
+    name?: string;
 }
 
 /**
@@ -47,6 +49,12 @@ export interface AreaProps {
  *
  * @public
  */
-export const Area = ({ children, x = 0, y = 0, angle = 0, width = 0, height = 0 }: AreaProps) => (
-    <g transform={getTransform(x, y, angle, width, height)}>{children}</g>
+export const Area = ({ children, x = 0, y = 0, angle = 0, width = 0, height = 0, name }: AreaProps) => (
+    <g
+        transform={getTransform(x, y, angle, width, height)}
+        role={name ? 'group' : undefined}
+        aria-label={name}
+    >
+        {children}
+    </g>
 );

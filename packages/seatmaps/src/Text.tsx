@@ -39,6 +39,7 @@ export const Text = ({ text, x = 0, y = 0, angle = 0 }: TextProps) => (
     <Root
         fontSize={FONT_SIZE}
         transform={getTransform(x, y + FONT_SIZE * 10, angle, 0, 0)}
+        aria-hidden="true"
     >
         {text}
     </Root>

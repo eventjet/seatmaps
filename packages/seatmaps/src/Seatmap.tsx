@@ -18,6 +18,8 @@ export interface SeatmapProps {
     className?: string;
     /** Child elements to render inside the seatmap. */
     children?: ReactNode;
+    /** Accessible label for the seatmap. Defaults to 'Seat map'. */
+    ariaLabel?: string;
 }
 
 /**
@@ -41,7 +43,7 @@ export interface SeatmapProps {
  *
  * @public
  */
-export const Seatmap = ({ children, className }: SeatmapProps) => {
+export const Seatmap = ({ children, className, ariaLabel }: SeatmapProps) => {
     const [[minX, minY, maxX, maxY], setContentSize] = useState<[number, number, number, number]>([0, 0, 0, 0]);
     const [rootNode, setRootNode] = useState<SVGSVGElement>();
     const measuredRef = (node: SVGSVGElement) => {
@@ -75,6 +77,8 @@ export const Seatmap = ({ children, className }: SeatmapProps) => {
             viewBox={`${minX} ${minY} ${maxX - minX} ${maxY - minY}`}
             ref={measuredRef}
             className={className}
+            role="group"
+            aria-label={ariaLabel ?? 'Seat map'}
         >
             <TextSizeController>{children}</TextSizeController>
         </svg>

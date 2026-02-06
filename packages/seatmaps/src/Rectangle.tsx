@@ -39,5 +39,6 @@ export const Rectangle = ({ height, width, x = 0, y = 0, color, angle = 0 }: Rec
         height={l(height)}
         fill={color}
         transform={getTransform(x, y, angle, width, height)}
+        aria-hidden="true"
     />
 );

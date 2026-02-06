@@ -16,6 +16,7 @@ export interface AreaProps {
     angle?: number;
     children?: ReactNode;
     height?: number;
+    name?: string;
     width?: number;
     x?: number;
     y?: number;
@@ -116,6 +117,7 @@ export const Row: (input: RowProps) => react_jsx_runtime.JSX.Element;
 export interface RowProps {
     children?: ReactNode;
     leftLabel?: string;
+    name?: string;
     rightLabel?: string;
     x?: number;
     y?: number;
@@ -138,6 +140,7 @@ export const Seatmap: (input: SeatmapProps) => react_jsx_runtime.JSX.Element;
 
 // @public
 export interface SeatmapProps {
+    ariaLabel?: string;
     children?: ReactNode;
     className?: string;
 }

@@ -33,5 +33,6 @@ export const Circle = ({ centerX = 0, centerY = 0, radius, color }: CircleProps)
         cy={l(centerY)}
         r={l(radius)}
         fill={color}
+        aria-hidden="true"
     />
 );

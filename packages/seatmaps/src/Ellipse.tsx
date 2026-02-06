@@ -40,5 +40,6 @@ export const Ellipse = ({ height, width, x = 0, y = 0, color }: EllipseProps) =>
         cy={l(height / 2)}
         fill={color}
         transform={getTransform(x, y, 0, width, height)}
+        aria-hidden="true"
     />
 );

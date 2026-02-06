@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
-import { CSSProperties, ReactNode, useEffect, useRef, useState } from 'react';
+import React, { CSSProperties, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import { l } from './length';
 import { textCss } from './textCss';
 import { getTransform } from './transform';
 import { noop } from './util/noop';
+import { clsx } from 'clsx';
 
 const SCRIM_HEIGHT = 8;
 const HORIZONTAL_SCRIM_PADDING = 3;
@@ -31,6 +32,15 @@ const StyledRoot = styled.g`
         stroke-width: 1;
         stroke-linecap: round;
         stroke-linejoin: round;
+    }
+
+    &:focus {
+        outline: none;
+    }
+
+    &:focus .shape {
+        stroke: #005fcc;
+        stroke-width: 2;
     }
 `;
 
@@ -126,6 +136,15 @@ export interface VolumeProps {
     fontWeight?: CSSProperties['fontWeight'];
 }
 
+type InternalVolumeProps = VolumeProps & {
+    'tabIndex'?: number;
+    'role'?: string;
+    'aria-label'?: string;
+    'aria-pressed'?: boolean;
+    'aria-disabled'?: boolean;
+    'onKeyDown'?: (event: React.KeyboardEvent) => void;
+};
+
 const EllipseVolume = ({
     x = 0,
     y = 0,
@@ -138,13 +157,25 @@ const EllipseVolume = ({
     angle,
     children,
     fontWeight = 'bold',
-}: VolumeProps) => (
+    tabIndex,
+    role,
+    'aria-label': ariaLabelAttr,
+    'aria-pressed': ariaPressed,
+    'aria-disabled': ariaDisabled,
+    onKeyDown,
+}: InternalVolumeProps) => (
     <StyledRoot
         transform={getTransform(x, y, angle, width, height)}
         onClick={onClick}
         className={className}
         style={{ fontWeight: fontWeight }}
         fill={color}
+        tabIndex={tabIndex}
+        role={role}
+        aria-label={ariaLabelAttr}
+        aria-pressed={ariaPressed}
+        aria-disabled={ariaDisabled}
+        onKeyDown={onKeyDown}
     >
         <ellipse
             rx={l(width / 2)}
@@ -178,13 +209,25 @@ const RectangleVolume = ({
     angle,
     children,
     fontWeight = 'bold',
-}: VolumeProps) => (
+    tabIndex,
+    role,
+    'aria-label': ariaLabelAttr,
+    'aria-pressed': ariaPressed,
+    'aria-disabled': ariaDisabled,
+    onKeyDown,
+}: InternalVolumeProps) => (
     <StyledRoot
         transform={getTransform(x, y, angle, width, height)}
         onClick={onClick}
         className={className}
         style={{ fontWeight: fontWeight }}
         fill={color}
+        tabIndex={tabIndex}
+        role={role}
+        aria-label={ariaLabelAttr}
+        aria-pressed={ariaPressed}
+        aria-disabled={ariaDisabled}
+        onKeyDown={onKeyDown}
     >
         <rect
             width={l(width)}
@@ -232,25 +275,33 @@ const RectangleVolume = ({
  * @public
  */
 export const Volume = (props: VolumeProps) => {
-    const updatedProps: VolumeProps = {
-        ...props,
-        className: [
-            props.className,
-            props.onClick !== noop ? 'clickable' : undefined,
-            props.active ? 'active' : undefined,
-        ].join(' '),
-        color: (() => {
-            if (props.disabled) {
-                return '#cccccc';
+    const { onClick = noop, disabled } = props;
+    const handleClick = useCallback(() => {
+        if (disabled) {
+            return;
+        }
+        onClick();
+    }, [disabled, onClick]);
+    const handleKeyDown = useCallback(
+        (event: React.KeyboardEvent) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                handleClick();
             }
-            return props.color;
-        })(),
-        onClick: () => {
-            if (props.disabled || props.onClick === undefined) {
-                return;
-            }
-            props.onClick();
         },
+        [handleClick],
+    );
+    const updatedProps: InternalVolumeProps = {
+        ...props,
+        'className': clsx(props.className, { clickable: onClick !== noop, active: props.active }),
+        'color': props.disabled ? '#cccccc' : props.color,
+        'onClick': handleClick,
+        'tabIndex': props.disabled ? -1 : 0,
+        'role': 'button',
+        'aria-label': props.label ?? 'Volume',
+        'aria-pressed': props.active,
+        'aria-disabled': props.disabled,
+        'onKeyDown': handleKeyDown,
     };
     return props.shape === 'ellipse' ? <EllipseVolume {...updatedProps} /> : <RectangleVolume {...updatedProps} />;
 };
