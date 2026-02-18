@@ -1,5 +1,5 @@
 import { l } from './length';
-import { useTransform } from './useTransform';
+import { getTransform } from './transform';
 
 /**
  * Props for the {@link Rectangle} component.
@@ -38,6 +38,7 @@ export const Rectangle = ({ height, width, x = 0, y = 0, color, angle = 0 }: Rec
         width={l(width)}
         height={l(height)}
         fill={color}
-        transform={useTransform(x, y, angle, width, height)}
+        transform={getTransform(x, y, angle, width, height)}
+        aria-hidden="true"
     />
 );

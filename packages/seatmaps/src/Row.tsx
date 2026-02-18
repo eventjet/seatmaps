@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import { ReactElement, ReactNode } from 'react';
 import { textCss } from './textCss';
-import { useTransform } from './useTransform';
+import { getTransform } from './transform';
 
-const isReactElement = (x: unknown): x is ReactElement => {
+const isReactElement = (x: unknown): x is ReactElement<{ x?: number; y?: number }> => {
     return typeof x === 'object' && x !== null && 'props' in x;
 };
 
@@ -24,6 +24,8 @@ const Name = styled('text')`
 export interface RowProps {
     /** Row identifier displayed to the left of the first seat. */
     leftLabel?: string;
+    /** Accessible name for the row. */
+    name?: string;
     /** Row identifier displayed to the right of the last seat. */
     rightLabel?: string;
     /** X position of the row in seatmap units. Defaults to `0`. */
@@ -54,7 +56,7 @@ export interface RowProps {
  *
  * @public
  */
-export const Row = ({ children, leftLabel, rightLabel, x = 0, y = 0 }: RowProps) => {
+export const Row = ({ children, leftLabel, name, rightLabel, x = 0, y = 0 }: RowProps) => {
     const [[leftX, leftY], [rightX, rightY]] = ((): [left: [x: number, y: number], right: [x: number, y: number]] => {
         if (!Array.isArray(children)) {
             return [
@@ -74,12 +76,17 @@ export const Row = ({ children, leftLabel, rightLabel, x = 0, y = 0 }: RowProps)
     const rightStyle =
         rightX !== 0 || rightY !== 0 ? { transform: `translate(${rightX / 10}px, ${rightY / 10}px)` } : undefined;
     return (
-        <g transform={useTransform(x, y)}>
+        <g
+            transform={getTransform(x, y)}
+            role={name ? 'group' : undefined}
+            aria-label={name}
+        >
             {leftLabel !== undefined ? (
                 <Name
                     x={-5}
                     y={5}
                     style={leftStyle}
+                    aria-hidden="true"
                 >
                     {leftLabel}
                 </Name>
@@ -90,6 +97,7 @@ export const Row = ({ children, leftLabel, rightLabel, x = 0, y = 0 }: RowProps)
                     x={15}
                     y={5}
                     style={rightStyle}
+                    aria-hidden="true"
                 >
                     {rightLabel}
                 </Name>

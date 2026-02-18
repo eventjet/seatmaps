@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { TextSizeController } from './textSize';
 
 const measureContentSize = (node: SVGSVGElement): [number, number, number, number] => {
@@ -18,6 +18,8 @@ export interface SeatmapProps {
     className?: string;
     /** Child elements to render inside the seatmap. */
     children?: ReactNode;
+    /** Accessible label for the seatmap. Defaults to 'Seat map'. */
+    ariaLabel?: string;
 }
 
 /**
@@ -41,19 +43,21 @@ export interface SeatmapProps {
  *
  * @public
  */
-export const Seatmap = ({ children, className }: SeatmapProps) => {
+export const Seatmap = ({ children, className, ariaLabel }: SeatmapProps) => {
     const [[minX, minY, maxX, maxY], setContentSize] = useState<[number, number, number, number]>([0, 0, 0, 0]);
     const [rootNode, setRootNode] = useState<SVGSVGElement>();
-    const measuredRef = useCallback((node: SVGSVGElement) => {
+    const measuredRef = (node: SVGSVGElement) => {
         if (node === null) {
             return;
         }
         setRootNode(node);
-    }, []);
+    };
     useEffect(() => {
         if (rootNode === undefined) {
             return;
         }
+        // Initial DOM measurement after mount — intentional synchronous setState
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setContentSize(measureContentSize(rootNode));
         if (!('MutationObserver' in window)) {
             return;
@@ -73,6 +77,8 @@ export const Seatmap = ({ children, className }: SeatmapProps) => {
             viewBox={`${minX} ${minY} ${maxX - minX} ${maxY - minY}`}
             ref={measuredRef}
             className={className}
+            role="group"
+            aria-label={ariaLabel ?? 'Seat map'}
         >
             <TextSizeController>{children}</TextSizeController>
         </svg>

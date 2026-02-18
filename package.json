@@ -9,6 +9,7 @@
   "type": "module",
   "scripts": {
     "build": "pnpm -r build",
+    "ch": "pnpm lint && pnpm typecheck && pnpm test && pnpm format:check && pnpm knip",
     "clean": "pnpm -r clean",
     "format": "pnpm -r format",
     "format:check": "pnpm -r format:check",
