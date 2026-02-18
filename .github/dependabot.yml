@@ -1,0 +1,51 @@
+version: 2
+updates:
+  # GitHub Actions
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns:
+          - "*"
+
+  # Root workspace dependencies
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      dev-tooling:
+        patterns:
+          - "*"
+
+  # Main package dependencies
+  - package-ecosystem: npm
+    directory: /packages/seatmaps
+    schedule:
+      interval: weekly
+    groups:
+      storybook:
+        patterns:
+          - "storybook"
+          - "@storybook/*"
+      eslint:
+        patterns:
+          - "eslint"
+          - "eslint-*"
+          - "@eslint/*"
+          - "typescript-eslint"
+      testing:
+        patterns:
+          - "vitest"
+          - "@testing-library/*"
+          - "jsdom"
+      build-tools:
+        patterns:
+          - "tsup"
+          - "vite"
+          - "@vitejs/*"
+      types:
+        patterns:
+          - "@types/*"
