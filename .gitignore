@@ -10,6 +10,7 @@ examples/**/package-lock.json
 packages/**/package-lock.json
 junit.xml
 temp
+test-results
 !.claude/
 .claude/*
 !.claude/skills/
