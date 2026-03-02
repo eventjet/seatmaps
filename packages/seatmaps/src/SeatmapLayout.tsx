@@ -267,13 +267,27 @@ export interface SeatmapLayoutProps {
     /** Accessible label for the seatmap. Defaults to `'Seat map'`. */
     ariaLabel?: string;
     /** Formats the area name for its accessible label. Defaults to using the name as-is. */
-    formatAreaName?: (name: string) => string;
+    formatAreaName?: (area: { name: string }) => string;
     /** Formats the row name for its accessible label. Does not affect the visual row labels. Defaults to using the name as-is. */
-    formatRowName?: (name: string) => string;
-    /** Formats the seat name for its accessible label. Does not affect the visual name inside the seat. Defaults to using the name as-is. */
-    formatSeatName?: (name: string) => string;
-    /** Formats the volume label for its accessible label. Does not affect the visual label on the volume. Defaults to using the label as-is. */
-    formatVolumeLabel?: (label: string) => string;
+    formatRowName?: (row: { name: string }) => string;
+    /**
+     * Formats the accessible label for a seat. Does not affect the visual name inside the seat. Defaults to using
+     * the name as-is.
+     *
+     * Use the `active` and `disabled` state to append status information to the label — for example to communicate
+     * cart membership to screen reader users:
+     * `({ name, active }) => active ? name + " – in your cart" : name`.
+     */
+    formatSeatName?: (seat: { name: string; active: boolean; disabled: boolean }) => string;
+    /**
+     * Formats the accessible label for a volume. Does not affect the visual label on the volume. Defaults to using
+     * the label as-is.
+     *
+     * Use the `active` and `disabled` state to append status information to the label — for example to communicate
+     * cart membership to screen reader users:
+     * `({ name, active }) => active ? name + " – in your cart" : name`.
+     */
+    formatVolumeLabel?: (volume: { name: string; active: boolean; disabled: boolean }) => string;
 }
 
 // ──────────────────────────────────────────────
@@ -371,7 +385,7 @@ const renderVolumeBadge = (volume: SeatmapVolumeData) => {
     );
 };
 
-const identity = (value: string) => value;
+const identityName = ({ name }: { name: string }) => name;
 
 // ──────────────────────────────────────────────
 // Component
@@ -399,10 +413,10 @@ export const SeatmapLayout = ({
     onBookableClick,
     className,
     ariaLabel,
-    formatAreaName = identity,
-    formatRowName = identity,
-    formatSeatName = identity,
-    formatVolumeLabel = identity,
+    formatAreaName = identityName,
+    formatRowName = identityName,
+    formatSeatName = identityName,
+    formatVolumeLabel = identityName,
 }: SeatmapLayoutProps) => {
     const decorations = data.decorations ?? [];
     const nonTextDecorations = decorations.filter((d) => !isTextDecoration(d));
@@ -422,7 +436,7 @@ export const SeatmapLayout = ({
                     width={area.width}
                     height={area.height}
                     angle={area.angle}
-                    name={area.name !== undefined ? formatAreaName(area.name) : undefined}
+                    name={area.name !== undefined ? formatAreaName({ name: area.name }) : undefined}
                 >
                     {area.blocks?.map((block, blockIndex) => (
                         <Block
@@ -440,7 +454,7 @@ export const SeatmapLayout = ({
                                         key={rowIndex}
                                         x={row.x}
                                         y={row.y}
-                                        name={row.name !== undefined ? formatRowName(row.name) : undefined}
+                                        name={row.name !== undefined ? formatRowName({ name: row.name }) : undefined}
                                         leftLabel={
                                             showLabels === 'left' || showLabels === 'both' ? row.name : undefined
                                         }
@@ -448,76 +462,94 @@ export const SeatmapLayout = ({
                                             showLabels === 'right' || showLabels === 'both' ? row.name : undefined
                                         }
                                     >
-                                        {row.seats.map((seat, seatIndex) => (
-                                            <Seat
-                                                key={seat.id}
-                                                name={seat.name}
-                                                ariaLabel={
-                                                    seat.name !== undefined ? formatSeatName(seat.name) : undefined
-                                                }
-                                                x={seat.x}
-                                                y={seat.y}
-                                                shape={seat.shape}
-                                                color={seat.color}
-                                                active={seat.active ?? false}
-                                                disabled={seat.disabled}
-                                                hideName={seatIndex !== 0 && seatIndex !== row.seats.length - 1}
-                                                onClick={
-                                                    onBookableClick
-                                                        ? () =>
-                                                              onBookableClick({
-                                                                  id: seat.id,
-                                                                  type: 'seat',
-                                                                  disabled: false,
-                                                              })
-                                                        : undefined
-                                                }
-                                                onDisabledClick={
-                                                    onBookableClick
-                                                        ? () =>
-                                                              onBookableClick({
-                                                                  id: seat.id,
-                                                                  type: 'seat',
-                                                                  disabled: true,
-                                                              })
-                                                        : undefined
-                                                }
-                                            />
-                                        ))}
+                                        {row.seats.map((seat, seatIndex) => {
+                                            const seatAriaLabel =
+                                                seat.name !== undefined
+                                                    ? formatSeatName({
+                                                          name: seat.name,
+                                                          active: seat.active ?? false,
+                                                          disabled: seat.disabled ?? false,
+                                                      })
+                                                    : undefined;
+                                            return (
+                                                <Seat
+                                                    key={seat.id}
+                                                    name={seat.name}
+                                                    ariaLabel={seatAriaLabel}
+                                                    x={seat.x}
+                                                    y={seat.y}
+                                                    shape={seat.shape}
+                                                    color={seat.color}
+                                                    active={seat.active ?? false}
+                                                    disabled={seat.disabled}
+                                                    hideName={seatIndex !== 0 && seatIndex !== row.seats.length - 1}
+                                                    onClick={
+                                                        onBookableClick
+                                                            ? () =>
+                                                                  onBookableClick({
+                                                                      id: seat.id,
+                                                                      type: 'seat',
+                                                                      disabled: false,
+                                                                  })
+                                                            : undefined
+                                                    }
+                                                    onDisabledClick={
+                                                        onBookableClick
+                                                            ? () =>
+                                                                  onBookableClick({
+                                                                      id: seat.id,
+                                                                      type: 'seat',
+                                                                      disabled: true,
+                                                                  })
+                                                            : undefined
+                                                    }
+                                                />
+                                            );
+                                        })}
                                     </Row>
                                 );
                             })}
                         </Block>
                     ))}
-                    {area.volumes?.map((volume) => (
-                        <Volume
-                            key={volume.id}
-                            label={getVolumeLabel(volume)}
-                            aria-label={volume.label !== undefined ? formatVolumeLabel(volume.label) : undefined}
-                            x={volume.x}
-                            y={volume.y}
-                            width={volume.width}
-                            height={volume.height}
-                            shape={volume.shape}
-                            color={volume.color}
-                            active={volume.active ?? false}
-                            disabled={volume.disabled}
-                            angle={volume.angle}
-                            fontWeight="normal"
-                            onClick={
-                                onBookableClick
-                                    ? () => onBookableClick({ id: volume.id, type: 'volume', disabled: false })
-                                    : undefined
-                            }
-                            onDisabledClick={
-                                onBookableClick
-                                    ? () => onBookableClick({ id: volume.id, type: 'volume', disabled: true })
-                                    : undefined
-                            }
-                        >
-                            {renderVolumeBadge(volume)}
-                        </Volume>
-                    ))}
+                    {area.volumes?.map((volume) => {
+                        const volumeAriaLabel =
+                            volume.label !== undefined
+                                ? formatVolumeLabel({
+                                      name: volume.label,
+                                      active: volume.active ?? false,
+                                      disabled: volume.disabled ?? false,
+                                  })
+                                : undefined;
+                        return (
+                            <Volume
+                                key={volume.id}
+                                label={getVolumeLabel(volume)}
+                                aria-label={volumeAriaLabel}
+                                x={volume.x}
+                                y={volume.y}
+                                width={volume.width}
+                                height={volume.height}
+                                shape={volume.shape}
+                                color={volume.color}
+                                active={volume.active ?? false}
+                                disabled={volume.disabled}
+                                angle={volume.angle}
+                                fontWeight="normal"
+                                onClick={
+                                    onBookableClick
+                                        ? () => onBookableClick({ id: volume.id, type: 'volume', disabled: false })
+                                        : undefined
+                                }
+                                onDisabledClick={
+                                    onBookableClick
+                                        ? () => onBookableClick({ id: volume.id, type: 'volume', disabled: true })
+                                        : undefined
+                                }
+                            >
+                                {renderVolumeBadge(volume)}
+                            </Volume>
+                        );
+                    })}
                 </Area>
             ))}
             {textDecorations.map(renderDecoration)}

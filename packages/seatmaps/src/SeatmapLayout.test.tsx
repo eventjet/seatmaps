@@ -187,7 +187,7 @@ describe('SeatmapLayout', () => {
             const { getByRole } = render(
                 <SeatmapLayout
                     data={data}
-                    formatAreaName={(name) => `Section: ${name}`}
+                    formatAreaName={({ name }) => `Section: ${name}`}
                 />,
             );
 
@@ -209,7 +209,7 @@ describe('SeatmapLayout', () => {
             const { getByRole, getAllByText } = render(
                 <SeatmapLayout
                     data={data}
-                    formatRowName={(name) => `Row: ${name}`}
+                    formatRowName={({ name }) => `Row: ${name}`}
                 />,
             );
 
@@ -224,12 +224,72 @@ describe('SeatmapLayout', () => {
             const { getByRole, getByText } = render(
                 <SeatmapLayout
                     data={data}
-                    formatSeatName={(name) => `Seat ${name}`}
+                    formatSeatName={({ name }) => `Seat ${name}`}
                 />,
             );
 
             expect(getByRole('button', { name: 'Seat A1' })).toBeDefined();
             expect(getByText('A1')).toBeDefined();
+        });
+
+        it('formatSeatName receives active state for active seats', () => {
+            const data: SeatmapLayoutData = {
+                areas: [{ blocks: [{ rows: [{ seats: [{ id: 's1', name: 'A1', active: true }] }] }] }],
+            };
+            const { getByRole, getByText } = render(
+                <SeatmapLayout
+                    data={data}
+                    formatSeatName={({ name, active }) => (active ? `${name} – in your cart` : name)}
+                />,
+            );
+
+            expect(getByRole('button', { name: 'A1 – in your cart' })).toBeDefined();
+            expect(getByText('A1')).toBeDefined();
+        });
+
+        it('formatSeatName receives active=false for inactive seats', () => {
+            const data: SeatmapLayoutData = {
+                areas: [{ blocks: [{ rows: [{ seats: [{ id: 's1', name: 'A1', active: false }] }] }] }],
+            };
+            const { getByRole, getByText } = render(
+                <SeatmapLayout
+                    data={data}
+                    formatSeatName={({ name, active }) => (active ? `${name} – in your cart` : name)}
+                />,
+            );
+
+            expect(getByRole('button', { name: 'A1' })).toBeDefined();
+            expect(getByText('A1')).toBeDefined();
+        });
+
+        it('formatSeatName receives disabled state', () => {
+            const data: SeatmapLayoutData = {
+                areas: [{ blocks: [{ rows: [{ seats: [{ id: 's1', name: 'A1', disabled: true }] }] }] }],
+            };
+            const { getByRole, getByText } = render(
+                <SeatmapLayout
+                    data={data}
+                    formatSeatName={({ name, disabled }) => (disabled ? `${name} – unavailable` : name)}
+                />,
+            );
+
+            expect(getByRole('button', { name: 'A1 – unavailable' })).toBeDefined();
+            expect(getByText('A1')).toBeDefined();
+        });
+
+        it('formatVolumeLabel receives active state for active volumes', () => {
+            const data: SeatmapLayoutData = {
+                areas: [{ volumes: [{ id: 'v1', label: 'GA', width: 200, height: 100, active: true }] }],
+            };
+            const { getByRole, getByText } = render(
+                <SeatmapLayout
+                    data={data}
+                    formatVolumeLabel={({ name, active }) => (active ? `${name} – in your cart` : name)}
+                />,
+            );
+
+            expect(getByRole('button', { name: 'GA – in your cart' })).toBeDefined();
+            expect(getByText('GA')).toBeDefined();
         });
 
         it('formatVolumeLabel applies to the volume accessible label but not the visual label', () => {
@@ -239,7 +299,7 @@ describe('SeatmapLayout', () => {
             const { getByRole, getByText } = render(
                 <SeatmapLayout
                     data={data}
-                    formatVolumeLabel={(label) => `Area: ${label}`}
+                    formatVolumeLabel={({ name }) => `Area: ${name}`}
                 />,
             );
 

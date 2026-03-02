@@ -203,10 +203,22 @@ export interface SeatmapLayoutProps {
     ariaLabel?: string;
     className?: string;
     data: SeatmapLayoutData;
-    formatAreaName?: (name: string) => string;
-    formatRowName?: (name: string) => string;
-    formatSeatName?: (name: string) => string;
-    formatVolumeLabel?: (label: string) => string;
+    formatAreaName?: (area: {
+        name: string;
+    }) => string;
+    formatRowName?: (row: {
+        name: string;
+    }) => string;
+    formatSeatName?: (seat: {
+        name: string;
+        active: boolean;
+        disabled: boolean;
+    }) => string;
+    formatVolumeLabel?: (volume: {
+        name: string;
+        active: boolean;
+        disabled: boolean;
+    }) => string;
     onBookableClick?: (event: SeatmapBookableClickEvent) => void;
 }
 
