@@ -316,21 +316,21 @@ export const Volume: (props: VolumeProps) => react_jsx_runtime.JSX.Element;
 // @public
 export interface VolumeProps {
     'aria-label'?: string;
-    active?: boolean;
-    angle?: number;
-    children?: ReactNode;
-    className?: string;
-    color?: string;
-    disabled?: boolean;
-    fontWeight?: CSSProperties['fontWeight'];
-    height: number;
-    label?: string;
-    onClick?: () => void;
-    onDisabledClick?: () => void;
-    shape?: 'rectangle' | 'ellipse';
-    width: number;
-    x?: number;
-    y?: number;
+    'active'?: boolean;
+    'angle'?: number;
+    'children'?: ReactNode;
+    'className'?: string;
+    'color'?: string;
+    'disabled'?: boolean;
+    'fontWeight'?: CSSProperties['fontWeight'];
+    'height': number;
+    'label'?: string;
+    'onClick'?: () => void;
+    'onDisabledClick'?: () => void;
+    'shape'?: 'rectangle' | 'ellipse';
+    'width': number;
+    'x'?: number;
+    'y'?: number;
 }
 
 // (No @packageDocumentation comment for this package)
