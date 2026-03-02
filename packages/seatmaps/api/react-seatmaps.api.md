@@ -203,6 +203,10 @@ export interface SeatmapLayoutProps {
     ariaLabel?: string;
     className?: string;
     data: SeatmapLayoutData;
+    formatAreaName?: (name: string) => string;
+    formatRowName?: (name: string) => string;
+    formatSeatName?: (name: string) => string;
+    formatVolumeLabel?: (label: string) => string;
     onBookableClick?: (event: SeatmapBookableClickEvent) => void;
 }
 
@@ -276,6 +280,7 @@ export interface SeatmapVolumeData {
 // @public
 export interface SeatProps {
     active?: boolean;
+    ariaLabel?: string;
     color?: string;
     disabled?: boolean;
     hideName?: boolean;
@@ -310,6 +315,7 @@ export const Volume: (props: VolumeProps) => react_jsx_runtime.JSX.Element;
 
 // @public
 export interface VolumeProps {
+    'aria-label'?: string;
     active?: boolean;
     angle?: number;
     children?: ReactNode;

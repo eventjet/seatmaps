@@ -179,6 +179,75 @@ describe('SeatmapLayout', () => {
         expect(badgeText?.textContent).toBe('5');
     });
 
+    describe('name formatters', () => {
+        it('formatAreaName applies to the area accessible label', () => {
+            const data: SeatmapLayoutData = {
+                areas: [{ name: 'Area 1', blocks: [] }],
+            };
+            const { getByRole } = render(
+                <SeatmapLayout
+                    data={data}
+                    formatAreaName={(name) => `Section: ${name}`}
+                />,
+            );
+
+            expect(getByRole('group', { name: 'Section: Area 1' })).toBeDefined();
+        });
+
+        it('formatRowName applies to the row accessible label but not the visual labels', () => {
+            const data: SeatmapLayoutData = {
+                areas: [
+                    {
+                        blocks: [
+                            {
+                                rows: [{ name: 'Row A', showLabels: 'both', seats: [{ id: 's1', name: '1' }] }],
+                            },
+                        ],
+                    },
+                ],
+            };
+            const { getByRole, getAllByText } = render(
+                <SeatmapLayout
+                    data={data}
+                    formatRowName={(name) => `Row: ${name}`}
+                />,
+            );
+
+            expect(getByRole('group', { name: 'Row: Row A' })).toBeDefined();
+            expect(getAllByText('Row A').length).toBeGreaterThanOrEqual(2);
+        });
+
+        it('formatSeatName applies to the seat accessible label but not the visual name', () => {
+            const data: SeatmapLayoutData = {
+                areas: [{ blocks: [{ rows: [{ seats: [{ id: 's1', name: 'A1' }] }] }] }],
+            };
+            const { getByRole, getByText } = render(
+                <SeatmapLayout
+                    data={data}
+                    formatSeatName={(name) => `Seat ${name}`}
+                />,
+            );
+
+            expect(getByRole('button', { name: 'Seat A1' })).toBeDefined();
+            expect(getByText('A1')).toBeDefined();
+        });
+
+        it('formatVolumeLabel applies to the volume accessible label but not the visual label', () => {
+            const data: SeatmapLayoutData = {
+                areas: [{ volumes: [{ id: 'v1', label: 'GA', width: 200, height: 100 }] }],
+            };
+            const { getByRole, getByText } = render(
+                <SeatmapLayout
+                    data={data}
+                    formatVolumeLabel={(label) => `Area: ${label}`}
+                />,
+            );
+
+            expect(getByRole('button', { name: 'Area: GA' })).toBeDefined();
+            expect(getByText('GA')).toBeDefined();
+        });
+    });
+
     it('renders row labels when showLabels is set', () => {
         const data: SeatmapLayoutData = {
             areas: [

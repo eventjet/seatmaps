@@ -107,35 +107,37 @@ const Scrim = ({ width = 'auto', x, y, text, anchor = 'bottom-left' }: ScrimProp
  */
 export interface VolumeProps {
     /** Whether the volume is currently selected. Displays an animated dashed border when true. */
-    active?: boolean;
+    'active'?: boolean;
     /** Rotation angle in degrees. Rotates the volume and its children around the center point `(x + width/2, y + height/2)`. */
-    angle?: number;
+    'angle'?: number;
     /** CSS class name to apply to the volume group element. */
-    className?: string;
+    'className'?: string;
     /** Fill color for the volume shape. Defaults to `#808080`. Ignored when `disabled` is true. */
-    color?: string;
+    'color'?: string;
     /** Whether the volume is disabled. Disabled volumes appear grayed out and trigger `onDisabledClick` instead of `onClick`. */
-    disabled?: boolean;
+    'disabled'?: boolean;
     /** Height of the volume in seatmap units. */
-    height: number;
+    'height': number;
     /** Volume identifier. Must be unique within the containing {@link Area}. Displayed at the bottom with a semi-transparent background. */
-    label?: string;
+    'label'?: string;
     /** Callback fired when the volume is clicked (unless disabled). */
-    onClick?: () => void;
+    'onClick'?: () => void;
     /** Callback fired when a disabled volume is clicked. */
-    onDisabledClick?: () => void;
+    'onDisabledClick'?: () => void;
     /** Shape of the volume. Defaults to `'rectangle'`. */
-    shape?: 'rectangle' | 'ellipse';
+    'shape'?: 'rectangle' | 'ellipse';
     /** Width of the volume in seatmap units. */
-    width: number;
+    'width': number;
     /** X position of the volume's top-left corner in seatmap units. Defaults to `0`. */
-    x?: number;
+    'x'?: number;
     /** Y position of the volume's top-left corner in seatmap units. Defaults to `0`. */
-    y?: number;
+    'y'?: number;
     /** Child elements to render inside the volume (e.g., badges). */
-    children?: ReactNode;
+    'children'?: ReactNode;
     /** Font weight for the label text. Defaults to `'bold'`. */
-    fontWeight?: CSSProperties['fontWeight'];
+    'fontWeight'?: CSSProperties['fontWeight'];
+    /** Accessible label for the volume. Overrides the default `aria-label` derived from `label`. */
+    'aria-label'?: string;
 }
 
 type InternalVolumeProps = VolumeProps & {
@@ -301,7 +303,7 @@ export const Volume = (props: VolumeProps) => {
         'onClick': handleClick,
         'tabIndex': props.disabled ? -1 : 0,
         'role': 'button',
-        'aria-label': props.label ?? 'Volume',
+        'aria-label': props['aria-label'] ?? props.label ?? 'Volume',
         'aria-pressed': props.active,
         'aria-disabled': props.disabled,
         'onKeyDown': handleKeyDown,

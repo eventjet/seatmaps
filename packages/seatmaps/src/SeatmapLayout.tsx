@@ -266,6 +266,14 @@ export interface SeatmapLayoutProps {
     className?: string;
     /** Accessible label for the seatmap. Defaults to `'Seat map'`. */
     ariaLabel?: string;
+    /** Formats the area name for its accessible label. Defaults to using the name as-is. */
+    formatAreaName?: (name: string) => string;
+    /** Formats the row name for its accessible label. Does not affect the visual row labels. Defaults to using the name as-is. */
+    formatRowName?: (name: string) => string;
+    /** Formats the seat name for its accessible label. Does not affect the visual name inside the seat. Defaults to using the name as-is. */
+    formatSeatName?: (name: string) => string;
+    /** Formats the volume label for its accessible label. Does not affect the visual label on the volume. Defaults to using the label as-is. */
+    formatVolumeLabel?: (label: string) => string;
 }
 
 // ──────────────────────────────────────────────
@@ -363,6 +371,8 @@ const renderVolumeBadge = (volume: SeatmapVolumeData) => {
     );
 };
 
+const identity = (value: string) => value;
+
 // ──────────────────────────────────────────────
 // Component
 // ──────────────────────────────────────────────
@@ -384,7 +394,16 @@ const renderVolumeBadge = (volume: SeatmapVolumeData) => {
  *
  * @public
  */
-export const SeatmapLayout = ({ data, onBookableClick, className, ariaLabel }: SeatmapLayoutProps) => {
+export const SeatmapLayout = ({
+    data,
+    onBookableClick,
+    className,
+    ariaLabel,
+    formatAreaName = identity,
+    formatRowName = identity,
+    formatSeatName = identity,
+    formatVolumeLabel = identity,
+}: SeatmapLayoutProps) => {
     const decorations = data.decorations ?? [];
     const nonTextDecorations = decorations.filter((d) => !isTextDecoration(d));
     const textDecorations = decorations.filter(isTextDecoration);
@@ -403,7 +422,7 @@ export const SeatmapLayout = ({ data, onBookableClick, className, ariaLabel }: S
                     width={area.width}
                     height={area.height}
                     angle={area.angle}
-                    name={area.name}
+                    name={area.name !== undefined ? formatAreaName(area.name) : undefined}
                 >
                     {area.blocks?.map((block, blockIndex) => (
                         <Block
@@ -421,7 +440,7 @@ export const SeatmapLayout = ({ data, onBookableClick, className, ariaLabel }: S
                                         key={rowIndex}
                                         x={row.x}
                                         y={row.y}
-                                        name={row.name}
+                                        name={row.name !== undefined ? formatRowName(row.name) : undefined}
                                         leftLabel={
                                             showLabels === 'left' || showLabels === 'both' ? row.name : undefined
                                         }
@@ -433,6 +452,9 @@ export const SeatmapLayout = ({ data, onBookableClick, className, ariaLabel }: S
                                             <Seat
                                                 key={seat.id}
                                                 name={seat.name}
+                                                ariaLabel={
+                                                    seat.name !== undefined ? formatSeatName(seat.name) : undefined
+                                                }
                                                 x={seat.x}
                                                 y={seat.y}
                                                 shape={seat.shape}
@@ -471,6 +493,7 @@ export const SeatmapLayout = ({ data, onBookableClick, className, ariaLabel }: S
                         <Volume
                             key={volume.id}
                             label={getVolumeLabel(volume)}
+                            aria-label={volume.label !== undefined ? formatVolumeLabel(volume.label) : undefined}
                             x={volume.x}
                             y={volume.y}
                             width={volume.width}

@@ -79,6 +79,32 @@ describe('accessibility', () => {
         expect(getByRole('button').getAttribute('aria-label')).toBe('A5');
     });
 
+    it('uses ariaLabel prop as aria-label instead of name', () => {
+        const { getByRole } = render(
+            <svg>
+                <Seat
+                    name="A5"
+                    ariaLabel="Seat A5"
+                />
+            </svg>,
+        );
+
+        expect(getByRole('button').getAttribute('aria-label')).toBe('Seat A5');
+    });
+
+    it('still shows name visually when ariaLabel is provided', () => {
+        const { getByText } = render(
+            <svg>
+                <Seat
+                    name="A5"
+                    ariaLabel="Seat A5"
+                />
+            </svg>,
+        );
+
+        expect(getByText('A5')).toBeDefined();
+    });
+
     it('has aria-pressed when active', () => {
         const { getByRole } = render(
             <svg>

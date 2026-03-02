@@ -121,6 +121,8 @@ export interface SeatProps {
     hideName?: boolean;
     /** Seat identifier displayed inside the seat. Combined with area and row to form a unique identifier. Uses a smaller font for names longer than 2 characters. */
     name?: string;
+    /** Accessible label for the seat. Overrides the default `aria-label` derived from `name`. */
+    ariaLabel?: string;
     /** Callback fired when the seat is clicked (unless disabled). */
     onClick?: () => void;
     /** Callback fired when a disabled seat is clicked. */
@@ -159,6 +161,7 @@ export const Seat = ({
     x = 0,
     y = 0,
     name,
+    ariaLabel,
     hideName = false,
     color,
     disabled = false,
@@ -191,7 +194,7 @@ export const Seat = ({
             onKeyDown={handleKeyDown}
             tabIndex={disabled ? -1 : 0}
             role="button"
-            aria-label={name ?? 'Unnamed seat'}
+            aria-label={ariaLabel ?? name ?? 'Unnamed seat'}
             aria-pressed={active}
             aria-disabled={disabled}
         >
