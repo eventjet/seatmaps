@@ -36,6 +36,7 @@
         "lint": "eslint src",
         "storybook": "storybook dev -p 6006",
         "test": "vitest run",
+        "test:e2e": "playwright test --config playwright.config.ts",
         "test:watch": "vitest",
         "typecheck": "tsc --noEmit"
     },
@@ -49,8 +50,6 @@
         "@emotion/styled": "^11.10.0",
         "@eslint/js": "^10.0.1",
         "@microsoft/api-extractor": "^7.56.3",
-        "@storybook/addon-essentials": "^8.4.0",
-        "@storybook/addon-interactions": "^8.4.0",
         "@storybook/react": "^10.2.10",
         "@storybook/react-vite": "^10.2.10",
         "@testing-library/react": "^16.0.0",

@@ -5,11 +5,12 @@
 ```ts
 
 import { CSSProperties } from 'react';
+import { default as React_2 } from 'react';
 import * as react_jsx_runtime from 'react/jsx-runtime';
 import { ReactNode } from 'react';
 
 // @public
-export const Area: (input: AreaProps) => react_jsx_runtime.JSX.Element;
+export const Area: React_2.ForwardRefExoticComponent<AreaProps & React_2.RefAttributes<SVGGElement>>;
 
 // @public
 export interface AreaProps {
@@ -17,6 +18,8 @@ export interface AreaProps {
     children?: ReactNode;
     height?: number;
     name?: string;
+    onFocus?: React_2.FocusEventHandler<SVGGElement>;
+    tabIndex?: number;
     width?: number;
     x?: number;
     y?: number;
@@ -124,7 +127,7 @@ export interface RowProps {
 }
 
 // @public
-export const Seat: (input: SeatProps) => react_jsx_runtime.JSX.Element;
+export const Seat: React_2.ForwardRefExoticComponent<SeatProps & React_2.RefAttributes<SVGGElement>>;
 
 // @public
 export const SeatCountBadge: (input: SeatCountBadgeProps) => react_jsx_runtime.JSX.Element;
@@ -139,6 +142,90 @@ export type SeatCountBadgeProps = LegacySeatCountBadgeProps | NewSeatCountBadgeP
 export const Seatmap: (input: SeatmapProps) => react_jsx_runtime.JSX.Element;
 
 // @public
+export interface SeatmapAreaData {
+    angle?: number;
+    blocks?: SeatmapBlockData[];
+    height?: number;
+    name?: string;
+    volumes?: SeatmapVolumeData[];
+    width?: number;
+    x?: number;
+    y?: number;
+}
+
+// @public
+export interface SeatmapBlockData {
+    angle?: number;
+    height?: number;
+    rows: SeatmapRowData[];
+    width?: number;
+    x?: number;
+    y?: number;
+}
+
+// @public
+export interface SeatmapBookableClickEvent {
+    disabled: boolean;
+    id: string;
+    type: 'seat' | 'volume';
+}
+
+// @public
+export interface SeatmapCircleDecoration {
+    centerX?: number;
+    centerY?: number;
+    color?: string;
+    radius: number;
+    type: 'circle';
+}
+
+// @public
+export type SeatmapDecoration = SeatmapCircleDecoration | SeatmapEllipseDecoration | SeatmapRectangleDecoration | SeatmapTextDecoration;
+
+// @public
+export interface SeatmapEllipseDecoration {
+    color?: string;
+    height: number;
+    type: 'ellipse';
+    width: number;
+    x?: number;
+    y?: number;
+}
+
+// @public
+export const SeatmapLayout: (input: SeatmapLayoutProps) => react_jsx_runtime.JSX.Element;
+
+// @public
+export interface SeatmapLayoutData {
+    areas: SeatmapAreaData[];
+    decorations?: SeatmapDecoration[];
+}
+
+// @public
+export interface SeatmapLayoutProps {
+    ariaLabel?: string;
+    className?: string;
+    data: SeatmapLayoutData;
+    formatAreaName?: (area: {
+        name: string;
+    }) => string;
+    formatRowName?: (row: {
+        name: string;
+    }) => string;
+    formatSeatName?: (seat: {
+        name: string;
+        active: boolean;
+        disabled: boolean;
+    }) => string;
+    formatVolumeLabel?: (volume: {
+        name: string;
+        active: boolean;
+        disabled: boolean;
+    }) => string;
+    onBookableClick?: (event: SeatmapBookableClickEvent) => void;
+}
+
+// @public
 export interface SeatmapProps {
     ariaLabel?: string;
     children?: ReactNode;
@@ -146,15 +233,78 @@ export interface SeatmapProps {
 }
 
 // @public
+export interface SeatmapRectangleDecoration {
+    angle?: number;
+    color?: string;
+    height: number;
+    type: 'rectangle';
+    width: number;
+    x?: number;
+    y?: number;
+}
+
+// @public
+export interface SeatmapRowData {
+    name?: string;
+    seats: SeatmapSeatData[];
+    showLabels?: SeatmapRowLabelMode;
+    x?: number;
+    y?: number;
+}
+
+// @public
+export type SeatmapRowLabelMode = 'none' | 'left' | 'right' | 'both';
+
+// @public
+export interface SeatmapSeatData {
+    active?: boolean;
+    color?: string;
+    disabled?: boolean;
+    id: string;
+    name?: string;
+    shape?: SeatShape;
+    x?: number;
+    y?: number;
+}
+
+// @public
+export interface SeatmapTextDecoration {
+    angle?: number;
+    text: string;
+    type: 'text';
+    x?: number;
+    y?: number;
+}
+
+// @public
+export interface SeatmapVolumeData {
+    active?: boolean;
+    angle?: number;
+    availableSeats?: number;
+    color?: string;
+    disabled?: boolean;
+    height: number;
+    id: string;
+    label?: string;
+    shape?: 'rectangle' | 'ellipse';
+    width: number;
+    x?: number;
+    y?: number;
+}
+
+// @public
 export interface SeatProps {
     active?: boolean;
+    ariaLabel?: string;
     color?: string;
     disabled?: boolean;
     hideName?: boolean;
     name?: string;
     onClick?: () => void;
     onDisabledClick?: () => void;
+    onFocus?: React_2.FocusEventHandler<SVGGElement>;
     shape?: SeatShape;
+    tabIndex?: number;
     x?: number;
     y?: number;
 }
@@ -178,24 +328,28 @@ export interface TextProps {
 }
 
 // @public
-export const Volume: (props: VolumeProps) => react_jsx_runtime.JSX.Element;
+export const Volume: React_2.ForwardRefExoticComponent<VolumeProps & React_2.RefAttributes<SVGGElement>>;
 
 // @public
 export interface VolumeProps {
-    active?: boolean;
-    angle?: number;
-    children?: ReactNode;
-    className?: string;
-    color?: string;
-    disabled?: boolean;
-    fontWeight?: CSSProperties['fontWeight'];
-    height: number;
-    label?: string;
-    onClick?: () => void;
-    shape?: 'rectangle' | 'ellipse';
-    width: number;
-    x?: number;
-    y?: number;
+    'aria-label'?: string;
+    'active'?: boolean;
+    'angle'?: number;
+    'children'?: ReactNode;
+    'className'?: string;
+    'color'?: string;
+    'disabled'?: boolean;
+    'fontWeight'?: CSSProperties['fontWeight'];
+    'height': number;
+    'label'?: string;
+    'onClick'?: () => void;
+    'onDisabledClick'?: () => void;
+    'onFocus'?: React_2.FocusEventHandler<SVGGElement>;
+    'shape'?: 'rectangle' | 'ellipse';
+    'tabIndex'?: number;
+    'width': number;
+    'x'?: number;
+    'y'?: number;
 }
 
 // (No @packageDocumentation comment for this package)

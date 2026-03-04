@@ -2,3 +2,4 @@ api/
 lib/
 node_modules/
 temp/
+test-results/

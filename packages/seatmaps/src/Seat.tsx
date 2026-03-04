@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
+import React, { useCallback } from 'react';
 import { textCss } from './textCss';
 import { TextSize, useTextSize } from './textSize';
 import { getTransform } from './transform';
 import { noop } from './util/noop';
-import { useCallback } from 'react';
 import { clsx } from 'clsx';
 
 /**
@@ -121,6 +121,8 @@ export interface SeatProps {
     hideName?: boolean;
     /** Seat identifier displayed inside the seat. Combined with area and row to form a unique identifier. Uses a smaller font for names longer than 2 characters. */
     name?: string;
+    /** Accessible label for the seat. Overrides the default `aria-label` derived from `name`. */
+    ariaLabel?: string;
     /** Callback fired when the seat is clicked (unless disabled). */
     onClick?: () => void;
     /** Callback fired when a disabled seat is clicked. */
@@ -131,6 +133,17 @@ export interface SeatProps {
     x?: number;
     /** Y position of the seat in seatmap units. Defaults to `0`. */
     y?: number;
+    /**
+     * Tab index for keyboard navigation. When provided, overrides the default behaviour of
+     * `0` for enabled seats and `-1` for disabled seats. Used by {@link SeatmapLayout} to
+     * implement the roving tabindex pattern.
+     */
+    tabIndex?: number;
+    /**
+     * Focus event handler. Used by {@link SeatmapLayout} to sync the roving focus position
+     * when a user clicks directly on the seat.
+     */
+    onFocus?: React.FocusEventHandler<SVGGElement>;
 }
 
 /**
@@ -155,62 +168,75 @@ export interface SeatProps {
  *
  * @public
  */
-export const Seat = ({
-    x = 0,
-    y = 0,
-    name,
-    hideName = false,
-    color,
-    disabled = false,
-    onClick = noop,
-    onDisabledClick = noop,
-    active = false,
-    shape = SeatShape.SQUARE,
-}: SeatProps) => {
-    const textSize = useTextSize((name?.length ?? 0) > 2 ? TextSize.SMALL : TextSize.NORMAL);
-    const textTransform = getTransform(x, y);
-    const handleClick = useCallback(
-        () => (disabled ? onDisabledClick : onClick)(),
-        [disabled, onClick, onDisabledClick],
-    );
-    const handleKeyDown = useCallback(
-        (event: React.KeyboardEvent) => {
-            if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault();
-                handleClick();
-            }
+export const Seat = React.forwardRef<SVGGElement, SeatProps>(
+    (
+        {
+            x = 0,
+            y = 0,
+            name,
+            ariaLabel,
+            hideName = false,
+            color,
+            disabled = false,
+            onClick = noop,
+            onDisabledClick = noop,
+            active = false,
+            shape = SeatShape.SQUARE,
+            tabIndex: tabIndexProp,
+            onFocus,
         },
-        [handleClick],
-    );
-    const ShapeComponent = shape === SeatShape.CIRCLE ? CircularSeat : SquareSeat;
-    const transform = getTransform(x + 2.5, y + 2.5);
-    return (
-        <StyledSeat
-            className={clsx({ nameHidden: hideName, clickable: onClick !== noop && !disabled, active: active })}
-            onClick={handleClick}
-            onKeyDown={handleKeyDown}
-            tabIndex={disabled ? -1 : 0}
-            role="button"
-            aria-label={name ?? 'Unnamed seat'}
-            aria-pressed={active}
-            aria-disabled={disabled}
-        >
-            <ShapeComponent
-                transform={transform}
-                fill={disabled ? '#cccccc' : color}
-            />
-            {name !== undefined ? (
-                <Name
-                    transform={textTransform}
-                    x="5"
-                    y="5"
-                    className="name"
-                    style={textSize === TextSize.SMALL ? { fontSize: 4 } : undefined}
-                    aria-hidden={true}
-                >
-                    {name}
-                </Name>
-            ) : undefined}
-        </StyledSeat>
-    );
-};
+        ref,
+    ) => {
+        const textSize = useTextSize((name?.length ?? 0) > 2 ? TextSize.SMALL : TextSize.NORMAL);
+        const textTransform = getTransform(x, y);
+        const handleClick = useCallback(
+            () => (disabled ? onDisabledClick : onClick)(),
+            [disabled, onClick, onDisabledClick],
+        );
+        const handleKeyDown = useCallback(
+            (event: React.KeyboardEvent) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    handleClick();
+                }
+            },
+            [handleClick],
+        );
+        const ShapeComponent = shape === SeatShape.CIRCLE ? CircularSeat : SquareSeat;
+        const transform = getTransform(x + 2.5, y + 2.5);
+        const resolvedTabIndex = tabIndexProp !== undefined ? tabIndexProp : disabled ? -1 : 0;
+        return (
+            <StyledSeat
+                ref={ref}
+                className={clsx({ nameHidden: hideName, clickable: onClick !== noop && !disabled, active: active })}
+                onClick={handleClick}
+                onKeyDown={handleKeyDown}
+                onFocus={onFocus}
+                tabIndex={resolvedTabIndex}
+                role="button"
+                aria-label={ariaLabel ?? name ?? 'Unnamed seat'}
+                aria-pressed={active}
+                aria-disabled={disabled}
+            >
+                <ShapeComponent
+                    transform={transform}
+                    fill={disabled ? '#cccccc' : color}
+                />
+                {name !== undefined ? (
+                    <Name
+                        transform={textTransform}
+                        x="5"
+                        y="5"
+                        className="name"
+                        style={textSize === TextSize.SMALL ? { fontSize: 4 } : undefined}
+                        aria-hidden={true}
+                    >
+                        {name}
+                    </Name>
+                ) : undefined}
+            </StyledSeat>
+        );
+    },
+);
+
+Seat.displayName = 'Seat';

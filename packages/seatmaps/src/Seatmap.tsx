@@ -1,13 +1,25 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { TextSizeController } from './textSize';
 
-const measureContentSize = (node: SVGSVGElement): [number, number, number, number] => {
+type ContentSize = [number, number, number, number];
+
+const measureContentSize = (node: SVGSVGElement): ContentSize => {
     if (!('getBBox' in node)) {
         return [0, 0, 0, 0];
     }
     const box = node.getBBox();
     return [box.x, box.y, box.x + box.width, box.y + box.height];
 };
+
+const updateContentSize =
+    (node: SVGSVGElement) =>
+    (prev: ContentSize): ContentSize => {
+        const next = measureContentSize(node);
+        if (prev[0] === next[0] && prev[1] === next[1] && prev[2] === next[2] && prev[3] === next[3]) {
+            return prev;
+        }
+        return next;
+    };
 
 /**
  * Props for the {@link Seatmap} component.
@@ -58,12 +70,12 @@ export const Seatmap = ({ children, className, ariaLabel }: SeatmapProps) => {
         }
         // Initial DOM measurement after mount — intentional synchronous setState
         // eslint-disable-next-line react-hooks/set-state-in-effect
-        setContentSize(measureContentSize(rootNode));
+        setContentSize(updateContentSize(rootNode));
         if (!('MutationObserver' in window)) {
             return;
         }
         const observer = new window.MutationObserver(() => {
-            setContentSize(measureContentSize(rootNode));
+            setContentSize(updateContentSize(rootNode));
         });
         observer.observe(rootNode, { attributes: false, childList: true, subtree: true });
         return () => {

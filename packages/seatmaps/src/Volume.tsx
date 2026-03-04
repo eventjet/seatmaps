@@ -107,37 +107,51 @@ const Scrim = ({ width = 'auto', x, y, text, anchor = 'bottom-left' }: ScrimProp
  */
 export interface VolumeProps {
     /** Whether the volume is currently selected. Displays an animated dashed border when true. */
-    active?: boolean;
+    'active'?: boolean;
     /** Rotation angle in degrees. Rotates the volume and its children around the center point `(x + width/2, y + height/2)`. */
-    angle?: number;
+    'angle'?: number;
     /** CSS class name to apply to the volume group element. */
-    className?: string;
+    'className'?: string;
     /** Fill color for the volume shape. Defaults to `#808080`. Ignored when `disabled` is true. */
-    color?: string;
-    /** Whether the volume is disabled. Disabled volumes appear grayed out and don't respond to clicks. */
-    disabled?: boolean;
+    'color'?: string;
+    /** Whether the volume is disabled. Disabled volumes appear grayed out and trigger `onDisabledClick` instead of `onClick`. */
+    'disabled'?: boolean;
     /** Height of the volume in seatmap units. */
-    height: number;
+    'height': number;
     /** Volume identifier. Must be unique within the containing {@link Area}. Displayed at the bottom with a semi-transparent background. */
-    label?: string;
+    'label'?: string;
     /** Callback fired when the volume is clicked (unless disabled). */
-    onClick?: () => void;
+    'onClick'?: () => void;
+    /** Callback fired when a disabled volume is clicked. */
+    'onDisabledClick'?: () => void;
     /** Shape of the volume. Defaults to `'rectangle'`. */
-    shape?: 'rectangle' | 'ellipse';
+    'shape'?: 'rectangle' | 'ellipse';
     /** Width of the volume in seatmap units. */
-    width: number;
+    'width': number;
     /** X position of the volume's top-left corner in seatmap units. Defaults to `0`. */
-    x?: number;
+    'x'?: number;
     /** Y position of the volume's top-left corner in seatmap units. Defaults to `0`. */
-    y?: number;
+    'y'?: number;
     /** Child elements to render inside the volume (e.g., badges). */
-    children?: ReactNode;
+    'children'?: ReactNode;
     /** Font weight for the label text. Defaults to `'bold'`. */
-    fontWeight?: CSSProperties['fontWeight'];
+    'fontWeight'?: CSSProperties['fontWeight'];
+    /** Accessible label for the volume. Overrides the default `aria-label` derived from `label`. */
+    'aria-label'?: string;
+    /**
+     * Tab index for keyboard navigation. When provided, overrides the default behaviour of
+     * `0` for enabled volumes and `-1` for disabled volumes. Used by {@link SeatmapLayout} to
+     * implement the roving tabindex pattern.
+     */
+    'tabIndex'?: number;
+    /**
+     * Focus event handler. Used by {@link SeatmapLayout} to sync the roving focus position
+     * when a user clicks directly on the volume.
+     */
+    'onFocus'?: React.FocusEventHandler<SVGGElement>;
 }
 
 type InternalVolumeProps = VolumeProps & {
-    'tabIndex'?: number;
     'role'?: string;
     'aria-label'?: string;
     'aria-pressed'?: boolean;
@@ -145,109 +159,129 @@ type InternalVolumeProps = VolumeProps & {
     'onKeyDown'?: (event: React.KeyboardEvent) => void;
 };
 
-const EllipseVolume = ({
-    x = 0,
-    y = 0,
-    width,
-    height,
-    label,
-    color = '#808080',
-    onClick = noop,
-    className,
-    angle,
-    children,
-    fontWeight = 'bold',
-    tabIndex,
-    role,
-    'aria-label': ariaLabelAttr,
-    'aria-pressed': ariaPressed,
-    'aria-disabled': ariaDisabled,
-    onKeyDown,
-}: InternalVolumeProps) => (
-    <StyledRoot
-        transform={getTransform(x, y, angle, width, height)}
-        onClick={onClick}
-        className={className}
-        style={{ fontWeight: fontWeight }}
-        fill={color}
-        tabIndex={tabIndex}
-        role={role}
-        aria-label={ariaLabelAttr}
-        aria-pressed={ariaPressed}
-        aria-disabled={ariaDisabled}
-        onKeyDown={onKeyDown}
-    >
-        <ellipse
-            rx={l(width / 2)}
-            ry={l(height / 2)}
-            cx={l(width / 2)}
-            cy={l(height / 2)}
-            className="shape"
-        />
-        {label !== undefined ? (
-            <Scrim
-                width="auto"
-                anchor="center"
-                x={l(width / 2)}
-                y={l(height / 2)}
-                text={label}
+const EllipseVolume = React.forwardRef<SVGGElement, InternalVolumeProps>(
+    (
+        {
+            x = 0,
+            y = 0,
+            width,
+            height,
+            label,
+            color = '#808080',
+            onClick = noop,
+            className,
+            angle,
+            children,
+            fontWeight = 'bold',
+            tabIndex,
+            role,
+            'aria-label': ariaLabelAttr,
+            'aria-pressed': ariaPressed,
+            'aria-disabled': ariaDisabled,
+            onKeyDown,
+            onFocus,
+        },
+        ref,
+    ) => (
+        <StyledRoot
+            ref={ref}
+            transform={getTransform(x, y, angle, width, height)}
+            onClick={onClick}
+            className={className}
+            style={{ fontWeight: fontWeight }}
+            fill={color}
+            tabIndex={tabIndex}
+            role={role}
+            aria-label={ariaLabelAttr}
+            aria-pressed={ariaPressed}
+            aria-disabled={ariaDisabled}
+            onKeyDown={onKeyDown}
+            onFocus={onFocus}
+        >
+            <ellipse
+                rx={l(width / 2)}
+                ry={l(height / 2)}
+                cx={l(width / 2)}
+                cy={l(height / 2)}
+                className="shape"
             />
-        ) : undefined}
-        {children}
-    </StyledRoot>
+            {label !== undefined ? (
+                <Scrim
+                    width="auto"
+                    anchor="center"
+                    x={l(width / 2)}
+                    y={l(height / 2)}
+                    text={label}
+                />
+            ) : undefined}
+            {children}
+        </StyledRoot>
+    ),
 );
 
-const RectangleVolume = ({
-    x = 0,
-    y = 0,
-    width,
-    height,
-    label,
-    color = '#808080',
-    onClick = noop,
-    className,
-    angle,
-    children,
-    fontWeight = 'bold',
-    tabIndex,
-    role,
-    'aria-label': ariaLabelAttr,
-    'aria-pressed': ariaPressed,
-    'aria-disabled': ariaDisabled,
-    onKeyDown,
-}: InternalVolumeProps) => (
-    <StyledRoot
-        transform={getTransform(x, y, angle, width, height)}
-        onClick={onClick}
-        className={className}
-        style={{ fontWeight: fontWeight }}
-        fill={color}
-        tabIndex={tabIndex}
-        role={role}
-        aria-label={ariaLabelAttr}
-        aria-pressed={ariaPressed}
-        aria-disabled={ariaDisabled}
-        onKeyDown={onKeyDown}
-    >
-        <rect
-            width={l(width)}
-            height={l(height)}
-            rx={2}
-            ry={2}
-            className="shape"
-        />
-        {label !== undefined ? (
-            <Scrim
+EllipseVolume.displayName = 'EllipseVolume';
+
+const RectangleVolume = React.forwardRef<SVGGElement, InternalVolumeProps>(
+    (
+        {
+            x = 0,
+            y = 0,
+            width,
+            height,
+            label,
+            color = '#808080',
+            onClick = noop,
+            className,
+            angle,
+            children,
+            fontWeight = 'bold',
+            tabIndex,
+            role,
+            'aria-label': ariaLabelAttr,
+            'aria-pressed': ariaPressed,
+            'aria-disabled': ariaDisabled,
+            onKeyDown,
+            onFocus,
+        },
+        ref,
+    ) => (
+        <StyledRoot
+            ref={ref}
+            transform={getTransform(x, y, angle, width, height)}
+            onClick={onClick}
+            className={className}
+            style={{ fontWeight: fontWeight }}
+            fill={color}
+            tabIndex={tabIndex}
+            role={role}
+            aria-label={ariaLabelAttr}
+            aria-pressed={ariaPressed}
+            aria-disabled={ariaDisabled}
+            onKeyDown={onKeyDown}
+            onFocus={onFocus}
+        >
+            <rect
                 width={l(width)}
-                anchor="bottom-left"
-                x={0}
-                y={l(height)}
-                text={label}
+                height={l(height)}
+                rx={2}
+                ry={2}
+                className="shape"
             />
-        ) : undefined}
-        {children}
-    </StyledRoot>
+            {label !== undefined ? (
+                <Scrim
+                    width={l(width)}
+                    anchor="bottom-left"
+                    x={0}
+                    y={l(height)}
+                    text={label}
+                />
+            ) : undefined}
+            {children}
+        </StyledRoot>
+    ),
 );
+
+RectangleVolume.displayName = 'RectangleVolume';
 
 /**
  * A general admission zone where guests can use any seat within the zone.
@@ -274,14 +308,15 @@ const RectangleVolume = ({
  *
  * @public
  */
-export const Volume = (props: VolumeProps) => {
-    const { onClick = noop, disabled } = props;
+export const Volume = React.forwardRef<SVGGElement, VolumeProps>((props, ref) => {
+    const { onClick = noop, onDisabledClick = noop, disabled } = props;
     const handleClick = useCallback(() => {
         if (disabled) {
+            onDisabledClick();
             return;
         }
         onClick();
-    }, [disabled, onClick]);
+    }, [disabled, onClick, onDisabledClick]);
     const handleKeyDown = useCallback(
         (event: React.KeyboardEvent) => {
             if (event.key === 'Enter' || event.key === ' ') {
@@ -296,12 +331,24 @@ export const Volume = (props: VolumeProps) => {
         'className': clsx(props.className, { clickable: onClick !== noop, active: props.active }),
         'color': props.disabled ? '#cccccc' : props.color,
         'onClick': handleClick,
-        'tabIndex': props.disabled ? -1 : 0,
+        'tabIndex': props.tabIndex !== undefined ? props.tabIndex : props.disabled ? -1 : 0,
         'role': 'button',
-        'aria-label': props.label ?? 'Volume',
+        'aria-label': props['aria-label'] ?? props.label ?? 'Volume',
         'aria-pressed': props.active,
         'aria-disabled': props.disabled,
         'onKeyDown': handleKeyDown,
     };
-    return props.shape === 'ellipse' ? <EllipseVolume {...updatedProps} /> : <RectangleVolume {...updatedProps} />;
-};
+    return props.shape === 'ellipse' ? (
+        <EllipseVolume
+            ref={ref}
+            {...updatedProps}
+        />
+    ) : (
+        <RectangleVolume
+            ref={ref}
+            {...updatedProps}
+        />
+    );
+});
+
+Volume.displayName = 'Volume';

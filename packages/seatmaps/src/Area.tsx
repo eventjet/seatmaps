@@ -1,4 +1,5 @@
-import { ReactNode } from 'react';
+import styled from '@emotion/styled';
+import React, { ReactNode } from 'react';
 import { getTransform } from './transform';
 
 /**
@@ -20,7 +21,24 @@ export interface AreaProps {
     children?: ReactNode;
     /** Area name for accessibility. When provided, the area is marked as a group with this label. */
     name?: string;
+    /**
+     * Tab index for keyboard navigation. Used by {@link SeatmapLayout} to implement the roving
+     * tabindex pattern where only the current element holds `0` and all others hold `-1`.
+     */
+    tabIndex?: number;
+    /**
+     * Focus event handler. Used by {@link SeatmapLayout} to sync the roving focus position
+     * when a user clicks directly on the area.
+     */
+    onFocus?: React.FocusEventHandler<SVGGElement>;
 }
+
+const StyledArea = styled.g`
+    &:focus-visible {
+        outline: 2px dashed #005fcc;
+        outline-offset: 2px;
+    }
+`;
 
 /**
  * A section of the seatmap containing rows, seats, and volumes.
@@ -49,12 +67,19 @@ export interface AreaProps {
  *
  * @public
  */
-export const Area = ({ children, x = 0, y = 0, angle = 0, width = 0, height = 0, name }: AreaProps) => (
-    <g
-        transform={getTransform(x, y, angle, width, height)}
-        role={name ? 'group' : undefined}
-        aria-label={name}
-    >
-        {children}
-    </g>
+export const Area = React.forwardRef<SVGGElement, AreaProps>(
+    ({ children, x = 0, y = 0, angle = 0, width = 0, height = 0, name, tabIndex, onFocus }, ref) => (
+        <StyledArea
+            ref={ref}
+            transform={getTransform(x, y, angle, width, height)}
+            role={name ? 'group' : undefined}
+            aria-label={name}
+            tabIndex={tabIndex}
+            onFocus={onFocus}
+        >
+            {children}
+        </StyledArea>
+    ),
 );
+
+Area.displayName = 'Area';
