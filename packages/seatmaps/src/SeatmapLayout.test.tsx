@@ -332,3 +332,326 @@ describe('SeatmapLayout', () => {
         expect(getAllByText('Row A').length).toBeGreaterThanOrEqual(2);
     });
 });
+
+describe('roving tabindex', () => {
+    it('gives the first area tabIndex=0 and others tabIndex=-1 on initial render', () => {
+        const data: SeatmapLayoutData = {
+            areas: [
+                { name: 'Area 1', blocks: [] },
+                { name: 'Area 2', blocks: [] },
+            ],
+        };
+        const { getByRole } = render(<SeatmapLayout data={data} />);
+
+        expect(getByRole('group', { name: 'Area 1' }).getAttribute('tabindex')).toBe('0');
+        expect(getByRole('group', { name: 'Area 2' }).getAttribute('tabindex')).toBe('-1');
+    });
+
+    it('all seats start with tabIndex=-1', () => {
+        const data: SeatmapLayoutData = {
+            areas: [{ blocks: [{ rows: [{ seats: [{ id: 's1', name: 'A1' }] }] }] }],
+        };
+        const { getByRole } = render(<SeatmapLayout data={data} />);
+
+        expect(getByRole('button', { name: 'A1' }).getAttribute('tabindex')).toBe('-1');
+    });
+
+    it('ArrowDown on area moves focus to the next area', () => {
+        const data: SeatmapLayoutData = {
+            areas: [
+                { name: 'Area 1', blocks: [] },
+                { name: 'Area 2', blocks: [] },
+            ],
+        };
+        const { getByRole } = render(<SeatmapLayout data={data} />);
+
+        fireEvent.keyDown(getByRole('group', { name: 'Area 1' }), { key: 'ArrowDown' });
+
+        expect(getByRole('group', { name: 'Area 2' }).getAttribute('tabindex')).toBe('0');
+        expect(getByRole('group', { name: 'Area 1' }).getAttribute('tabindex')).toBe('-1');
+    });
+
+    it('ArrowUp on first area is a no-op', () => {
+        const data: SeatmapLayoutData = {
+            areas: [{ name: 'Area 1', blocks: [] }],
+        };
+        const { getByRole } = render(<SeatmapLayout data={data} />);
+
+        fireEvent.keyDown(getByRole('group', { name: 'Area 1' }), { key: 'ArrowUp' });
+
+        expect(getByRole('group', { name: 'Area 1' }).getAttribute('tabindex')).toBe('0');
+    });
+
+    it('Enter on area moves focus into the first enabled seat', () => {
+        const data: SeatmapLayoutData = {
+            areas: [
+                {
+                    name: 'Area 1',
+                    blocks: [{ rows: [{ seats: [{ id: 's1', name: 'A1' }] }] }],
+                },
+            ],
+        };
+        const { getByRole } = render(<SeatmapLayout data={data} />);
+
+        fireEvent.keyDown(getByRole('group', { name: 'Area 1' }), { key: 'Enter' });
+
+        expect(getByRole('button', { name: 'A1' }).getAttribute('tabindex')).toBe('0');
+        expect(getByRole('group', { name: 'Area 1' }).getAttribute('tabindex')).toBe('-1');
+    });
+
+    it('ArrowRight on seat moves to the next seat', () => {
+        const data: SeatmapLayoutData = {
+            areas: [
+                {
+                    name: 'Area 1',
+                    blocks: [
+                        {
+                            rows: [
+                                {
+                                    seats: [
+                                        { id: 's1', name: 'A1' },
+                                        { id: 's2', name: 'A2' },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ],
+        };
+        const { getByRole } = render(<SeatmapLayout data={data} />);
+
+        fireEvent.keyDown(getByRole('group', { name: 'Area 1' }), { key: 'Enter' });
+        fireEvent.keyDown(getByRole('button', { name: 'A1' }), { key: 'ArrowRight' });
+
+        expect(getByRole('button', { name: 'A2' }).getAttribute('tabindex')).toBe('0');
+        expect(getByRole('button', { name: 'A1' }).getAttribute('tabindex')).toBe('-1');
+    });
+
+    it('ArrowLeft from the first seat of a row wraps to the last seat of the previous row', () => {
+        const data: SeatmapLayoutData = {
+            areas: [
+                {
+                    name: 'Area 1',
+                    blocks: [
+                        {
+                            rows: [
+                                {
+                                    seats: [
+                                        { id: 's1', name: 'A1' },
+                                        { id: 's2', name: 'A2' },
+                                    ],
+                                },
+                                {
+                                    seats: [
+                                        { id: 's3', name: 'B1' },
+                                        { id: 's4', name: 'B2' },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ],
+        };
+        const { getByRole } = render(<SeatmapLayout data={data} />);
+
+        fireEvent.keyDown(getByRole('group', { name: 'Area 1' }), { key: 'Enter' }); // → A1
+        fireEvent.keyDown(getByRole('button', { name: 'A1' }), { key: 'ArrowDown' }); // → B1
+        fireEvent.keyDown(getByRole('button', { name: 'B1' }), { key: 'ArrowLeft' }); // → A2 (last of prev row)
+
+        expect(getByRole('button', { name: 'A2' }).getAttribute('tabindex')).toBe('0');
+    });
+
+    it('ArrowDown moves to the same-index seat in the next row', () => {
+        const data: SeatmapLayoutData = {
+            areas: [
+                {
+                    name: 'Area 1',
+                    blocks: [
+                        {
+                            rows: [
+                                {
+                                    seats: [
+                                        { id: 's1', name: 'A1' },
+                                        { id: 's2', name: 'A2' },
+                                    ],
+                                },
+                                {
+                                    seats: [
+                                        { id: 's3', name: 'B1' },
+                                        { id: 's4', name: 'B2' },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ],
+        };
+        const { getByRole } = render(<SeatmapLayout data={data} />);
+
+        fireEvent.keyDown(getByRole('group', { name: 'Area 1' }), { key: 'Enter' }); // → A1
+        fireEvent.keyDown(getByRole('button', { name: 'A1' }), { key: 'ArrowDown' }); // → B1
+
+        expect(getByRole('button', { name: 'B1' }).getAttribute('tabindex')).toBe('0');
+    });
+
+    it('ArrowUp moves to the same-index seat in the previous row', () => {
+        const data: SeatmapLayoutData = {
+            areas: [
+                {
+                    name: 'Area 1',
+                    blocks: [
+                        {
+                            rows: [
+                                {
+                                    seats: [
+                                        { id: 's1', name: 'A1' },
+                                        { id: 's2', name: 'A2' },
+                                    ],
+                                },
+                                {
+                                    seats: [
+                                        { id: 's3', name: 'B1' },
+                                        { id: 's4', name: 'B2' },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ],
+        };
+        const { getByRole } = render(<SeatmapLayout data={data} />);
+
+        fireEvent.keyDown(getByRole('group', { name: 'Area 1' }), { key: 'Enter' }); // → A1
+        fireEvent.keyDown(getByRole('button', { name: 'A1' }), { key: 'ArrowDown' }); // → B1
+        fireEvent.keyDown(getByRole('button', { name: 'B1' }), { key: 'ArrowUp' }); // → A1
+
+        expect(getByRole('button', { name: 'A1' }).getAttribute('tabindex')).toBe('0');
+    });
+
+    it('Escape from seat returns to area', () => {
+        const data: SeatmapLayoutData = {
+            areas: [
+                {
+                    name: 'Area 1',
+                    blocks: [{ rows: [{ seats: [{ id: 's1', name: 'A1' }] }] }],
+                },
+            ],
+        };
+        const { getByRole } = render(<SeatmapLayout data={data} />);
+
+        fireEvent.keyDown(getByRole('group', { name: 'Area 1' }), { key: 'Enter' });
+        fireEvent.keyDown(getByRole('button', { name: 'A1' }), { key: 'Escape' });
+
+        expect(getByRole('group', { name: 'Area 1' }).getAttribute('tabindex')).toBe('0');
+        expect(getByRole('button', { name: 'A1' }).getAttribute('tabindex')).toBe('-1');
+    });
+
+    it('focusing a seat by click syncs focusPosition to that seat', () => {
+        const data: SeatmapLayoutData = {
+            areas: [
+                {
+                    name: 'Area 1',
+                    blocks: [
+                        {
+                            rows: [
+                                {
+                                    seats: [
+                                        { id: 's1', name: 'A1' },
+                                        { id: 's2', name: 'A2' },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ],
+        };
+        const { getByRole } = render(<SeatmapLayout data={data} />);
+
+        fireEvent.focus(getByRole('button', { name: 'A2' }));
+
+        expect(getByRole('button', { name: 'A2' }).getAttribute('tabindex')).toBe('0');
+        expect(getByRole('button', { name: 'A1' }).getAttribute('tabindex')).toBe('-1');
+        expect(getByRole('group', { name: 'Area 1' }).getAttribute('tabindex')).toBe('-1');
+    });
+
+    it('disabled seats are skipped when navigating with ArrowRight', () => {
+        const data: SeatmapLayoutData = {
+            areas: [
+                {
+                    name: 'Area 1',
+                    blocks: [
+                        {
+                            rows: [
+                                {
+                                    seats: [
+                                        { id: 's1', name: 'A1' },
+                                        { id: 's2', name: 'A2', disabled: true },
+                                        { id: 's3', name: 'A3' },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ],
+        };
+        const { getByRole } = render(<SeatmapLayout data={data} />);
+
+        fireEvent.keyDown(getByRole('group', { name: 'Area 1' }), { key: 'Enter' }); // → A1
+        fireEvent.keyDown(getByRole('button', { name: 'A1' }), { key: 'ArrowRight' }); // skips A2 → A3
+
+        expect(getByRole('button', { name: 'A3' }).getAttribute('tabindex')).toBe('0');
+    });
+
+    it('Enter on an empty area is a no-op', () => {
+        const data: SeatmapLayoutData = {
+            areas: [{ name: 'Area 1', blocks: [] }],
+        };
+        const { getByRole } = render(<SeatmapLayout data={data} />);
+
+        fireEvent.keyDown(getByRole('group', { name: 'Area 1' }), { key: 'Enter' });
+
+        // Still on the area
+        expect(getByRole('group', { name: 'Area 1' }).getAttribute('tabindex')).toBe('0');
+    });
+
+    it('Enter on area with only disabled seats falls through to volumes', () => {
+        const data: SeatmapLayoutData = {
+            areas: [
+                {
+                    name: 'Area 1',
+                    blocks: [{ rows: [{ seats: [{ id: 's1', name: 'A1', disabled: true }] }] }],
+                    volumes: [{ id: 'v1', label: 'GA', width: 100, height: 100 }],
+                },
+            ],
+        };
+        const { getByRole } = render(<SeatmapLayout data={data} />);
+
+        fireEvent.keyDown(getByRole('group', { name: 'Area 1' }), { key: 'Enter' });
+
+        expect(getByRole('button', { name: 'GA' }).getAttribute('tabindex')).toBe('0');
+    });
+
+    it('Escape from volume returns to area', () => {
+        const data: SeatmapLayoutData = {
+            areas: [
+                {
+                    name: 'Area 1',
+                    volumes: [{ id: 'v1', label: 'GA', width: 100, height: 100 }],
+                },
+            ],
+        };
+        const { getByRole } = render(<SeatmapLayout data={data} />);
+
+        fireEvent.keyDown(getByRole('group', { name: 'Area 1' }), { key: 'Enter' });
+        fireEvent.keyDown(getByRole('button', { name: 'GA' }), { key: 'Escape' });
+
+        expect(getByRole('group', { name: 'Area 1' }).getAttribute('tabindex')).toBe('0');
+        expect(getByRole('button', { name: 'GA' }).getAttribute('tabindex')).toBe('-1');
+    });
+});

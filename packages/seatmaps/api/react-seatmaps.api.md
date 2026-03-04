@@ -5,11 +5,12 @@
 ```ts
 
 import { CSSProperties } from 'react';
+import { default as React_2 } from 'react';
 import * as react_jsx_runtime from 'react/jsx-runtime';
 import { ReactNode } from 'react';
 
 // @public
-export const Area: (input: AreaProps) => react_jsx_runtime.JSX.Element;
+export const Area: React_2.ForwardRefExoticComponent<AreaProps & React_2.RefAttributes<SVGGElement>>;
 
 // @public
 export interface AreaProps {
@@ -17,6 +18,8 @@ export interface AreaProps {
     children?: ReactNode;
     height?: number;
     name?: string;
+    onFocus?: React_2.FocusEventHandler<SVGGElement>;
+    tabIndex?: number;
     width?: number;
     x?: number;
     y?: number;
@@ -124,7 +127,7 @@ export interface RowProps {
 }
 
 // @public
-export const Seat: (input: SeatProps) => react_jsx_runtime.JSX.Element;
+export const Seat: React_2.ForwardRefExoticComponent<SeatProps & React_2.RefAttributes<SVGGElement>>;
 
 // @public
 export const SeatCountBadge: (input: SeatCountBadgeProps) => react_jsx_runtime.JSX.Element;
@@ -299,7 +302,9 @@ export interface SeatProps {
     name?: string;
     onClick?: () => void;
     onDisabledClick?: () => void;
+    onFocus?: React_2.FocusEventHandler<SVGGElement>;
     shape?: SeatShape;
+    tabIndex?: number;
     x?: number;
     y?: number;
 }
@@ -323,7 +328,7 @@ export interface TextProps {
 }
 
 // @public
-export const Volume: (props: VolumeProps) => react_jsx_runtime.JSX.Element;
+export const Volume: React_2.ForwardRefExoticComponent<VolumeProps & React_2.RefAttributes<SVGGElement>>;
 
 // @public
 export interface VolumeProps {
@@ -339,7 +344,9 @@ export interface VolumeProps {
     'label'?: string;
     'onClick'?: () => void;
     'onDisabledClick'?: () => void;
+    'onFocus'?: React_2.FocusEventHandler<SVGGElement>;
     'shape'?: 'rectangle' | 'ellipse';
+    'tabIndex'?: number;
     'width': number;
     'x'?: number;
     'y'?: number;
