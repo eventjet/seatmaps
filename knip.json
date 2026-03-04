@@ -3,6 +3,5 @@
   "ignoreDependencies": [
     "@babel/preset-typescript",
     "babel-plugin-react-compiler"
-  ],
-  "ignoreBinaries": ["api:check"]
+  ]
 }
