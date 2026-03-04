@@ -100,7 +100,7 @@ High-level component that renders an entire seatmap from a `SeatmapLayoutData` o
 />
 ```
 
-**Props:** `data`, `onBookableClick`, `className`, `ariaLabel`
+**Props:** `data`, `onBookableClick`, `className`, `ariaLabel`, `formatAreaName`, `formatRowName`, `formatSeatName`, `formatVolumeLabel`
 
 The `onBookableClick` callback receives a `SeatmapBookableClickEvent` with `id` (string), `type` (`'seat'` | `'volume'`), and `disabled` (boolean). It fires for both enabled and disabled elements, so you can show a message like "this seat is no longer available" when a disabled element is clicked.
 
