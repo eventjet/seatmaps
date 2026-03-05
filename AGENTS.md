@@ -84,3 +84,18 @@ Uses `@microsoft/api-extractor` to detect breaking changes:
 - Prettier configured: 4-space tabs, single quotes, trailing commas, 120 char line width
 - Pre-commit hooks via husky + lint-staged run lint and format checks
 - All SVG coordinates go through `length()` function for scaling
+
+## Commit Messages
+
+Use [Conventional Commits](https://www.conventionalcommits.org/) format — release-please uses these to determine version bumps and generate the changelog automatically:
+
+- `fix: <description>` — patch release (bug fix)
+- `feat: <description>` — minor release (new feature)
+- `feat!: <description>` or `BREAKING CHANGE:` in footer — major release
+- `chore:`, `docs:`, `test:`, `refactor:` — no release triggered
+
+## Releasing
+
+Releases are fully automated. After merging to `master`, release-please opens a Release PR that bumps `package.json` and updates `CHANGELOG.md`. Merging the Release PR creates the GitHub Release, which triggers CI to publish to npm.
+
+**Never manually create GitHub Releases or edit `package.json` version** — let release-please manage both. The current published version is always visible in `.release-please-manifest.json`.
