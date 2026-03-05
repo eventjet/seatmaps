@@ -111,7 +111,7 @@ release-please determines the version bump from commit messages using [Conventio
 | `feat:` | minor | `feat: add Row label alignment prop` |
 | `feat!:` or `BREAKING CHANGE:` footer | major | `feat!: remove deprecated Volume shape prop` |
 
-Commits that don't match (e.g. `chore:`, `docs:`, `test:`) are excluded from the changelog and don't trigger a release on their own.
+Commits that don't match (e.g. `chore:`, `docs:`, `test:`, `refactor:`, `perf:`) are excluded from the changelog and don't trigger a release on their own.
 
 ### Setup
 
