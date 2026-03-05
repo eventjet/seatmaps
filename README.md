@@ -99,7 +99,7 @@ After every merge to `master`, release-please opens or updates a **Release PR** 
 - bumps `package.json` version
 - generates/updates `CHANGELOG.md`
 
-When you're ready to release, **merge the Release PR**. release-please then creates a GitHub Release, which triggers CI to publish to npm automatically.
+When you're ready to release, **merge the Release PR**. release-please then creates a GitHub Release and the publish job runs automatically.
 
 ### Commit message format
 
