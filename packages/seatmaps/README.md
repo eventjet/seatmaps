@@ -253,7 +253,7 @@ Generic circular badge component.
 
 ## Coordinate System
 
-All coordinates are scaled by a factor of 10 internally. For example, `x={100}` becomes `10` in the rendered SVG.
+All coordinates are divided by 10 internally. For example, `x={100}` becomes `10` in the rendered SVG.
 
 ## License
 
