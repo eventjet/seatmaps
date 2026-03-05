@@ -101,6 +101,10 @@ After every merge to `master`, release-please opens or updates a **Release PR** 
 
 When you're ready to release, **merge the Release PR**. release-please then creates a GitHub Release and the publish job runs automatically.
 
+### Re-publishing manually
+
+If the publish job is ever skipped or fails after a release, go to **Actions → Release → Run workflow** and trigger it on `master`. It will publish whatever version is in `packages/seatmaps/package.json`.
+
 ### Commit message format
 
 release-please determines the version bump from commit messages using [Conventional Commits](https://www.conventionalcommits.org/):
