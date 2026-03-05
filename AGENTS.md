@@ -99,3 +99,5 @@ Use [Conventional Commits](https://www.conventionalcommits.org/) format — rele
 Releases are fully automated. After merging to `master`, release-please opens a Release PR that bumps `package.json` and updates `CHANGELOG.md`. Merging the Release PR creates the GitHub Release, which triggers CI to publish to npm.
 
 **Never manually create GitHub Releases or edit `package.json` version** — let release-please manage both. The current published version is always visible in `.release-please-manifest.json`.
+
+If the publish job is ever skipped or fails, trigger it manually via **Actions → Release → Run workflow** on `master`.
