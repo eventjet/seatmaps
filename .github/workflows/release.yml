@@ -37,11 +37,8 @@ jobs:
         run: pnpm api:check
         working-directory: packages/seatmaps
 
-      - name: Set version from tag
-        run: |
-          VERSION="${GITHUB_REF_NAME#v}"
-          npm version "$VERSION" --no-git-tag-version
-        working-directory: packages/seatmaps
+      # release-please already bumped package.json via the Release PR,
+      # so no version stamping step is needed here.
 
       - name: Publish to npm
         run: pnpm publish --access public --no-git-checks
