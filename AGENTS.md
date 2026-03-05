@@ -83,7 +83,7 @@ Uses `@microsoft/api-extractor` to detect breaking changes:
 - ESLint with flat config (eslint.config.js), includes React and React Hooks plugins
 - Prettier configured: 4-space tabs, single quotes, trailing commas, 120 char line width
 - Pre-commit hooks via husky + lint-staged run lint and format checks
-- All SVG coordinates go through `length()` function for scaling
+- All SVG coordinates go through `l()` function for scaling (`length.ts`)
 
 ## Commit Messages
 
