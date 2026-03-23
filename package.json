@@ -23,8 +23,8 @@
   "devDependencies": {
     "@playwright/test": "^1.58.1",
     "husky": "^9.0.0",
-    "knip": "^5.85.0",
-    "lint-staged": "^16.3.2",
+    "knip": "^6.0.0",
+    "lint-staged": "^16.4.0",
     "prettier": "^3.4.0",
     "sort-package-json": "^3.6.1"
   }
