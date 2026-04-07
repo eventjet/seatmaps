@@ -1,0 +1,50 @@
+# Checks weekly whether the upstream Dependabot issue for pnpm lockfileVersion
+# 9.0 support has been resolved. Creates a repo issue (assigned to @MidnightDesign)
+# when it detects the fix, so we remember to remove the workaround.
+#
+# Related: https://github.com/dependabot/dependabot-core/issues/13920
+# Remove this workflow together with dependabot-lockfile.yml once the issue is resolved.
+
+name: Check Dependabot pnpm Fix
+
+on:
+  schedule:
+    - cron: "0 9 * * 1" # Every Monday at 9:00 UTC
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if upstream issue is resolved
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          state=$(gh issue view 13920 --repo dependabot/dependabot-core --json state --jq '.state')
+          if [ "$state" = "OPEN" ]; then
+            echo "Upstream issue is still open, nothing to do."
+            exit 0
+          fi
+
+          echo "Upstream issue is no longer open (state: $state)."
+
+          existing=$(gh issue list --repo "${{ github.repository }}" --search "Remove Dependabot lockfile workaround" --json number --jq 'length')
+          if [ "$existing" != "0" ]; then
+            echo "Reminder issue already exists, skipping."
+            exit 0
+          fi
+
+          gh issue create --repo "${{ github.repository }}" \
+            --assignee MidnightDesign \
+            --title "Remove Dependabot lockfile workaround" \
+            --body "$(cat <<'EOF'
+          dependabot/dependabot-core#13920 has been resolved.
+
+          The lockfile regeneration workaround is no longer needed. Remove:
+          - `.github/workflows/dependabot-lockfile.yml`
+          - `.github/workflows/check-dependabot-fix.yml`
+
+          Then verify that Dependabot PRs correctly update `pnpm-lock.yaml` on their own.
+          EOF
+          )"
+
+          echo "Created reminder issue."

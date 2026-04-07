@@ -1,0 +1,43 @@
+# Workaround for https://github.com/dependabot/dependabot-core/issues/13920
+# Dependabot can't parse pnpm lockfileVersion 9.0, so it updates package.json
+# but not pnpm-lock.yaml. This workflow regenerates the lockfile and commits it.
+#
+# Remove this workflow once the upstream issue is resolved.
+
+name: Fix Dependabot Lockfile
+
+on:
+  pull_request:
+    branches: [master]
+
+permissions:
+  contents: write
+
+jobs:
+  fix-lockfile:
+    if: github.actor == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.head_ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: pnpm/action-setup@v5
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "20"
+          cache: pnpm
+
+      - run: pnpm install --no-frozen-lockfile
+
+      - name: Commit updated lockfile
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pnpm-lock.yaml
+          git diff --cached --quiet || git commit -m "chore: update pnpm-lock.yaml"
+          git push
