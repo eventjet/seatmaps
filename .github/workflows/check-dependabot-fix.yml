@@ -11,6 +11,9 @@ on:
   schedule:
     - cron: "0 9 * * 1" # Every Monday at 9:00 UTC
 
+permissions:
+  issues: write
+
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -27,7 +30,7 @@ jobs:
 
           echo "Upstream issue is no longer open (state: $state)."
 
-          existing=$(gh issue list --repo "${{ github.repository }}" --search "Remove Dependabot lockfile workaround" --json number --jq 'length')
+          existing=$(gh issue list --repo "${{ github.repository }}" --state open --search "Remove Dependabot lockfile workaround" --json number --jq 'length')
           if [ "$existing" != "0" ]; then
             echo "Reminder issue already exists, skipping."
             exit 0
