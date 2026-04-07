@@ -22,7 +22,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          state=$(gh issue view 13920 --repo dependabot/dependabot-core --json state --jq '.state')
+          state=$(GH_TOKEN= gh issue view 13920 --repo dependabot/dependabot-core --json state --jq '.state')
           if [ "$state" = "OPEN" ]; then
             echo "Upstream issue is still open, nothing to do."
             exit 0
