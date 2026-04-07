@@ -36,18 +36,20 @@ jobs:
             exit 0
           fi
 
+          body_file=$(mktemp)
+          printf '%s\n' \
+            'dependabot/dependabot-core#13920 has been resolved.' \
+            '' \
+            'The lockfile regeneration workaround is no longer needed. Remove:' \
+            '- `.github/workflows/dependabot-lockfile.yml`' \
+            '- `.github/workflows/check-dependabot-fix.yml`' \
+            '' \
+            'Then verify that Dependabot PRs correctly update `pnpm-lock.yaml` on their own.' \
+            > "$body_file"
+
           gh issue create --repo "${{ github.repository }}" \
             --assignee MidnightDesign \
             --title "Remove Dependabot lockfile workaround" \
-            --body "$(cat <<'EOF'
-          dependabot/dependabot-core#13920 has been resolved.
-
-          The lockfile regeneration workaround is no longer needed. Remove:
-          - `.github/workflows/dependabot-lockfile.yml`
-          - `.github/workflows/check-dependabot-fix.yml`
-
-          Then verify that Dependabot PRs correctly update `pnpm-lock.yaml` on their own.
-          EOF
-          )"
+            --body-file "$body_file"
 
           echo "Created reminder issue."
