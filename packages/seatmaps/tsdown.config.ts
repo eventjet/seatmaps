@@ -1,8 +1,7 @@
 import { transformAsync } from '@babel/core';
 import { defineConfig } from 'tsdown';
-import type { Plugin } from 'rolldown';
 
-const reactCompilerPlugin: Plugin = {
+const reactCompilerPlugin = {
     name: 'react-compiler',
     transform: {
         filter: {
