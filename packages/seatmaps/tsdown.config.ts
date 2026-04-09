@@ -13,6 +13,7 @@ const reactCompilerPlugin = {
                 filename: id,
                 plugins: [['babel-plugin-react-compiler']],
                 presets: [['@babel/preset-typescript', { isTSX: true, allExtensions: true }]],
+                sourceMaps: true,
             });
             if (!result?.code) return undefined;
             return { code: result.code, map: result.map ?? undefined };
