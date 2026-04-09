@@ -13,8 +13,8 @@ This file provides guidance to AI coding assistants when working with code in th
 All commands run from `packages/seatmaps/`:
 
 ```bash
-pnpm build              # Build CJS + ESM via tsup
-pnpm dev                # Watch mode with tsup
+pnpm build              # Build CJS + ESM via tsdown
+pnpm dev                # Watch mode with tsdown
 pnpm test               # Run tests with Vitest
 pnpm test:watch         # Watch mode for tests
 pnpm lint               # ESLint
@@ -61,7 +61,7 @@ Uses Emotion (`@emotion/react`, `@emotion/styled`) for dynamic SVG styling. Emot
 ## TypeScript Configuration
 
 - Single `tsconfig.json` (ES2020, strict mode, JSX react-jsx, bundler module resolution)
-- tsup handles CJS/ESM bundling → `dist/`
+- tsdown handles CJS/ESM bundling → `dist/`
 - Tests and stories excluded from compilation
 
 ## Testing
