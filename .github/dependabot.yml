@@ -43,7 +43,7 @@ updates:
           - "jsdom"
       build-tools:
         patterns:
-          - "tsup"
+          - "tsdown"
           - "vite"
           - "@vitejs/*"
       types:
