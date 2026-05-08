@@ -70,7 +70,7 @@
         "react": "^19.2.5",
         "react-dom": "^19.2.5",
         "storybook": "^10.3.5",
-        "tsdown": "^0.21.9",
+        "tsdown": "^0.22.0",
         "typescript": "^6.0.3",
         "typescript-eslint": "^8.58.2",
         "vite": "^8.0.8",
