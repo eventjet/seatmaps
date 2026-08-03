@@ -4,8 +4,8 @@
 
 ```ts
 
-import * as _$react_jsx_runtime0 from 'react/jsx-runtime';
 import { CSSProperties } from 'react';
+import { JSX } from 'react';
 import { default as React_2 } from 'react';
 import { ReactNode } from 'react';
 
@@ -26,7 +26,7 @@ export interface AreaProps {
 }
 
 // @public
-export const Badge: (input: BadgeProps) => _$react_jsx_runtime0.JSX.Element;
+export const Badge: (input: BadgeProps) => JSX.Element;
 
 // @public
 export interface BadgeProps {
@@ -37,7 +37,7 @@ export interface BadgeProps {
 }
 
 // @public
-export const Block: (input: BlockProps) => _$react_jsx_runtime0.JSX.Element;
+export const Block: (input: BlockProps) => JSX.Element;
 
 // @public
 export interface BlockProps {
@@ -50,7 +50,7 @@ export interface BlockProps {
 }
 
 // @public
-export const Circle: (input: CircleProps) => _$react_jsx_runtime0.JSX.Element;
+export const Circle: (input: CircleProps) => JSX.Element;
 
 // @public
 export interface CircleProps {
@@ -67,7 +67,7 @@ export interface Dimensions {
 }
 
 // @public
-export const Div: (input: DivProps) => _$react_jsx_runtime0.JSX.Element;
+export const Div: (input: DivProps) => JSX.Element;
 
 // @public
 export interface DivProps {
@@ -75,7 +75,7 @@ export interface DivProps {
 }
 
 // @public
-export const Ellipse: (input: EllipseProps) => _$react_jsx_runtime0.JSX.Element;
+export const Ellipse: (input: EllipseProps) => JSX.Element;
 
 // @public
 export interface EllipseProps {
@@ -101,7 +101,7 @@ export interface NewSeatCountBadgeProps {
 }
 
 // @public
-export const Rectangle: (input: RectangleProps) => _$react_jsx_runtime0.JSX.Element;
+export const Rectangle: (input: RectangleProps) => JSX.Element;
 
 // @public
 export interface RectangleProps {
@@ -114,7 +114,7 @@ export interface RectangleProps {
 }
 
 // @public
-export const Row: (input: RowProps) => _$react_jsx_runtime0.JSX.Element;
+export const Row: (input: RowProps) => JSX.Element;
 
 // @public
 export interface RowProps {
@@ -130,16 +130,16 @@ export interface RowProps {
 export const Seat: React_2.ForwardRefExoticComponent<SeatProps & React_2.RefAttributes<SVGGElement>>;
 
 // @public
-export const SeatCountBadge: (input: SeatCountBadgeProps) => _$react_jsx_runtime0.JSX.Element;
+export const SeatCountBadge: (input: SeatCountBadgeProps) => JSX.Element;
 
 // @public
-export const SeatCountBadgeOnEllipse: (input: NewSeatCountBadgeProps) => _$react_jsx_runtime0.JSX.Element;
+export const SeatCountBadgeOnEllipse: (input: NewSeatCountBadgeProps) => JSX.Element;
 
 // @public
 export type SeatCountBadgeProps = LegacySeatCountBadgeProps | NewSeatCountBadgeProps;
 
 // @public
-export const Seatmap: (input: SeatmapProps) => _$react_jsx_runtime0.JSX.Element;
+export const Seatmap: (input: SeatmapProps) => JSX.Element;
 
 // @public
 export interface SeatmapAreaData {
@@ -193,7 +193,7 @@ export interface SeatmapEllipseDecoration {
 }
 
 // @public
-export const SeatmapLayout: (input: SeatmapLayoutProps) => _$react_jsx_runtime0.JSX.Element;
+export const SeatmapLayout: (input: SeatmapLayoutProps) => React_2.JSX.Element;
 
 // @public
 export interface SeatmapLayoutData {
@@ -316,7 +316,7 @@ export enum SeatShape {
 }
 
 // @public
-const Text_2: (input: TextProps) => _$react_jsx_runtime0.JSX.Element;
+const Text_2: (input: TextProps) => JSX.Element;
 export { Text_2 as Text }
 
 // @public
