@@ -1,5 +1,6 @@
 import { transformAsync } from '@babel/core';
 import syntaxJsx from '@babel/plugin-syntax-jsx';
+import presetTypescript from '@babel/preset-typescript';
 import { defineConfig } from 'tsdown';
 
 const reactCompilerPlugin = {
@@ -13,7 +14,7 @@ const reactCompilerPlugin = {
             const result = await transformAsync(code, {
                 filename: id,
                 plugins: [['babel-plugin-react-compiler'], [syntaxJsx]],
-                presets: ['@babel/preset-typescript'],
+                presets: [presetTypescript],
                 sourceMaps: true,
             });
             if (!result?.code) return undefined;
