@@ -1,2 +1,13 @@
-# API Extractor output - formatting must match tool output exactly
-packages/seatmaps/api/
+# Build output
+**/build/
+**/coverage/
+**/dist/
+**/lib/
+**/node_modules/
+**/temp/
+**/test-results/
+
+# Generated files whose formatting must match the generating tool's output
+packages/*/api/
+**/CHANGELOG.md
+pnpm-lock.yaml

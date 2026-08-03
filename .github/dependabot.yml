@@ -10,19 +10,11 @@ updates:
         patterns:
           - "*"
 
-  # Root workspace dependencies
+  # pnpm keeps a single lockfile at the workspace root, so one updater rooted
+  # here covers every package. A directory-scoped updater finds no lockfile and
+  # leaves it stale.
   - package-ecosystem: npm
     directory: /
-    schedule:
-      interval: weekly
-    groups:
-      dev-tooling:
-        patterns:
-          - "*"
-
-  # Main package dependencies
-  - package-ecosystem: npm
-    directory: /packages/seatmaps
     schedule:
       interval: weekly
     groups:
@@ -40,12 +32,18 @@ updates:
         patterns:
           - "vitest"
           - "@testing-library/*"
+          - "@playwright/*"
           - "jsdom"
       build-tools:
         patterns:
           - "tsdown"
           - "vite"
           - "@vitejs/*"
+          - "@babel/*"
+          - "babel-plugin-*"
       types:
         patterns:
           - "@types/*"
+      tooling:
+        patterns:
+          - "*"

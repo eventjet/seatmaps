@@ -96,6 +96,7 @@ Review the diff in `api/react-seatmaps.api.md` and commit it with your changes.
 Releases are fully automated via [release-please](https://github.com/googleapis/release-please).
 
 After every merge to `master`, release-please opens or updates a **Release PR** that:
+
 - bumps `package.json` version
 - generates/updates `CHANGELOG.md`
 
@@ -109,11 +110,11 @@ If the publish job is ever skipped or fails after a release, go to **Actions →
 
 release-please determines the version bump from commit messages using [Conventional Commits](https://www.conventionalcommits.org/):
 
-| Prefix | Version bump | Example |
-|---|---|---|
-| `fix:` | patch | `fix: correct __toESM interop in CJS build` |
-| `feat:` | minor | `feat: add Row label alignment prop` |
-| `feat!:` or `BREAKING CHANGE:` footer | major | `feat!: remove deprecated Volume shape prop` |
+| Prefix                                | Version bump | Example                                      |
+| ------------------------------------- | ------------ | -------------------------------------------- |
+| `fix:`                                | patch        | `fix: correct __toESM interop in CJS build`  |
+| `feat:`                               | minor        | `feat: add Row label alignment prop`         |
+| `feat!:` or `BREAKING CHANGE:` footer | major        | `feat!: remove deprecated Volume shape prop` |
 
 Commits that don't match (e.g. `chore:`, `docs:`, `test:`, `refactor:`, `perf:`) are excluded from the changelog and don't trigger a release on their own.
 
