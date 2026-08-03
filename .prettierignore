@@ -1,2 +1,6 @@
 # API Extractor output - formatting must match tool output exactly
 packages/seatmaps/api/
+
+# pnpm owns the lockfile's formatting; reformatting it churns the diff and is
+# reverted by the dependabot-lockfile workflow
+pnpm-lock.yaml
