@@ -220,10 +220,7 @@ export interface SeatmapTextDecoration {
  * @public
  */
 export type SeatmapDecoration =
-    | SeatmapCircleDecoration
-    | SeatmapEllipseDecoration
-    | SeatmapRectangleDecoration
-    | SeatmapTextDecoration;
+    SeatmapCircleDecoration | SeatmapEllipseDecoration | SeatmapRectangleDecoration | SeatmapTextDecoration;
 
 /**
  * Complete data structure describing an entire seatmap.
