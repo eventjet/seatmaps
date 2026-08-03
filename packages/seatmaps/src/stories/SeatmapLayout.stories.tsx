@@ -107,8 +107,8 @@ const toggleSeat = (data: SeatmapLayoutData, seatId: string): SeatmapLayoutData 
             ...block,
             rows: block.rows.map((row) => ({
                 ...row,
-                seats: row.seats.map(
-                    (seat): SeatmapSeatData => (seat.id === seatId ? { ...seat, active: !seat.active } : seat),
+                seats: row.seats.map((seat): SeatmapSeatData =>
+                    seat.id === seatId ? { ...seat, active: !seat.active } : seat,
                 ),
             })),
         })),
@@ -119,8 +119,8 @@ const toggleVolume = (data: SeatmapLayoutData, volumeId: string): SeatmapLayoutD
     ...data,
     areas: data.areas.map((area) => ({
         ...area,
-        volumes: area.volumes?.map(
-            (vol): SeatmapVolumeData => (vol.id === volumeId ? { ...vol, active: !vol.active } : vol),
+        volumes: area.volumes?.map((vol): SeatmapVolumeData =>
+            vol.id === volumeId ? { ...vol, active: !vol.active } : vol,
         ),
     })),
 });
