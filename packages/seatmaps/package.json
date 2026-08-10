@@ -50,7 +50,8 @@
     },
     "devDependencies": {
         "@babel/core": "^8.0.1",
-        "@babel/preset-typescript": "^7.28.5",
+        "@babel/plugin-syntax-jsx": "^8.0.1",
+        "@babel/preset-typescript": "^8.0.1",
         "@emotion/react": "^11.10.0",
         "@emotion/styled": "^11.10.0",
         "@eslint/js": "^10.0.1",
