@@ -1,2 +1,5 @@
 # API Extractor output - formatting must match tool output exactly
 packages/seatmaps/api/
+
+# pnpm rewrites this on every install
+pnpm-lock.yaml
