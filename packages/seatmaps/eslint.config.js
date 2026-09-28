@@ -11,7 +11,7 @@ export default tseslint.config(
         files: ['src/**/*.{ts,tsx}'],
         languageOptions: {
             parserOptions: {
-                projectService: true,
+                project: './tsconfig.eslint.json',
                 tsconfigRootDir: import.meta.dirname,
             },
         },
@@ -20,10 +20,6 @@ export default tseslint.config(
             'react/react-in-jsx-scope': 'off',
         },
         settings: { react: { version: 'detect' } },
-    },
-    {
-        ...tseslint.configs.disableTypeChecked,
-        files: ['src/**/*.test.tsx', 'src/**/*.stories.tsx'],
     },
     { ignores: ['dist/', 'lib/', '*.config.*'] },
 );
