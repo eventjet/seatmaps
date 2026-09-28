@@ -7,6 +7,8 @@ const isReactElement = (x: unknown): x is ReactElement<{ x?: number; y?: number 
     return typeof x === 'object' && x !== null && 'props' in x;
 };
 
+const isReactNodeArray = (value: ReactNode): value is ReactNode[] => Array.isArray(value);
+
 const Name = styled('text')`
     ${textCss}
     text-anchor: middle;
@@ -58,7 +60,7 @@ export interface RowProps {
  */
 export const Row = ({ children, leftLabel, name, rightLabel, x = 0, y = 0 }: RowProps) => {
     const [[leftX, leftY], [rightX, rightY]] = ((): [left: [x: number, y: number], right: [x: number, y: number]] => {
-        if (!Array.isArray(children)) {
+        if (!isReactNodeArray(children)) {
             return [
                 [0, 0],
                 [0, 0],
