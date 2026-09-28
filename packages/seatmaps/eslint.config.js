@@ -5,10 +5,16 @@ import reactHooks from 'eslint-plugin-react-hooks';
 
 export default tseslint.config(
     js.configs.recommended,
-    ...tseslint.configs.recommended,
+    ...tseslint.configs.recommendedTypeChecked,
     reactHooks.configs.flat['recommended-latest'],
     {
         files: ['src/**/*.{ts,tsx}'],
+        languageOptions: {
+            parserOptions: {
+                project: './tsconfig.eslint.json',
+                tsconfigRootDir: import.meta.dirname,
+            },
+        },
         plugins: { react },
         rules: {
             'react/react-in-jsx-scope': 'off',
