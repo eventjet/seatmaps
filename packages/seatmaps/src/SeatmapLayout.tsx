@@ -297,7 +297,7 @@ export interface SeatmapLayoutProps {
         name: string;
         active: boolean;
         disabled: boolean;
-        availableSeats: number | undefined;
+        availableSeats?: number;
     }) => string;
 }
 
@@ -563,7 +563,7 @@ const renderVolumeBadge = (volume: SeatmapVolumeData) => {
 
 const identityName = ({ name }: { name: string }) => name;
 
-const nameWithSeatCount = ({ name, availableSeats }: { name: string; availableSeats: number | undefined }) =>
+const nameWithSeatCount = ({ name, availableSeats }: { name: string; availableSeats?: number }) =>
     availableSeats === undefined ? name : `${name} (${availableSeats})`;
 
 // ──────────────────────────────────────────────
