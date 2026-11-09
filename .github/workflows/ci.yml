@@ -31,3 +31,27 @@ jobs:
       - name: Check API compatibility
         run: pnpm api:check
         working-directory: packages/seatmaps
+
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 9
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: "pnpm"
+      - run: pnpm install --frozen-lockfile
+      - name: Install Playwright browser
+        run: pnpm exec playwright install --with-deps chromium
+        working-directory: packages/seatmaps
+      - run: pnpm test:e2e
+        working-directory: packages/seatmaps
+      - uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: playwright-report
+          path: packages/seatmaps/playwright-report
+          retention-days: 14
