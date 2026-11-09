@@ -39,6 +39,7 @@ updates:
           - "tsdown"
           - "vite"
           - "@vitejs/*"
+          - "@rolldown/*"
           - "@babel/*"
           - "babel-plugin-*"
       types:

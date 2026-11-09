@@ -1,27 +1,6 @@
-import { transformAsync } from '@babel/core';
-import syntaxJsx from '@babel/plugin-syntax-jsx';
-import presetTypescript from '@babel/preset-typescript';
+import babel from '@rolldown/plugin-babel';
+import { reactCompilerPreset } from '@vitejs/plugin-react';
 import { defineConfig } from 'tsdown';
-
-const reactCompilerPlugin = {
-    name: 'react-compiler',
-    transform: {
-        filter: {
-            id: /\.[jt]sx?$/,
-        },
-        async handler(code, id) {
-            if (id.includes('node_modules')) return undefined;
-            const result = await transformAsync(code, {
-                filename: id,
-                plugins: [['babel-plugin-react-compiler'], [syntaxJsx]],
-                presets: [presetTypescript],
-                sourceMaps: true,
-            });
-            if (!result?.code) return undefined;
-            return { code: result.code, map: result.map ?? undefined };
-        },
-    },
-};
 
 export default defineConfig({
     entry: ['src/index.ts'],
@@ -31,5 +10,5 @@ export default defineConfig({
     deps: {
         neverBundle: ['react', 'react-dom', 'react/jsx-runtime', '@emotion/react', '@emotion/styled'],
     },
-    plugins: [reactCompilerPlugin],
+    plugins: [babel({ presets: [reactCompilerPreset()] })],
 });
