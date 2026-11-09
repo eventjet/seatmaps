@@ -221,7 +221,7 @@ export interface SeatmapLayoutProps {
         name: string;
         active: boolean;
         disabled: boolean;
-        availableSeats?: number;
+        availableSeats: number | undefined;
     }) => string;
     onBookableClick?: (event: SeatmapBookableClickEvent) => void;
 }

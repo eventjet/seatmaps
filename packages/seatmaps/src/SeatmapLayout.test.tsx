@@ -1,5 +1,5 @@
 import { fireEvent, render } from '@testing-library/react';
-import { vi } from 'vitest';
+import { onTestFinished, vi } from 'vitest';
 import { SeatmapLayout, SeatmapLayoutData } from './SeatmapLayout';
 
 const minimalData: SeatmapLayoutData = {
@@ -314,6 +314,36 @@ describe('SeatmapLayout', () => {
             const { getByRole } = render(<SeatmapLayout data={data} />);
 
             expect(getByRole('button', { name: 'GA (15)' })).toBeDefined();
+        });
+
+        it('includes the available seat count once in the accessible label of a big ellipse', () => {
+            // jsdom has no SVG layout, but an ellipse measures its label text to size the scrim behind it.
+            Object.defineProperty(SVGElement.prototype, 'getBBox', {
+                configurable: true,
+                value: () => ({ x: 0, y: 0, width: 0, height: 0 }),
+            });
+            onTestFinished(() => {
+                Reflect.deleteProperty(SVGElement.prototype, 'getBBox');
+            });
+            const data: SeatmapLayoutData = {
+                areas: [
+                    {
+                        volumes: [
+                            {
+                                id: 'v1',
+                                label: 'Standing Area',
+                                shape: 'ellipse',
+                                width: 1000,
+                                height: 500,
+                                availableSeats: 250,
+                            },
+                        ],
+                    },
+                ],
+            };
+            const { getByRole } = render(<SeatmapLayout data={data} />);
+
+            expect(getByRole('button', { name: 'Standing Area (250)' })).toBeDefined();
         });
 
         it('formatVolumeLabel receives the available seat count', () => {
