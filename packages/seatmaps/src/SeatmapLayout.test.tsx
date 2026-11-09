@@ -6,6 +6,17 @@ const minimalData: SeatmapLayoutData = {
     areas: [],
 };
 
+// jsdom has no SVG layout, but an ellipse measures its label text to size the scrim behind it.
+const stubGetBBox = () => {
+    Object.defineProperty(SVGElement.prototype, 'getBBox', {
+        configurable: true,
+        value: () => ({ x: 0, y: 0, width: 0, height: 0 }),
+    });
+    onTestFinished(() => {
+        Reflect.deleteProperty(SVGElement.prototype, 'getBBox');
+    });
+};
+
 describe('SeatmapLayout', () => {
     it('renders with empty areas', () => {
         const { getByRole } = render(<SeatmapLayout data={minimalData} />);
@@ -317,14 +328,7 @@ describe('SeatmapLayout', () => {
         });
 
         it('includes the available seat count once in the accessible label of a big ellipse', () => {
-            // jsdom has no SVG layout, but an ellipse measures its label text to size the scrim behind it.
-            Object.defineProperty(SVGElement.prototype, 'getBBox', {
-                configurable: true,
-                value: () => ({ x: 0, y: 0, width: 0, height: 0 }),
-            });
-            onTestFinished(() => {
-                Reflect.deleteProperty(SVGElement.prototype, 'getBBox');
-            });
+            stubGetBBox();
             const data: SeatmapLayoutData = {
                 areas: [
                     {
@@ -358,6 +362,78 @@ describe('SeatmapLayout', () => {
             );
 
             expect(getByRole('button', { name: 'GA, 15 seats left' })).toBeDefined();
+        });
+
+        it('includes the available seat count in the accessible label of a volume without a label', () => {
+            const data: SeatmapLayoutData = {
+                areas: [{ volumes: [{ id: 'v1', width: 200, height: 100, availableSeats: 15 }] }],
+            };
+            const { getByRole } = render(<SeatmapLayout data={data} />);
+
+            expect(getByRole('button', { name: 'Volume (15)' })).toBeDefined();
+        });
+
+        it('names a big ellipse without a label by the default formatter, not by its visual count', () => {
+            stubGetBBox();
+            const data: SeatmapLayoutData = {
+                areas: [
+                    {
+                        volumes: [{ id: 'v1', shape: 'ellipse', width: 1000, height: 500, availableSeats: 250 }],
+                    },
+                ],
+            };
+            const { getByRole, getByText } = render(<SeatmapLayout data={data} />);
+
+            expect(getByRole('button', { name: 'Volume (250)' })).toBeDefined();
+            expect(getByText('250')).toBeDefined();
+        });
+
+        it('formatVolumeLabel runs for volumes without a label and flags their fallback name', () => {
+            const data: SeatmapLayoutData = {
+                areas: [
+                    {
+                        volumes: [
+                            { id: 'v1', label: 'GA', width: 200, height: 100 },
+                            { id: 'v2', width: 200, height: 100, availableSeats: 15 },
+                        ],
+                    },
+                ],
+            };
+            const { getByRole } = render(
+                <SeatmapLayout
+                    data={data}
+                    formatVolumeLabel={({ name, isFallbackName, availableSeats }) =>
+                        isFallbackName ? `Standing area, ${availableSeats} seats left` : name
+                    }
+                />,
+            );
+
+            expect(getByRole('button', { name: 'GA' })).toBeDefined();
+            expect(getByRole('button', { name: 'Standing area, 15 seats left' })).toBeDefined();
+        });
+
+        it('names a seat without a name "Unnamed seat" by default', () => {
+            const data: SeatmapLayoutData = {
+                areas: [{ blocks: [{ rows: [{ seats: [{ id: 's1' }] }] }] }],
+            };
+            const { getByRole } = render(<SeatmapLayout data={data} />);
+
+            expect(getByRole('button', { name: 'Unnamed seat' })).toBeDefined();
+        });
+
+        it('formatSeatName runs for seats without a name and flags their fallback name', () => {
+            const data: SeatmapLayoutData = {
+                areas: [{ blocks: [{ rows: [{ seats: [{ id: 's1', name: 'A1' }, { id: 's2' }] }] }] }],
+            };
+            const { getByRole } = render(
+                <SeatmapLayout
+                    data={data}
+                    formatSeatName={({ name, isFallbackName }) => (isFallbackName ? 'Seat without number' : name)}
+                />,
+            );
+
+            expect(getByRole('button', { name: 'A1' })).toBeDefined();
+            expect(getByRole('button', { name: 'Seat without number' })).toBeDefined();
         });
     });
 

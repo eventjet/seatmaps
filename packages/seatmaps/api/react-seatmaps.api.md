@@ -214,11 +214,13 @@ export interface SeatmapLayoutProps {
     }) => string;
     formatSeatName?: (seat: {
         name: string;
+        isFallbackName?: boolean;
         active: boolean;
         disabled: boolean;
     }) => string;
     formatVolumeLabel?: (volume: {
         name: string;
+        isFallbackName?: boolean;
         active: boolean;
         disabled: boolean;
         availableSeats?: number;

@@ -5,11 +5,11 @@ import { Circle } from './Circle';
 import { Ellipse } from './Ellipse';
 import { Rectangle } from './Rectangle';
 import { Row } from './Row';
-import { Seat, SeatShape } from './Seat';
+import { Seat, SeatShape, UNNAMED_SEAT_NAME } from './Seat';
 import { SeatCountBadge, SeatCountBadgeOnEllipse } from './SeatCountBadge';
 import { Seatmap } from './Seatmap';
 import { Text } from './Text';
-import { Volume } from './Volume';
+import { UNLABELED_VOLUME_NAME, Volume } from './Volume';
 
 const MIN_WIDTH_BIG_ELLIPSE = 1000;
 
@@ -270,17 +270,19 @@ export interface SeatmapLayoutProps {
     formatRowName?: (row: { name: string }) => string;
     /**
      * Formats the accessible label for a seat. Does not affect the visual name inside the seat. Defaults to using
-     * the name as-is.
+     * the name as-is. Called for every seat: seats without a name get `'Unnamed seat'` as `name` and
+     * `isFallbackName: true`, so you can replace it, e.g. with a translation.
      *
      * Use the `active` and `disabled` state to append status information to the label — for example to communicate
      * cart membership to screen reader users:
      * `({ name, active }) => active ? name + " – in your cart" : name`.
      */
-    formatSeatName?: (seat: { name: string; active: boolean; disabled: boolean }) => string;
+    formatSeatName?: (seat: { name: string; isFallbackName?: boolean; active: boolean; disabled: boolean }) => string;
     /**
      * Formats the accessible label for a volume. Does not affect the visual label on the volume. Defaults to the
      * label followed by the available seat count in parentheses, e.g. `'Table 1 (15)'`, or the label as-is when
-     * `availableSeats` is not set. Only called for volumes that have a `label`.
+     * `availableSeats` is not set. Called for every volume: volumes without a `label` get `'Volume'` as `name` and
+     * `isFallbackName: true`, so you can replace it, e.g. with a translation.
      *
      * Use the `active` and `disabled` state to append status information to the label — for example to communicate
      * cart membership to screen reader users. A custom formatter replaces the default, so include `availableSeats`
@@ -295,6 +297,7 @@ export interface SeatmapLayoutProps {
      */
     formatVolumeLabel?: (volume: {
         name: string;
+        isFallbackName?: boolean;
         active: boolean;
         disabled: boolean;
         availableSeats?: number;
@@ -802,14 +805,12 @@ export const SeatmapLayout = ({
                                             }
                                         >
                                             {row.seats.map((seat, seatIndex) => {
-                                                const seatAriaLabel =
-                                                    seat.name !== undefined
-                                                        ? formatSeatName({
-                                                              name: seat.name,
-                                                              active: seat.active ?? false,
-                                                              disabled: seat.disabled ?? false,
-                                                          })
-                                                        : undefined;
+                                                const seatAriaLabel = formatSeatName({
+                                                    name: seat.name ?? UNNAMED_SEAT_NAME,
+                                                    isFallbackName: seat.name === undefined,
+                                                    active: seat.active ?? false,
+                                                    disabled: seat.disabled ?? false,
+                                                });
                                                 return (
                                                     <Seat
                                                         key={seat.id}
@@ -869,15 +870,13 @@ export const SeatmapLayout = ({
                             </Block>
                         ))}
                         {area.volumes?.map((volume, volumeIndex) => {
-                            const volumeAriaLabel =
-                                volume.label !== undefined
-                                    ? formatVolumeLabel({
-                                          name: volume.label,
-                                          active: volume.active ?? false,
-                                          disabled: volume.disabled ?? false,
-                                          availableSeats: volume.availableSeats,
-                                      })
-                                    : undefined;
+                            const volumeAriaLabel = formatVolumeLabel({
+                                name: volume.label ?? UNLABELED_VOLUME_NAME,
+                                isFallbackName: volume.label === undefined,
+                                active: volume.active ?? false,
+                                disabled: volume.disabled ?? false,
+                                availableSeats: volume.availableSeats,
+                            });
                             return (
                                 <Volume
                                     key={volume.id}

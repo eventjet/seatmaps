@@ -6,6 +6,8 @@ import { getTransform } from './transform';
 import { noop } from './util/noop';
 import { clsx } from 'clsx';
 
+export const UNNAMED_SEAT_NAME = 'Unnamed seat';
+
 /**
  * Available shapes for seat rendering.
  * @public
@@ -214,7 +216,7 @@ export const Seat = React.forwardRef<SVGGElement, SeatProps>(
                 onFocus={onFocus}
                 tabIndex={resolvedTabIndex}
                 role="button"
-                aria-label={ariaLabel ?? name ?? 'Unnamed seat'}
+                aria-label={ariaLabel ?? name ?? UNNAMED_SEAT_NAME}
                 aria-pressed={active}
                 aria-disabled={disabled}
             >
