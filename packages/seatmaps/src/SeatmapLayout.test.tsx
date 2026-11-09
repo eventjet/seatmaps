@@ -306,6 +306,29 @@ describe('SeatmapLayout', () => {
             expect(getByRole('button', { name: 'Area: GA' })).toBeDefined();
             expect(getByText('GA')).toBeDefined();
         });
+
+        it('includes the available seat count in the volume accessible label by default', () => {
+            const data: SeatmapLayoutData = {
+                areas: [{ volumes: [{ id: 'v1', label: 'GA', width: 200, height: 100, availableSeats: 15 }] }],
+            };
+            const { getByRole } = render(<SeatmapLayout data={data} />);
+
+            expect(getByRole('button', { name: 'GA (15)' })).toBeDefined();
+        });
+
+        it('formatVolumeLabel receives the available seat count', () => {
+            const data: SeatmapLayoutData = {
+                areas: [{ volumes: [{ id: 'v1', label: 'GA', width: 200, height: 100, availableSeats: 15 }] }],
+            };
+            const { getByRole } = render(
+                <SeatmapLayout
+                    data={data}
+                    formatVolumeLabel={({ name, availableSeats }) => `${name}, ${availableSeats} seats left`}
+                />,
+            );
+
+            expect(getByRole('button', { name: 'GA, 15 seats left' })).toBeDefined();
+        });
     });
 
     it('renders row labels when showLabels is set', () => {

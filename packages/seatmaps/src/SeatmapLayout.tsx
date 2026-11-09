@@ -278,14 +278,20 @@ export interface SeatmapLayoutProps {
      */
     formatSeatName?: (seat: { name: string; active: boolean; disabled: boolean }) => string;
     /**
-     * Formats the accessible label for a volume. Does not affect the visual label on the volume. Defaults to using
-     * the label as-is.
+     * Formats the accessible label for a volume. Does not affect the visual label on the volume. Defaults to the
+     * label followed by the available seat count in parentheses, e.g. `'Table 1 (15)'`, or the label as-is when
+     * `availableSeats` is not set.
      *
      * Use the `active` and `disabled` state to append status information to the label — for example to communicate
      * cart membership to screen reader users:
      * `({ name, active }) => active ? name + " – in your cart" : name`.
      */
-    formatVolumeLabel?: (volume: { name: string; active: boolean; disabled: boolean }) => string;
+    formatVolumeLabel?: (volume: {
+        name: string;
+        active: boolean;
+        disabled: boolean;
+        availableSeats?: number;
+    }) => string;
 }
 
 // ──────────────────────────────────────────────
@@ -550,6 +556,9 @@ const renderVolumeBadge = (volume: SeatmapVolumeData) => {
 
 const identityName = ({ name }: { name: string }) => name;
 
+const nameWithSeatCount = ({ name, availableSeats }: { name: string; availableSeats?: number }) =>
+    availableSeats === undefined ? name : `${name} (${availableSeats})`;
+
 // ──────────────────────────────────────────────
 // Component
 // ──────────────────────────────────────────────
@@ -607,7 +616,7 @@ export const SeatmapLayout = ({
     formatAreaName = identityName,
     formatRowName = identityName,
     formatSeatName = identityName,
-    formatVolumeLabel = identityName,
+    formatVolumeLabel = nameWithSeatCount,
 }: SeatmapLayoutProps) => {
     const decorations = data.decorations ?? [];
     const nonTextDecorations = decorations.filter((d) => !isTextDecoration(d));
@@ -859,6 +868,7 @@ export const SeatmapLayout = ({
                                           name: volume.label,
                                           active: volume.active ?? false,
                                           disabled: volume.disabled ?? false,
+                                          availableSeats: volume.availableSeats,
                                       })
                                     : undefined;
                             return (
