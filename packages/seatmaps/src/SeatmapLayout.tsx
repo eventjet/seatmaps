@@ -278,14 +278,27 @@ export interface SeatmapLayoutProps {
      */
     formatSeatName?: (seat: { name: string; active: boolean; disabled: boolean }) => string;
     /**
-     * Formats the accessible label for a volume. Does not affect the visual label on the volume. Defaults to using
-     * the label as-is.
+     * Formats the accessible label for a volume. Does not affect the visual label on the volume. Defaults to the
+     * label followed by the available seat count in parentheses, e.g. `'Table 1 (15)'`, or the label as-is when
+     * `availableSeats` is not set. Only called for volumes that have a `label`.
      *
      * Use the `active` and `disabled` state to append status information to the label — for example to communicate
-     * cart membership to screen reader users:
-     * `({ name, active }) => active ? name + " – in your cart" : name`.
+     * cart membership to screen reader users. A custom formatter replaces the default, so include `availableSeats`
+     * yourself to keep the seat count in the label:
+     *
+     * ```ts
+     * ({ name, active, availableSeats }) => {
+     *     const label = availableSeats === undefined ? name : `${name} (${availableSeats})`;
+     *     return active ? `${label} – in your cart` : label;
+     * }
+     * ```
      */
-    formatVolumeLabel?: (volume: { name: string; active: boolean; disabled: boolean }) => string;
+    formatVolumeLabel?: (volume: {
+        name: string;
+        active: boolean;
+        disabled: boolean;
+        availableSeats?: number;
+    }) => string;
 }
 
 // ──────────────────────────────────────────────
@@ -520,7 +533,7 @@ const getVolumeLabel = (volume: SeatmapVolumeData): string | undefined => {
     if (volume.label === undefined) {
         return `${volume.availableSeats}`;
     }
-    return `${volume.label} (${volume.availableSeats})`;
+    return nameWithSeatCount({ name: volume.label, availableSeats: volume.availableSeats });
 };
 
 const renderVolumeBadge = (volume: SeatmapVolumeData) => {
@@ -549,6 +562,9 @@ const renderVolumeBadge = (volume: SeatmapVolumeData) => {
 };
 
 const identityName = ({ name }: { name: string }) => name;
+
+const nameWithSeatCount = ({ name, availableSeats }: { name: string; availableSeats?: number }) =>
+    availableSeats === undefined ? name : `${name} (${availableSeats})`;
 
 // ──────────────────────────────────────────────
 // Component
@@ -607,7 +623,7 @@ export const SeatmapLayout = ({
     formatAreaName = identityName,
     formatRowName = identityName,
     formatSeatName = identityName,
-    formatVolumeLabel = identityName,
+    formatVolumeLabel = nameWithSeatCount,
 }: SeatmapLayoutProps) => {
     const decorations = data.decorations ?? [];
     const nonTextDecorations = decorations.filter((d) => !isTextDecoration(d));
@@ -859,6 +875,7 @@ export const SeatmapLayout = ({
                                           name: volume.label,
                                           active: volume.active ?? false,
                                           disabled: volume.disabled ?? false,
+                                          availableSeats: volume.availableSeats,
                                       })
                                     : undefined;
                             return (
