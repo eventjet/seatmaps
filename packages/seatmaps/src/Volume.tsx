@@ -9,6 +9,8 @@ import { clsx } from 'clsx';
 const SCRIM_HEIGHT = 8;
 const HORIZONTAL_SCRIM_PADDING = 3;
 
+export const UNLABELED_VOLUME_NAME = 'Volume';
+
 const StyledRoot = styled.g`
     @keyframes active-keyframes {
         from {
@@ -333,7 +335,7 @@ export const Volume = React.forwardRef<SVGGElement, VolumeProps>((props, ref) =>
         'onClick': handleClick,
         'tabIndex': props.tabIndex !== undefined ? props.tabIndex : props.disabled ? -1 : 0,
         'role': 'button',
-        'aria-label': props['aria-label'] ?? props.label ?? 'Volume',
+        'aria-label': props['aria-label'] ?? props.label ?? UNLABELED_VOLUME_NAME,
         'aria-pressed': props.active,
         'aria-disabled': props.disabled,
         'onKeyDown': handleKeyDown,
