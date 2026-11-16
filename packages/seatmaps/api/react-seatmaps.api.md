@@ -355,6 +355,4 @@ export interface VolumeProps {
     'y'?: number;
 }
 
-// (No @packageDocumentation comment for this package)
-
 ```
