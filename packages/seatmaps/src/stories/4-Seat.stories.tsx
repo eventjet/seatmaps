@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Area, Block, Row, Seat, Seatmap, SeatShape } from '../';
 
 export default {

@@ -22,7 +22,7 @@ const lightBackground = '#ff9900';
 const darkBackground = '#0000ff';
 
 interface WrappedProps {
-    badgeProps?: Partial<BadgeProps>;
+    badgeProps: Pick<BadgeProps, 'count' | 'color'>;
     volumeProps?: Partial<VolumeProps>;
 }
 

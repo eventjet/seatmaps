@@ -15,5 +15,5 @@
         "types": []
     },
     "include": ["src"],
-    "exclude": ["src/**/*.test.tsx", "src/**/*.stories.tsx", "src/**/*.pw.tsx"]
+    "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx", "src/**/*.stories.tsx", "src/**/*.pw.tsx"]
 }

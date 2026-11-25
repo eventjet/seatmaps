@@ -3,6 +3,6 @@
     "compilerOptions": {
         "types": ["vite/client", "vitest/globals"]
     },
-    "include": ["src/**/*.test.tsx", "src/**/*.stories.tsx", "src/**/*.pw.tsx"],
+    "include": ["src/**/*.test.ts", "src/**/*.test.tsx", "src/**/*.stories.tsx", "src/**/*.pw.tsx"],
     "exclude": []
 }
