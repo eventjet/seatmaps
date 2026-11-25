@@ -60,9 +60,12 @@ Uses Emotion (`@emotion/react`, `@emotion/styled`) for dynamic SVG styling. Emot
 
 ## TypeScript Configuration
 
-- Single `tsconfig.json` (ES2020, strict mode, JSX react-jsx, bundler module resolution)
+- Solution-style `tsconfig.json` referencing two projects:
+    - `tsconfig.lib.json` — library code (ES2020, strict mode, JSX react-jsx, bundler module resolution); used by tsdown
+    - `tsconfig.dev.json` — tests, stories and Playwright specs, with Vite and Vitest global types
+- `pnpm typecheck` checks both projects
+- ESLint uses typescript-eslint's `projectService`, which picks the right project for each file
 - tsdown handles CJS/ESM bundling → `dist/`
-- Tests and stories excluded from compilation
 
 ## Testing
 

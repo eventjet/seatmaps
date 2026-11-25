@@ -6,6 +6,7 @@ export default defineConfig({
     entry: ['src/index.ts'],
     format: ['cjs', 'esm'],
     dts: true,
+    tsconfig: 'tsconfig.lib.json',
     sourcemap: true,
     deps: {
         neverBundle: ['react', 'react-dom', 'react/jsx-runtime', '@emotion/react', '@emotion/styled'],

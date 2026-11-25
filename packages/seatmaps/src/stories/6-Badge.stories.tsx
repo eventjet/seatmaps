@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Area } from '../Area';
 import { Badge, BadgeProps } from '../Badge';
 import { Seatmap } from '../Seatmap';
@@ -20,7 +19,7 @@ const lightBackground = '#ff9900';
 const darkBackground = '#0000ff';
 
 interface WrappedProps {
-    badgeProps?: Partial<BadgeProps>;
+    badgeProps: Pick<BadgeProps, 'count' | 'color'>;
 }
 
 const Wrapped = ({ badgeProps }: WrappedProps) => {
