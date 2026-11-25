@@ -11,6 +11,7 @@ packages/**/package-lock.json
 junit.xml
 temp
 test-results
+playwright-report
 !.claude/
 .claude/*
 !.claude/skills/
