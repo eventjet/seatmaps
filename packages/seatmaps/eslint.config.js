@@ -11,7 +11,7 @@ export default tseslint.config(
         files: ['src/**/*.{ts,tsx}'],
         languageOptions: {
             parserOptions: {
-                project: './tsconfig.eslint.json',
+                projectService: true,
                 tsconfigRootDir: import.meta.dirname,
             },
         },
